@@ -1,0 +1,206 @@
+/* ============================================================
+   ArgenChemical — Quote en Listado de Tienda
+   Archivo: assets/quote-loop.css
+   ============================================================ */
+
+/* ── Contenedor del formulario en la card ─────────────────── */
+.argen-quote-loop-form {
+    padding: 10px 0 4px;
+    border-top: 1px solid #e8e8e8;
+    margin-top: 10px;
+}
+
+/* ── Fila de variación (label + select) ───────────────────── */
+.argen-variation-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.argen-variation-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.argen-variation-select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1.5px solid #dde3e9;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: #333;
+    background: #fff;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.argen-variation-select:focus {
+    outline: none;
+    border-color: #0073aa;
+    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.12);
+}
+
+.argen-variation-select:hover {
+    border-color: #aac;
+}
+
+/* ── Fila cantidad + botón: apilados en columna ───────────── */
+.argen-qty-quote-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+/* ── Control de cantidad: ocupa todo el ancho ─────────────── */
+.argen-qty-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #dde3e9;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.argen-qty-btn {
+    background: #f5f7f9;
+    border: none;
+    width: 30px;
+    height: 34px;
+    font-size: 1.1rem;
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.argen-qty-btn:hover {
+    background: #0073aa;
+    color: #fff;
+}
+
+.argen-qty-input {
+    flex: 1;
+    width: 100%;
+    height: 34px;
+    border: none;
+    border-left: 1.5px solid #dde3e9;
+    border-right: 1.5px solid #dde3e9;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    background: #fff;
+    -moz-appearance: textfield;
+    padding: 0;
+}
+
+.argen-qty-input::-webkit-inner-spin-button,
+.argen-qty-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.argen-qty-input:focus {
+    outline: none;
+    background: #f0f8ff;
+}
+
+/* ── Botón Add to Quote ───────────────────────────────────── */
+.argen-add-quote-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #0073aa;   /* Color primario de tu tema — ajustar si es necesario */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+    min-height: 36px;
+}
+
+.argen-add-quote-btn:hover {
+    background: #005a87;
+    box-shadow: 0 3px 10px rgba(0, 115, 170, 0.28);
+    transform: translateY(-1px);
+}
+
+.argen-add-quote-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.argen-add-quote-btn:disabled {
+    background: #9ab8c8;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Estado cargando */
+.argen-add-quote-btn.is-loading {
+    background: #9ab8c8;
+    pointer-events: none;
+}
+
+/* ── Feedback de éxito / error ────────────────────────────── */
+.argen-quote-feedback {
+    margin-top: 7px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    min-height: 18px;
+    border-radius: 4px;
+    padding: 0;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.argen-quote-feedback.is-success {
+    color: #1a7340;
+    background: #e6f4ec;
+    padding: 5px 8px;
+    opacity: 1;
+}
+
+.argen-quote-feedback.is-error {
+    color: #c0392b;
+    background: #fdf0ee;
+    padding: 5px 8px;
+    opacity: 1;
+}
+
+.argen-quote-feedback.is-warning {
+    color: #8a5700;
+    background: #fff8e1;
+    padding: 5px 8px;
+    opacity: 1;
+}
+
+/* ── Responsive: pantallas pequeñas ──────────────────────── */
+@media (max-width: 480px) {
+    .argen-add-quote-btn {
+        font-size: 0.78rem;
+    }
+}

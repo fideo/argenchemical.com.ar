@@ -1,0 +1,148 @@
+/* ============================================
+   Widget de Categorías Dinámico
+   Archivo: assets/categorias.css
+   ============================================ */
+
+/* ── Reset base del widget ─────────────────── */
+.mwc-categorias-widget,
+.mwc-shortcode {
+    font-family: inherit;
+}
+
+/* ── Lista principal ───────────────────────── */
+.mwc-lista-categorias {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── Cada ítem de categoría ────────────────── */
+.mwc-lista-categorias .mwc-item {
+    position: relative;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.mwc-lista-categorias .mwc-item:last-child {
+    border-bottom: none;
+}
+
+/* ── Enlace de categoría ───────────────────── */
+.mwc-lista-categorias .mwc-item > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.mwc-lista-categorias .mwc-item > a:hover {
+    color: #0073aa; /* Cambia este color al primario de tu tema */
+    padding-left: 20px;
+}
+
+/* Indicador de categoría activa */
+.mwc-lista-categorias .mwc-item.current-cat > a,
+.mwc-lista-categorias .mwc-item.current-cat-ancestor > a {
+    color: #0073aa;
+    font-weight: 700;
+    border-left: 3px solid #0073aa;
+    padding-left: 11px;
+}
+
+/* ── Contador de artículos ─────────────────── */
+.mwc-count {
+    font-size: 0.78rem;
+    color: #999;
+    background: #f5f5f5;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 6px;
+    font-weight: 400;
+    transition: background-color 0.2s ease;
+}
+
+.mwc-item > a:hover .mwc-count {
+    background: #e8f4fc;
+    color: #0073aa;
+}
+
+/* ── Subcategorías ─────────────────────────── */
+.mwc-subcategorias {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    border-top: 1px solid #f0f0f0;
+    /* Animación de apertura */
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+}
+
+/* Mostrar subcategorías cuando el padre está activo */
+.mwc-item:hover .mwc-subcategorias,
+.mwc-item.current-cat .mwc-subcategorias,
+.mwc-item.current-cat-ancestor .mwc-subcategorias,
+.mwc-item.open .mwc-subcategorias {
+    max-height: 500px; /* Valor suficiente para que se expanda */
+}
+
+.mwc-subcategorias .mwc-subitem {
+    border-bottom: 1px solid #ebebeb;
+}
+
+.mwc-subcategorias .mwc-subitem:last-child {
+    border-bottom: none;
+}
+
+.mwc-subcategorias .mwc-subitem a {
+    display: block;
+    padding: 8px 14px 8px 28px;
+    color: #555;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+    position: relative;
+}
+
+/* Flecha indicadora antes del texto de subcategoría */
+.mwc-subcategorias .mwc-subitem a::before {
+    content: "›";
+    position: absolute;
+    left: 16px;
+    color: #bbb;
+    font-size: 1rem;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.mwc-subcategorias .mwc-subitem a:hover {
+    color: #0073aa;
+    padding-left: 32px;
+}
+
+.mwc-subcategorias .mwc-subitem a:hover::before {
+    color: #0073aa;
+}
+
+/* ── Mensaje sin categorías ────────────────── */
+.mwc-sin-categorias {
+    color: #999;
+    font-size: 0.9rem;
+    padding: 10px 0;
+    margin: 0;
+    font-style: italic;
+}
+
+/* ── Responsivo ────────────────────────────── */
+@media (max-width: 768px) {
+    .mwc-lista-categorias .mwc-item > a {
+        padding: 12px 14px;
+        font-size: 1rem;
+    }
+}

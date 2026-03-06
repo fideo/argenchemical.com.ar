@@ -1,0 +1,32 @@
+services:
+  db:
+    image: mariadb:latest
+    container_name: argenchemical_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: argenchemical_db
+      MYSQL_USER: fideo
+      MYSQL_PASSWORD: 20607154
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    user: "1000:33"  # <--- TU_UID:GID_DE_WWW-DATA
+    depends_on:
+      - db
+    image: wordpress:latest
+    container_name: argenchemical_app
+    restart: always
+    ports:
+      - "8069:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: fideo
+      WORDPRESS_DB_PASSWORD: 20607154
+      WORDPRESS_DB_NAME: argenchemical_db
+    volumes:
+      - ./wordpress:/var/www/html
+
+volumes:
+  db_data:
