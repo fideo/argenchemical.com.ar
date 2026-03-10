@@ -115,9 +115,9 @@ $table_prefix = getenv_docker('WORDPRESS_TABLE_PREFIX', 'wp_');
  */
 //define( 'WP_DEBUG', !!getenv_docker('WORDPRESS_DEBUG', '') );
 
-#define( 'WP_DEBUG', true );
-#define( 'WP_DEBUG_LOG', true );
-#define( 'WP_DEBUG_DISPLAY', false );
+//define( 'WP_DEBUG', true );
+//#define( 'WP_DEBUG_LOG', true );
+//#define( 'WP_DEBUG_DISPLAY', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
@@ -134,6 +134,46 @@ if ($configExtra = getenv_docker('WORDPRESS_CONFIG_EXTRA', '')) {
 
 define('FS_METHOD', 'direct');
 
+// ====================================================
+// Configuración para reverse proxy con SSL
+// ====================================================
+
+//#// Forzar HTTPS en las URLs de WordPress
+//#define('FORCE_SSL_ADMIN', true);
+//#
+//#// Indicar que está detrás de un proxy
+////#if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+//#    $_SERVER['HTTPS'] = 'on';
+//#}
+//#
+//#// Forzar el esquema HTTPS para la REST API (loopback interno usa HTTP)
+//#define('WP_HOME', 'https://argenchemical.federicomazzei.com.ar');
+//#define('WP_SITEURL', 'https://argenchemical.federicomazzei.com.ar');
+//#
+//#// Resolver el loopback internamente por HTTP para evitar el error 443
+//#add_filter('rest_url', function($url) {
+//#    return $url; // Las URLs públicas mantienen HTTPS
+//#});
+//#
+//#// Forzar que las llamadas internas (loopback) usen HTTP
+//#add_filter('http_request_args', function($args, $url) {
+//#    if (strpos($url, 'argenchemical.federicomazzei.com.ar') !== false) {
+//#        $url = str_replace('https://', 'http://', $url);
+//#    }
+//#    return $args;
+//#}, 10, 2);
+//#
+//#define('FORCE_SSL_ADMIN', true);
+//#if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+//#    $_SERVER['HTTPS'] = 'on';
+//#}
+//#
+//#// Configuración reverse proxy SSL
+//#define('FORCE_SSL_ADMIN', true);
+//#if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+//#    $_SERVER['HTTPS'] = 'on';
+//#}
+//#
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

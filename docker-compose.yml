@@ -27,6 +27,8 @@ services:
       WORDPRESS_DB_USER: fideo
       WORDPRESS_DB_PASSWORD: 20607154
       WORDPRESS_DB_NAME: argenchemical_db
+    extra_hosts:
+      - "argenchemical.federicomazzei.com.ar:host-gateway"
     volumes:
       - ./wordpress:/var/www/html
     networks:
