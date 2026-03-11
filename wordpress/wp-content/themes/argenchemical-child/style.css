@@ -1,0 +1,54 @@
+/*
+ Theme Name:   Argenchemical Child
+ Theme URI:    https://argenchemical.federicomazzei.com.ar
+ Description:  Child Theme para Argenchemical SRL.
+ Author:        Federico Mazzei
+ Author URI:    https://federicomazzei.com.ar
+ Template:      astra
+ Version:       1.0.1
+ License:       GNU General Public License v2 or later
+ License URI:   https://www.gnu.org/licenses/gpl-2.0.html
+ Text Domain:   argenchemical-child
+*/
+
+/*
+ * ⚠️  Template: astra  →  coincide con la carpeta /wp-content/themes/astra/
+ *     Si tu carpeta tiene otro nombre, cambiá este valor.
+ */
+
+
+/* ── Botones +/- en productos relacionados ─────────────────── */
+.related.products .argen-qty-btn {
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s ease;
+}
+.related.products .argen-qty-btn:hover  { opacity: 0.8; }
+.related.products .argen-qty-btn:active { transform: scale(0.95); }
+
+/* ── Botón Agregar al Presupuesto ──────────────────────────── */
+.related.products .argen-add-quote-btn {
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+.related.products .argen-add-quote-btn.loading {
+    opacity: 0.6;
+    cursor: wait;
+    pointer-events: none;
+}
+.related.products .argen-add-quote-btn.added {
+    background-color: #2ecc71 !important;
+    border-color: #27ae60 !important;
+    color: #fff !important;
+}
+
+/* ── Validación: select sin selección ──────────────────────── */
+.related.products select.argen-validation-error {
+    border: 2px solid #e74c3c !important;
+    box-shadow: 0 0 0 3px rgba(231,76,60,0.2) !important;
+    transition: all 0.3s ease;
+}
+

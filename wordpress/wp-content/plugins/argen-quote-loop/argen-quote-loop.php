@@ -223,32 +223,42 @@ class Argen_Quote_Loop {
 
     // ─────────────────────────────────────────────────────────────
     // 3. ENCOLAR assets (CSS + JS)
+    //    CORREGIDO: agregar is_product() para cargar también en
+    //    páginas de producto individual (donde están los relacionados)
     // ─────────────────────────────────────────────────────────────
     public function enqueue_assets() {
-        if ( ! is_shop() && ! is_product_category() && ! is_product_tag() ) {
-            return; // Solo cargar en páginas de tienda/categoría
+
+        // ANTES (bug): solo cargaba en tienda y categorías
+        // if ( ! is_shop() && ! is_product_category() && ! is_product_tag() ) {
+        //     return;
+        // }
+
+        // AHORA: también carga en página de producto individual
+        // porque ahí aparece la sección "Productos Relacionados"
+        if ( ! is_shop() && ! is_product_category() && ! is_product_tag() && ! is_product() ) {
+            return;
         }
 
         wp_enqueue_style(
             'argen-quote-loop',
             plugin_dir_url( __FILE__ ) . 'assets/quote-loop.css',
             array(),
-            '1.0.0'
+            '1.0.1' // bump de versión para forzar recarga de caché
         );
 
         wp_enqueue_script(
             'argen-quote-loop',
             plugin_dir_url( __FILE__ ) . 'assets/quote-loop.js',
             array( 'jquery' ),
-            '1.0.0',
-            true // cargar en footer
+            '1.0.1', // bump de versión para forzar recarga de caché
+            true
         );
 
-        // Pasar datos de PHP a JS
+        // Pasar datos de PHP a JS — ahora disponible también en is_product()
         wp_localize_script( 'argen-quote-loop', 'argenQuote', array(
-            'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
-            'action'       => 'argen_add_to_quote_loop',
-            'i18n'         => array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'action'  => 'argen_add_to_quote_loop',
+            'i18n'    => array(
                 'added'        => __( '¡Agregado al presupuesto!', 'argen-quote-loop' ),
                 'error'        => __( 'Error al agregar. Intentá de nuevo.', 'argen-quote-loop' ),
                 'selectOption' => __( 'Por favor seleccioná una opción.', 'argen-quote-loop' ),
@@ -256,7 +266,6 @@ class Argen_Quote_Loop {
             ),
         ));
     }
-
 
 
 

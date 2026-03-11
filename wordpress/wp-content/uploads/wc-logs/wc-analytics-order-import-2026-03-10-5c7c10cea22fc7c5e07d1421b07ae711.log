@@ -1,2 +1,4 @@
 2026-03-10T17:02:18+00:00 INFO Starting batch import. Cursor: 2026-03-09 16:12:34 (ID: 0), batch size: 100
 2026-03-10T17:02:18+00:00 INFO No orders to process
+2026-03-10T17:33:55+00:00 INFO Starting batch import. Cursor: 2026-03-10 17:02:18 (ID: 0), batch size: 100
+2026-03-10T17:33:55+00:00 INFO No orders to process

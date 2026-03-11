@@ -176,6 +176,15 @@ define('FS_METHOD', 'direct');
 //#
 /* That's all, stop editing! Happy publishing. */
 
+// ================================================
+// Configuración Redis Object Cache
+// ================================================
+define('WP_REDIS_HOST', 'redis');      // nombre del servicio en docker-compose
+define('WP_REDIS_PORT', 6379);
+define('WP_REDIS_TIMEOUT', 1);
+define('WP_REDIS_READ_TIMEOUT', 1);
+define('WP_REDIS_DATABASE', 0);
+
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
