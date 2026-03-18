@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Widget de Categorías Dinámico
- * Plugin URI:  https://tusitio.com
+ * Plugin URI:  https://argenchemical.federicomazzei.com.ar
  * Description: Widget personalizado que muestra todas las categorías de forma dinámica. Incluye soporte para shortcode y menú desplegable con productos WooCommerce.
  * Version:     1.1.0
  * Author:      Tu Nombre
@@ -102,29 +102,23 @@ class MWC_Categorias_Widget extends WP_Widget {
                     }
                 }
 
+                // Determinar si debe estar abierto
+                $debe_abrir = ( $primer_item || $es_actual || $es_ancestro );
+                
                 $clases = array( 'mwc-item', 'cat-item-' . $cat->term_id );
-
-                if ( $es_actual ) {
-                    $clases[] = 'current-cat';
-                }
-                if ( $es_ancestro ) {
-                    $clases[] = 'current-cat-ancestor';
-                }
-
-                // Abrir: el primero, la categoría activa o su ancestro
-                if ( $primer_item || $es_actual || $es_ancestro ) {
-                    $clases[] = 'open';
-                }
-
+                
+                if ( $es_actual )    $clases[] = 'current-cat';
+                if ( $es_ancestro )  $clases[] = 'current-cat-ancestor';
+                if ( $debe_abrir )   $clases[] = 'open'; // ← siempre sincronizado con aria-expanded
+                
                 echo '<li class="' . esc_attr( implode( ' ', $clases ) ) . '">';
-
-                // Fila: link + botón toggle (separados para que el click en el link navegue normalmente)
                 echo '<div class="mwc-item-row">';
                 echo '<a href="' . esc_url( $url ) . '" class="mwc-cat-link">' . esc_html( $cat->name ) . $count . '</a>';
-
+                
                 if ( $tiene_hijos ) {
-                    // Botón toggle: solo controla apertura/cierre, NO navega
-                    echo '<button class="mwc-toggle" aria-label="' . esc_attr__( 'Expandir subcategorías', 'mi-widget-categorias' ) . '" aria-expanded="' . ( ( $primer_item || $es_actual || $es_ancestro ) ? 'true' : 'false' ) . '">';
+                    // aria-expanded siempre igual a $debe_abrir
+                    $expanded = $debe_abrir ? 'true' : 'false';
+                    echo '<button class="mwc-toggle" aria-label="' . esc_attr__( 'Expandir subcategorías', 'mi-widget-categorias' ) . '" aria-expanded="' . $expanded . '">';
                     echo '<span class="mwc-toggle-icon"></span>';
                     echo '</button>';
                 }

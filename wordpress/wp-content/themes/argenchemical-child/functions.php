@@ -85,6 +85,64 @@ function argenchemical_enqueue_related_fix() {
 
    ============================================================ */
 
+/**
+ * 1. Encolar estilos del padre (Astra) + todos los CSS propios organizados por zona
+ */
+function argenchemical_enqueue_styles() {
+
+    // Estilo del tema padre (Astra) — siempre primero
+    wp_enqueue_style(
+        'astra-parent-style',
+        get_template_directory_uri() . '/style.css'
+    );
+
+    // Versión para forzar refresco de caché en desarrollo
+    // Cuando el sitio esté en producción podés usar una versión fija: '1.0.0'
+    //$version = wp_get_theme()->get( 'Version' ); //producción
+    $version = time(); // desarrollo
+
+    // ── HEADER ──────────────────────────────────────────────
+    wp_enqueue_style(
+        'argenchemical-head',
+        get_stylesheet_directory_uri() . '/assets/css/head.css',
+        array( 'astra-parent-style' ),
+        $version
+    );
+
+    // ── BODY GENERAL ────────────────────────────────────────
+    wp_enqueue_style(
+        'argenchemical-body',
+        get_stylesheet_directory_uri() . '/assets/css/body.css',
+        array( 'astra-parent-style' ),
+        $version
+    );
+
+    // ── SIDEBAR (barra izquierda) ────────────────────────────
+    wp_enqueue_style(
+        'argenchemical-sidebar',
+        get_stylesheet_directory_uri() . '/assets/css/sidebar.css',
+        array( 'astra-parent-style' ),
+        $version
+    );
+
+    // ── CONTENIDO CENTRAL (productos, cards, etc) ────────────
+    wp_enqueue_style(
+        'argenchemical-content',
+        get_stylesheet_directory_uri() . '/assets/css/content.css',
+        array( 'astra-parent-style' ),
+        $version
+    );
+
+    // ── FOOTER ───────────────────────────────────────────────
+    wp_enqueue_style(
+        'argenchemical-footer',
+        get_stylesheet_directory_uri() . '/assets/css/footer.css',
+        array( 'astra-parent-style' ),
+        $version
+    );
+}
+add_action( 'wp_enqueue_scripts', 'argenchemical_enqueue_styles' );
+
 
 /**
  * Argenchemical - Mover el título del producto ANTES del formulario
