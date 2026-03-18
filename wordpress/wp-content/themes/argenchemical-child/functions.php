@@ -85,3 +85,29 @@ function argenchemical_enqueue_related_fix() {
 
    ============================================================ */
 
+
+/**
+ * Argenchemical - Mover el título del producto ANTES del formulario
+ * usando JavaScript para reordenar el DOM correctamente.
+ */
+function argenchemical_mover_titulo_producto() {
+    if ( ! is_shop() && ! is_product_category() && ! is_product_tag() ) {
+        return;
+    }
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('ul.products li.product').forEach(function (card) {
+            var titulo = card.querySelector('.astra-shop-summary-wrap');
+            var formulario = card.querySelector('.argen-quote-loop-form');
+
+            if (titulo && formulario) {
+                // Insertamos el título ANTES del formulario de presupuesto
+                formulario.parentNode.insertBefore(titulo, formulario);
+            }
+        });
+    });
+    </script>
+    <?php
+}
+add_action( 'wp_footer', 'argenchemical_mover_titulo_producto' );

@@ -52,3 +52,36 @@
     transition: all 0.3s ease;
 }
 
+/* ================================================
+   ARGENCHEMICAL - Reordenar card de producto
+   Objetivo: Imagen → Título → Formulario
+   ================================================ */
+
+/* El <li> se convierte en contenedor flex vertical */
+ul.products li.product {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* 1° — El wrap de imagen ocupa su lugar normal */
+ul.products li.product .astra-shop-thumbnail-wrap {
+    order: 1;
+}
+
+/* 2° — El título sube al segundo lugar */
+ul.products li.product .astra-shop-summary-wrap {
+    order: 2;
+}
+
+/* 3° — El formulario de presupuesto baja al tercer lugar */
+/* Como está anidado dentro de .astra-shop-thumbnail-wrap
+   lo "sacamos" visualmente con margin negativo no,
+   sino directamente con un re-order del padre */
+ul.products li.product .argen-quote-loop-form {
+    order: 3;
+}
+
+ul.products li.product .ast-on-card-button {
+    order: 4;
+}
