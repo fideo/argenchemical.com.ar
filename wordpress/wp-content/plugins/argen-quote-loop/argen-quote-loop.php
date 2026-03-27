@@ -158,10 +158,10 @@ class Argen_Quote_Loop {
                         type="button"
                         data-product-id="<?php echo esc_attr( $product_id ); ?>"
                         data-nonce="<?php echo wp_create_nonce( 'argen_quote_loop_' . $product_id ); ?>">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <!--<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
-                    </svg>
-                    <?php _e( 'Agregar al presupuesto', 'argen-quote-loop' ); ?>
+                    </svg>-->
+                    <?php _e( 'Agregar', 'argen-quote-loop' ); ?>
                 </button>
             </div>
 
@@ -195,10 +195,10 @@ class Argen_Quote_Loop {
                         type="button"
                         data-product-id="<?php echo esc_attr( $product_id ); ?>"
                         data-nonce="<?php echo wp_create_nonce( 'argen_quote_loop_' . $product_id ); ?>">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <!--<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
-                    </svg>
-                    <?php _e( 'Agregar al presupuesto', 'argen-quote-loop' ); ?>
+                    </svg>-->
+                    <?php _e( 'Agregar', 'argen-quote-loop' ); ?>
                 </button>
             </div>
             <div class="argen-quote-feedback" aria-live="polite"></div>
