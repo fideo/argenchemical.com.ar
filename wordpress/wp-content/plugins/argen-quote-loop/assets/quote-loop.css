@@ -361,7 +361,6 @@ ul.products.argen-list-view li.product .argen-qty-wrapper {
 /* El argen-add-quote-wrap ocupa su columna completa */
 ul.products.argen-list-view li.product .argen-add-quote-wrap {
     display: flex;
-    width: 100%;
     min-width: 0;
     flex: none;
 }
@@ -369,7 +368,7 @@ ul.products.argen-list-view li.product .argen-add-quote-wrap {
 @media screen and (max-width: 650px) {
 ul.products.argen-list-view li.product .argen-add-quote-wrap {
     display: flex;
-    width: 50%;
+    width: 47%;
     min-width: 0;
     flex: none;
 }
