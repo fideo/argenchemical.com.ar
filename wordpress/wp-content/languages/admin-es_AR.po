@@ -37,7 +37,7 @@ msgctxt "default GMT offset or timezone string"
 msgid "0"
 msgstr "America/Argentina/Buenos_Aires"
 
-#: wp-admin/about.php:172
+#: wp-admin/about.php:237
 msgid "WordPress 6.9 includes a broad set of performance enhancements. A better <abbr>LCP</abbr> (Largest Contentful Paint) metric is achieved through improved loading of conditional and inlined stylesheets, script loading with fetchpriority support, and additional core optimizations. Editor advances include fixes for layout shifts caused by the Video block and faster loading of the terms selector."
 msgstr "WordPress 6.9 incluye un amplio conjunto de mejoras de rendimiento. Se logró una mejor métrica <abbr>LCP</abbr> (Largest Contentful Paint) gracias a la carga optimizada de hojas de estilo condicionales e integradas, la carga de scripts con prioridad de recuperación y optimizaciones adicionales del núcleo. Las mejoras del editor incluyen correcciones para los cambios de diseño causados por el bloque de video y una carga más rápida del selector de términos."
 
@@ -117,60 +117,60 @@ msgstr "No se han definido transformaciones de formato"
 msgid "%s has failed to upload."
 msgstr "No se pudo subir %s."
 
-#: wp-admin/about.php:181
+#: wp-admin/about.php:246
 msgid "70+ accessibility fixes and enhancements focus on central areas of the WordPress experience. From globally hiding CSS-generated content from assistive technology and improvements to screen reader announcements and user experience, to fixing cursor position and keeping typing focus when clicking on an autocomplete suggestion item."
 msgstr "Más de 70 correcciones y mejoras de accesibilidad centradas en áreas fundamentales para la experiencia de uso de WordPress. Desde ocultar globalmente el contenido generado por CSS a tecnologías de asistencia y mejoras en los mensajes para lectores de pantalla, así como en la experiencia de usuario, hasta corregir la posición del cursor y mantener el foco de escritura al hacer clic en una sugerencia de autocompletado."
 
-#: wp-admin/about.php:156
+#: wp-admin/about.php:221
 msgid "A new typography option for text-based blocks, starting with the Paragraph and Heading blocks, that automatically adjusts font size to fill its container perfectly. Ideal for banners, callouts, and standout moments in your design. No manual tweaks, just an instant clean design."
 msgstr "Una nueva opción tipográfica para bloques basados en texto, como los bloques de párrafo y encabezado, que ajusta automáticamente el tamaño de la fuente para llenar el contenedor a la perfección. Ideal para banners, avisos y elementos destacados en tu diseño. Sin ajustes manuales, solo un diseño limpio e instantáneo."
 
-#: wp-admin/about.php:155
+#: wp-admin/about.php:220
 msgid "Content that adapts."
 msgstr "Contenido que se adapta."
 
-#: wp-admin/about.php:153
+#: wp-admin/about.php:218
 msgid "Fit text to container"
 msgstr "Ajusta texto al contenedor"
 
-#: wp-admin/about.php:136
+#: wp-admin/about.php:201
 msgid "Access the Command Palette from any part of your site, whether you&#8217;re writing your latest post, deep in design in the Site Editor, or browsing your plugins. Everything you need, just a few keystrokes away."
 msgstr "Accedé a la paleta de comandos desde cualquier parte del sitio, ya sea mientras escribís tu última entrada, te sumergís en el diseño en el editor del sitio o revisás tus plugins. Todo lo que necesitás a solo unas teclas de distancia."
 
-#: wp-admin/about.php:135
+#: wp-admin/about.php:200
 msgid "Your tools are always at hand."
 msgstr "Tus herramientas siempre a mano."
 
-#: wp-admin/about.php:133
+#: wp-admin/about.php:198
 msgid "Command Palette, everywhere"
 msgstr "La paleta de comandos en todas partes"
 
-#: wp-admin/about.php:126
+#: wp-admin/about.php:191
 msgid "Building layouts is now more intuitive and flexible with clear drag handles and a live preview that shows exactly what you&#8217;re moving—a faster way to build pages."
 msgstr "La creación de diseños ahora es más intuitiva y flexible, con controles de arrastre claros y una vista previa en tiempo real que muestra exactamente lo que estás moviendo, lo que se traduce en una forma más rápida de crear páginas."
 
-#: wp-admin/about.php:125
+#: wp-admin/about.php:190
 msgid "Design flows naturally."
 msgstr "El diseño fluye de manera natural"
 
-#: wp-admin/about.php:123
+#: wp-admin/about.php:188
 msgid "Visual drag and drop"
 msgstr "Arrastrar y soltar visual"
 
-#: wp-admin/about.php:106
+#: wp-admin/about.php:171
 msgid "With notes attached directly to blocks, your team can stay aligned, track changes, and turn feedback into action all in one place. Whether you&#8217;re working on copy or refining design, collaboration happens seamlessly on the canvas itself."
 msgstr "Con notas adjuntas directamente en los bloques, tu equipo puede mantenerse coordinado, realizar el seguimiento de los cambios y convertir los comentarios en acciones, todo en un solo lugar. Tanto si estás trabajando en un texto como perfeccionando un diseño, la colaboración se produce de forma fluida en el propio lienzo."
 
-#: wp-admin/about.php:105
+#: wp-admin/about.php:170
 msgid "Leave feedback right where you’re working."
 msgstr "Dejá comentarios justo donde estés trabajando."
 
-#: wp-admin/about.php:103
+#: wp-admin/about.php:168
 msgctxt "about page section title"
 msgid "Notes"
 msgstr "Notas"
 
-#: wp-admin/about.php:97
+#: wp-admin/about.php:162
 msgid "WordPress 6.9 introduces a more intuitive way to create content, together. Every detail is designed to fit your creative flow, from Notes that let you collaborate directly in the editor to a powerful Command Palette that helps you reach every part of your site."
 msgstr "WordPress 6.9 incluye una forma más intuitiva de crear contenido juntos. Cada detalle está diseñado para adaptarse a tu flujo creativo, desde las notas que te permiten colaborar directamente en el editor hasta una potente paleta de comandos que te ayuda a llegar a todas las partes del sitio."
 
@@ -451,12 +451,12 @@ msgid "Skip to Editor"
 msgstr "Saltar al editor"
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:276
+#: wp-admin/about.php:341
 msgid "WordPress %s Field Guide"
 msgstr "Guía de campo de WordPress %s"
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:249
+#: wp-admin/about.php:314
 msgid "WordPress %s Release Notes"
 msgstr "Notas de la versión de WordPress %s"
 
@@ -615,16 +615,16 @@ msgstr "Si sos autor de un plugin podés obtener más información sobre <a href
 msgid "If you are a plugin author, you can learn more about <a href=\"https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-eraser-to-your-plugin/\">how to add the Personal Data Eraser to a plugin</a>."
 msgstr "Si sos autor de un plugin podés obtener más información sobre <a href=\"https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-eraser-to-your-plugin/\">cómo agregar el borrado de datos personales a un plugin</a>."
 
-#: wp-admin/about.php:202
+#: wp-admin/about.php:267
 msgid "See everything new"
 msgstr "Ver todo lo nuevo"
 
-#: wp-admin/about.php:188
+#: wp-admin/about.php:253
 msgid "And much more"
 msgstr "Y mucho más"
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:194
+#: wp-admin/about.php:259
 msgid "For a comprehensive overview of all the new features and enhancements in WordPress %s, please visit the feature-showcase website."
 msgstr "Para obtener una visión general de todas las nuevas características y mejoras de WordPress %s, visitá el sitio web de presentación de características."
 
@@ -772,11 +772,11 @@ msgstr "Instalar ahora"
 msgid "Created by a worldwide team of passionate individuals"
 msgstr "Creado por un equipo mundial de personas apasionadas"
 
-#: wp-admin/about.php:180
+#: wp-admin/about.php:245
 msgid "Accessibility improvements"
 msgstr "Mejoras de accesibilidad"
 
-#: wp-admin/about.php:171
+#: wp-admin/about.php:236
 msgid "Performance updates"
 msgstr "Actualizaciones de rendimiento"
 
@@ -843,12 +843,12 @@ msgid "When using Bulk Edit, you can change the metadata (categories, author, et
 msgstr "Al usar la edición en lote, podés cambiar los metadatos (categorías, autor, etc.) de todas las entradas seleccionadas a la vez. Para eliminar una entrada de la agrupación, sólo tenés que hacer clic en el botón %s<span class=\"screen-reader-text\">eliminar</span> situado a continuación de su nombre en el área de edición en lote que aparece."
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:259
+#: wp-admin/about.php:324
 msgid "Read the WordPress %s Release Notes for information on installation, enhancements, fixed issues, release contributors, learning resources, and the list of file changes."
 msgstr "Leé las notas de la versión de WordPress %s para tener información sobre la instalación, las mejoras, los problemas corregidos, los colaboradores de la versión, los recursos de aprendizaje y la lista de cambios en los archivos."
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:286
+#: wp-admin/about.php:351
 msgid "Explore the WordPress %s Field Guide. Learn about the changes in this release with detailed developer notes to help you build with WordPress."
 msgstr "Explorá la Guía de campo de WordPress %s. Informate sobre los cambios en esta versión con notas detalladas para desarrolladores que te ayudarán a construir con WordPress."
 
@@ -869,7 +869,8 @@ msgid "Your WordPress version is %1$s, however the new plugin version requires %
 msgstr "Tu versión de WordPress es la %1$s, pero la nueva versión del plugin requiere la %2$s."
 
 #. translators: %s: WordPress version.
-#: wp-admin/about.php:85
+#: wp-admin/about.php:80 wp-admin/about.php:105 wp-admin/about.php:125
+#: wp-admin/about.php:150
 msgid "https://wordpress.org/support/wordpress-version/version-%s/"
 msgstr "https://wordpress.org/support/wordpress-version/version-%s/"
 
@@ -957,7 +958,7 @@ msgstr "Guardar los cambios"
 msgid "Cancel Editing"
 msgstr "Cancelar la edición"
 
-#: wp-admin/includes/file.php:2027
+#: wp-admin/includes/file.php:2032
 msgid "Could not create the destination directory."
 msgstr "No se pudo crear el directorio de destino."
 
@@ -1336,7 +1337,7 @@ msgid "Be the future of WordPress"
 msgstr "Sé parte del futuro de WordPress"
 
 #. translators: 1: Learn WordPress link, 2: Workshops link.
-#: wp-admin/about.php:227
+#: wp-admin/about.php:292
 msgid "<a href=\"%1$s\">Learn WordPress</a> is a free resource for new and experienced WordPress users. Learn is stocked with how-to videos on using various features in WordPress, <a href=\"%2$s\">interactive workshops</a> for exploring topics in-depth, and lesson plans for diving deep into specific areas of WordPress."
 msgstr "<a href=\"%1$s\">Aprendé WordPress</a> es un recurso gratuito para usuarios nuevos y experimentados de WordPress. Está repleto de vídeos sobre cómo usar las distintas características de WordPress, <a href=\"%2$s\">eventos interactivos</a> para explorar temáticas en profundidad, y planes de lecciones para sumergirte en áreas específicas de WordPress."
 
@@ -1435,19 +1436,19 @@ msgid "https://wordpress.org/documentation/article/what-is-an-excerpt-classic-ed
 msgstr "https://wordpress.org/documentation/article/what-is-an-excerpt-classic-editor/"
 
 #. translators: %s: The function name.
-#: wp-admin/includes/file.php:2789
+#: wp-admin/includes/file.php:2794
 msgid "%s expects a non-empty string."
 msgstr "%s espera una cadena no vacía."
 
-#: wp-admin/includes/file.php:2108
+#: wp-admin/includes/file.php:2113
 msgid "The destination directory already exists and could not be removed."
 msgstr "El directorio de destino ya existe y no se pudo eliminar."
 
-#: wp-admin/includes/file.php:2105
+#: wp-admin/includes/file.php:2110
 msgid "The destination folder already exists."
 msgstr "La carpeta de destino ya existe."
 
-#: wp-admin/includes/file.php:2100
+#: wp-admin/includes/file.php:2105
 msgid "The source and destination are the same."
 msgstr "El origen y el destino son los mismos."
 
@@ -1482,12 +1483,12 @@ msgid "<a href=\"https://wordpress.org/documentation/article/customizer/\">Docum
 msgstr "<a href=\"https://wordpress.org/documentation/article/customizer/\">Documentación sobre el personalizador</a>"
 
 #. translators: The localized WordPress download URL.
-#: wp-admin/about.php:367
+#: wp-admin/about.php:432
 msgid "https://wordpress.org/download/"
 msgstr "https://es-ar.wordpress.org/download/"
 
 #. translators: %s: The major version of WordPress for this branch.
-#: wp-admin/about.php:364
+#: wp-admin/about.php:429
 msgid "This is the final release of WordPress %s"
 msgstr "Esta es la versión final de WordPress %s"
 
@@ -1807,12 +1808,12 @@ msgid "Reach out to WordPress Core developers to ensure you'll never have this p
 msgstr "Contactate con nuestros desarrolladores del núcleo de WordPress para asegurarte de que nunca vuelvas a tener este problema."
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:361
+#: wp-admin/about.php:426
 msgid "Important! Your version of WordPress (%1$s) will stop receiving security updates in the near future. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr "¡Importante! Tu versión de WordPress (%1$s) va a dejar de recibir actualizaciones de seguridad muy pronto. Para mantener tu sitio seguro, por favor <a href=\"%2$s\">actualizá a la última versión de WordPress</a>."
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:358
+#: wp-admin/about.php:423
 msgid "Important! Your version of WordPress (%1$s) is no longer supported, you will not receive any security updates for your website. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr "¡Importante! Tu versión de WordPress (%1$s) ya no tiene soporte, no vas a recibir actualizaciones de seguridad para tu sitio web. Para mantener tu sitio seguro, por favor <a href=\"%2$s\">actualizá a la última versión de WordPress</a>."
 
@@ -1822,7 +1823,7 @@ msgid "https://make.wordpress.org/core/wordpress-%s-field-guide/"
 msgstr "https://make.wordpress.org/core/wordpress-%s-field-guide/"
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:218
+#: wp-admin/about.php:283
 msgid "Learn more about WordPress %s"
 msgstr "Aprendé más sobre WordPress %s"
 
@@ -2600,7 +2601,7 @@ msgstr "Copiar en el portapapeles el texto sugerido de la política"
 msgid "Learn more about debugging in WordPress."
 msgstr "Aprendé más sobre la depuración en WordPress."
 
-#: wp-admin/includes/file.php:2018
+#: wp-admin/includes/file.php:2023
 msgid "Directory listing failed."
 msgstr "Falló el listado del directorio."
 
@@ -2727,7 +2728,7 @@ msgstr "Necesario para crear una contraseña de aplicación, pero no para actual
 msgid "Add Application Password"
 msgstr "Agregar contraseña de aplicación"
 
-#: wp-admin/about.php:302
+#: wp-admin/about.php:367
 msgid "Go to Updates"
 msgstr "Ir a las actualizaciones"
 
@@ -8169,7 +8170,7 @@ msgid "(Currently set to: %s)"
 msgstr "(Actualmente como: %s) "
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:332
+#: wp-admin/about.php:397
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr "<strong>La versión %s</strong> mostr&oacute; un problema de seguridad."
 
@@ -8182,15 +8183,15 @@ msgstr "https://gravatar.com/"
 msgid "Profile Picture"
 msgstr "Imagen de perfil"
 
-#: wp-admin/about.php:323
+#: wp-admin/about.php:388
 msgid "Maintenance Releases"
 msgstr "Versiones de mantenimiento"
 
-#: wp-admin/about.php:326
+#: wp-admin/about.php:391
 msgid "Security Releases"
 msgstr "Versiones de seguridad"
 
-#: wp-admin/about.php:329
+#: wp-admin/about.php:65 wp-admin/about.php:394
 msgid "Maintenance and Security Releases"
 msgstr "Versiones de mantenimiento y seguridad"
 
@@ -8915,7 +8916,7 @@ msgstr "Cuando publicás una nueva entrada, WordPress avisa automáticamente a l
 msgid "The <a href=\"https://wordpress.org/documentation/article/wordpress-glossary/#character-set\">character encoding</a> of your site (UTF-8 is recommended)"
 msgstr "La <a href=\"https://wordpress.org/documentation/article/wordpress-glossary/#character-set\">codificación de caracteres</a> de tu sitio (se recomienda UTF-8)"
 
-#: wp-admin/includes/file.php:2589
+#: wp-admin/includes/file.php:2594
 msgid "example: www.wordpress.org"
 msgstr "ejemplo: https://es-ar.wordpress.org/"
 
@@ -8978,7 +8979,7 @@ msgstr "Error de XML: %1$s en la línea %2$s"
 msgid "Main menu"
 msgstr "Menú principal"
 
-#: wp-admin/includes/file.php:2639
+#: wp-admin/includes/file.php:2644
 msgid "Enter the location on the server where the public and private keys are located. If a passphrase is needed, enter that in the password field above."
 msgstr "Ingresá dónde se encuentran en el servidor las claves pública y privada. Si se necesita contraseña, ingresala arriba en el campo de contraseña."
 
@@ -10067,7 +10068,7 @@ msgstr "WordPress %s"
 msgid "The checksum of the file (%1$s) does not match the expected checksum value (%2$s)."
 msgstr "La suma de verificación del archivo (%1$s) no coincide con el valor de suma de verificación esperado (%2$s)."
 
-#: wp-admin/includes/file.php:2603
+#: wp-admin/includes/file.php:2608
 msgid "This password will not be stored on the server."
 msgstr "Esta contraseña no se almacenará en el servidor."
 
@@ -10971,7 +10972,7 @@ msgid "User deleted."
 msgstr "Usuario borrado."
 
 #: wp-admin/includes/class-core-upgrader.php:40 wp-admin/includes/file.php:1741
-#: wp-admin/includes/file.php:1923
+#: wp-admin/includes/file.php:1928
 msgid "Could not copy files. You may have run out of disk space."
 msgstr "No se han podido copiar los archivos. Puede que tengas que liberar espacio en disco."
 
@@ -11486,7 +11487,7 @@ msgstr "Muestra la Barra de Herramientas en el sitio"
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:343
+#: wp-admin/about.php:408
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Versión %1$s</strong> marcada como actualización de seguridad, soluciona el error %2$s."
@@ -11494,26 +11495,28 @@ msgstr[1] "<strong>Versión %1$s</strong> marcada como actualización de segurid
 
 #. translators: %s: HelpHub URL.
 #. translators: %s: Documentation URL.
-#: wp-admin/about.php:82 wp-admin/about.php:355
+#: wp-admin/about.php:77 wp-admin/about.php:102 wp-admin/about.php:122
+#: wp-admin/about.php:147 wp-admin/about.php:420
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Para más información, lee <a href=\"%s\">las notas de la versión</a>."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:349
+#: wp-admin/about.php:414
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Versión %1$s</strong> marcada como actualización de seguridad, soluciona el error %2$s."
 msgstr[1] "<strong>Versión %1$s</strong> marcada como actualización de seguridad, soluciona %2$s errores."
 
+#. translators: %s: WordPress version.
 #. translators: 1: WordPress version number, 2: Plural number of bugs.
-#: wp-admin/about.php:70 wp-admin/about.php:337
+#: wp-admin/about.php:90 wp-admin/about.php:135 wp-admin/about.php:402
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Versión %1$s</strong> soluciona el bug %2$s."
 msgstr[1] "<strong>Versión %1$s</strong> soluciona %2$s bugs."
 
-#: wp-admin/about.php:65 wp-admin/about.php:328
+#: wp-admin/about.php:393
 msgid "Maintenance and Security Release"
 msgstr "Versión de mantenimiento y seguridad"
 
@@ -11522,16 +11525,17 @@ msgstr "Versión de mantenimiento y seguridad"
 msgid "What&#8217;s New"
 msgstr "¿Qué hay de nuevo?"
 
-#: wp-admin/about.php:325
+#: wp-admin/about.php:390
 msgid "Security Release"
 msgstr "Versión de seguridad"
 
-#: wp-admin/about.php:322
+#: wp-admin/about.php:387
 msgid "Maintenance Release"
 msgstr "Versión de mantenimiento"
 
+#. translators: %s: WordPress version.
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:334
+#: wp-admin/about.php:70 wp-admin/about.php:115 wp-admin/about.php:399
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr "<strong>La versión %s</strong> soluciona algunos problemas de seguridad."
 
@@ -11726,6 +11730,12 @@ msgstr "Gestionar páginas es muy parecido a gestionar entradas, y las pantallas
 msgid "Many people take advantage of keyboard shortcuts to moderate their comments more quickly. Use the link to the side to learn more."
 msgstr "Mucha gente aprovecha los atajos de teclado para moderar los comentarios más rapidamente. Utiliza el enlace del lateral para aprender más sobre esto."
 
+#: wp-admin/edit-form-advanced.php:316 wp-admin/edit.php:311
+msgid "Pages are similar to posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts. Pages are not categorized or tagged, but can have a hierarchy. You can nest pages under other pages by making one the &#8220;Parent&#8221; of the other, creating a group of pages."
+msgstr ""
+"Las páginas son similares a los artículos en que tienen un título, cuerpo y metadatos asociados. Son diferentes en que no son parte de la corriente cronológica del blog, siendo una especie de artículos permanentes. \n"
+"Las páginas no están categorizadas o etiquetadas, pero pueden tener jerarquía. Podés anidar páginas bajo otras páginas haciendo que una sea &#8220;Superior&#8221; de otra, creando así grupos de páginas."
+
 #: wp-admin/upload.php:371
 msgid "All the files you&#8217;ve uploaded are listed in the Media Library, with the most recent uploads listed first. You can use the Screen Options tab to customize the display of this screen."
 msgstr "Todos los archivos que has subido están listados en la biblioteca multimedia, con las subidas más recientes listadas primero. Podés usar la pestaña de Opciones de Pantalla para personalizar la visualización de esta pantalla."
@@ -11733,12 +11743,6 @@ msgstr "Todos los archivos que has subido están listados en la biblioteca multi
 #: wp-admin/upload.php:396
 msgid "If a media file has not been attached to any content, you will see that in the Uploaded To column, and can click on Attach to launch a small popup that will allow you to search for existing content and attach the file."
 msgstr "Si un archivo no se ha adjuntado a ningún contenido podrás verlo en la columna de Adjunto a. Podés hacer clic en Adjuntar a para lanzar una pequeña ventana emergente que te permitirá buscar contenido existente al que adjuntar el archivo."
-
-#: wp-admin/edit-form-advanced.php:316 wp-admin/edit.php:311
-msgid "Pages are similar to posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts. Pages are not categorized or tagged, but can have a hierarchy. You can nest pages under other pages by making one the &#8220;Parent&#8221; of the other, creating a group of pages."
-msgstr ""
-"Las páginas son similares a los artículos en que tienen un título, cuerpo y metadatos asociados. Son diferentes en que no son parte de la corriente cronológica del blog, siendo una especie de artículos permanentes. \n"
-"Las páginas no están categorizadas o etiquetadas, pero pueden tener jerarquía. Podés anidar páginas bajo otras páginas haciendo que una sea &#8220;Superior&#8221; de otra, creando así grupos de páginas."
 
 #: wp-admin/edit-comments.php:210
 msgid "You can manage comments made on your site similar to the way you manage posts and other content. This screen is customizable in the same ways as other management screens, and you can act on comments using the on-hover action links or the bulk actions."
@@ -11801,15 +11805,15 @@ msgstr "<strong>Papelera</strong> elimina tu entrada de esta lista y lo manda a 
 msgid "Because this is a multisite installation, you may add accounts that already exist on the Network by specifying a username or email, and defining a role. For more options, such as specifying a password, you have to be a Network Administrator and use the hover link under an existing user&#8217;s name to Edit the user profile under Network Admin > All Users."
 msgstr "En una instalación multisitio podés agregar cuentas que ya existen en la Red especificando el nombre de usuario o la contraseña con la que están registrados en la misma y definiendo un rol. Para más opciones, como por ej. especificar una contraseña, tenés que ser Administrador de la Red y usar el enlace que aparece al pasar el cursor sobre los nombres de usuario. Podés encontrar esta opción bajo Administración de Red > Todos los Usuarios."
 
-#: wp-admin/about.php:96
+#: wp-admin/about.php:161
 msgid "Welcome to WordPress 6.9"
 msgstr "Te damos la bienvenida a WordPress 6.9"
 
-#: wp-admin/about.php:302
+#: wp-admin/about.php:367
 msgid "Go to Dashboard &rarr; Updates"
 msgstr "Volvé a Escritorio &rarr; Actualizaciones"
 
-#: wp-admin/about.php:309
+#: wp-admin/about.php:374
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Ir a Escritorio &rarr; Inicio"
 
@@ -11928,7 +11932,7 @@ msgstr "Audio, vídeo u otro tipo de archivo."
 msgid "Insert media from another website"
 msgstr "Insertar medio desde otra web"
 
-#: wp-admin/includes/file.php:2507
+#: wp-admin/includes/file.php:2512
 msgid "<strong>Error:</strong> Could not connect to the server. Please verify the settings are correct."
 msgstr "<strong>Error</strong>: No se pudo conectar con el servidor. Verificá que los ajustes están bien."
 
@@ -12516,13 +12520,13 @@ msgstr "En respuesta a"
 msgid "This screen allows you to edit fields for metadata in a file within the media library."
 msgstr "Esta pantalla te permite editar cinco campos para metadatos de un archivo en la biblioteca multimedia."
 
-#: wp-admin/edit-form-advanced.php:340
-msgid "For images only, you can click on Edit Image under the thumbnail to expand out an inline image editor with icons for cropping, rotating, or flipping the image as well as for undoing and redoing. The boxes on the right give you more options for scaling the image, for cropping it, and for cropping the thumbnail in a different way than you crop the original image. You can click on Help in those boxes to get more information."
-msgstr "(Solo para imágenes) Podés hacer clic en editar imágenes, debajo de la miniatura, para obtener el menú de edición de imágenes y recortar, rotar o invertir la imagen, así como deshacer y rehacer. Las cajas de la derecha te dan más opciones para escalar y recortar la imagen; y para recortar la miniatura de forma diferente de la imagen original. Podés hacer clic en la ayuda en esas cajas para obtener más información."
-
 #: wp-admin/widgets-form.php:46
 msgid "The Available Widgets section contains all the widgets you can choose from. Once you drag a widget into a sidebar, it will open to allow you to configure its settings. When you are happy with the widget settings, click the Save button and the widget will go live on your site. If you click Delete, it will remove the widget."
 msgstr "La sección de widgets disponibles contiene todos los widgets que podés elegir. Cuando arrastres el widget a la barra lateral, se abrirá para que puedas configurar sus opciones. Cuando las tengas a tu gusto, hacé clic en botón de guardar y el widget se pondrá a funcionar en tu sitio. Si pulsás borrar, se quitará el widget."
+
+#: wp-admin/edit-form-advanced.php:340
+msgid "For images only, you can click on Edit Image under the thumbnail to expand out an inline image editor with icons for cropping, rotating, or flipping the image as well as for undoing and redoing. The boxes on the right give you more options for scaling the image, for cropping it, and for cropping the thumbnail in a different way than you crop the original image. You can click on Help in those boxes to get more information."
+msgstr "(Solo para imágenes) Podés hacer clic en editar imágenes, debajo de la miniatura, para obtener el menú de edición de imágenes y recortar, rotar o invertir la imagen, así como deshacer y rehacer. Las cajas de la derecha te dan más opciones para escalar y recortar la imagen; y para recortar la miniatura de forma diferente de la imagen original. Podés hacer clic en la ayuda en esas cajas para obtener más información."
 
 #: wp-admin/edit-form-advanced.php:341
 msgid "Note that you crop the image by clicking on it (the Crop icon is already selected) and dragging the cropping frame to select the desired part. Then click Save to retain the cropping."
@@ -12583,7 +12587,7 @@ msgstr "Aplicar filtros"
 msgid "Editor Style"
 msgstr "Estilo del editor"
 
-#: wp-admin/includes/file.php:2560
+#: wp-admin/includes/file.php:2565
 msgid "To perform the requested action, WordPress needs to access your web server."
 msgstr "Para realizar la operación que has solicitado WordPress necesita tener acceso a tu servidor web."
 
@@ -12693,19 +12697,19 @@ msgstr "Recortar y publicar"
 msgid "XFN stands for <a href=\"https://gmpg.org/xfn/\">XHTML Friends Network</a>, which is optional. WordPress allows the generation of XFN attributes to show how you are related to the authors/owners of the site to which you are linking."
 msgstr "XFN significa <a href=\"https://gmpg.org/xfn/\">red de amigos XHTML</a> (XHTML Friends Network) y es opcional. WordPress permite generar atributos XFN que muestran tu relación con los autores/propietarios del sitio al que estés enlazando."
 
-#: wp-admin/includes/file.php:2570
+#: wp-admin/includes/file.php:2575
 msgid "FTP Password"
 msgstr "Contraseña FTP"
 
-#: wp-admin/includes/file.php:2569
+#: wp-admin/includes/file.php:2574
 msgid "FTP Username"
 msgstr "Usuario FTP"
 
-#: wp-admin/includes/file.php:2566
+#: wp-admin/includes/file.php:2571
 msgid "FTP/SSH Password"
 msgstr "Contraseña FTP/SSH"
 
-#: wp-admin/includes/file.php:2565
+#: wp-admin/includes/file.php:2570
 msgid "FTP/SSH Username"
 msgstr "Usuario FTP/SSH"
 
@@ -12752,15 +12756,15 @@ msgstr "La mayoría de los temas muestran el título del sitio en la parte super
 msgid "<strong>Order</strong> &mdash; Pages are usually ordered alphabetically, but you can choose your own order by entering a number (1 for first, etc.) in this field."
 msgstr "<strong>Orden</strong> &mdash; Las paginas normalmente se ordenan alfabéticamente, pero podés elegir tu propio orden ingresando un número (1 para la primera, etc.) en este campo."
 
-#: wp-admin/includes/file.php:2564
+#: wp-admin/includes/file.php:2569
 msgid "Please enter your FTP or SSH credentials to proceed."
 msgstr "Por favor, introduce tus datos de acceso FTP o SSH para proceder."
 
-#: wp-admin/includes/file.php:2568
+#: wp-admin/includes/file.php:2573
 msgid "Please enter your FTP credentials to proceed."
 msgstr "Por favor, introduce tus datos de acceso FTP para proceder."
 
-#: wp-admin/includes/file.php:2574
+#: wp-admin/includes/file.php:2579
 msgid "If you do not remember your credentials, you should contact your web host."
 msgstr "Si no recuerdas tus datos de acceso deberías contactar con tu proveedor de alojamiento."
 
@@ -13520,7 +13524,7 @@ msgstr "Si, borra estos archivos y datos"
 msgid "Inactive:"
 msgstr "Inactivo:"
 
-#: wp-admin/about.php:309
+#: wp-admin/about.php:374
 msgid "Go to Dashboard"
 msgstr "Ir al Escritorio"
 
@@ -14672,6 +14676,10 @@ msgstr "Instalando tema desde el archivo subido: %s"
 msgid "To post to WordPress by email, you must set up a secret email account with POP3 access. Any mail received at this address will be posted, so it&#8217;s a good idea to keep this address very secret. Here are three random strings you could use: %1$s, %2$s, %3$s."
 msgstr "Para publicar entradas por correo electrónico tenés que configurar una cuenta de correo electrónico secreta con acceso POP3. Cualquier correo recibido en esa dirección será publicado así que es una buena idea mantener esta cuenta de correo muy en secreto. Acá tenés tres cadenas aleatorias que podés usar: %1$s, %2$s, %3$s."
 
+#: wp-admin/options-discussion.php:195
+msgid "When a comment contains any of these words in its content, author name, URL, email, IP address, or browser&#8217;s user agent string, it will be held in the <a href=\"edit-comments.php?comment_status=moderated\">moderation queue</a>. One word or IP address per line. It will match inside words, so &#8220;press&#8221; will match &#8220;WordPress&#8221;."
+msgstr "Cuando un comentario contiene alguna de estas palabras en su contenido, nombre, URL, correo electrónico o IP, será mantenido en la <a href=\"edit-comments.php?comment_status=moderated\">cola de moderación</a>. Una palabra o IP por línea. También afectará a las palabras contenidas dentro de otras, como por ejemplo &#8220;press&#8221;, generará una coincidencia con &#8220;WordPress&#8221;"
+
 #: wp-admin/options-discussion.php:205
 msgid "When a comment contains any of these words in its content, author name, URL, email, IP address, or browser&#8217;s user agent string, it will be put in the Trash. One word or IP address per line. It will match inside words, so &#8220;press&#8221; will match &#8220;WordPress&#8221;."
 msgstr "Cuando un comentario contiene cualquiera de estas palabras en su texto, nombre, URL, correo electrónico o dirección IP, se moverá a la papelera. Una palabra o dirección IP por línea. Se buscarán cadenas dentro de las palabras, por lo que &#8220;press&#8221; coincidirá con &#8220;WordPress&#8221;."
@@ -14679,10 +14687,6 @@ msgstr "Cuando un comentario contiene cualquiera de estas palabras en su texto, 
 #: wp-admin/includes/theme-install.php:197
 msgid "If you have a theme in a .zip format, you may install or update it by uploading it here."
 msgstr "Si tenés un tema en un archivo .zip, podés instalarlo o actualizarlo subiéndolo aquí."
-
-#: wp-admin/options-discussion.php:195
-msgid "When a comment contains any of these words in its content, author name, URL, email, IP address, or browser&#8217;s user agent string, it will be held in the <a href=\"edit-comments.php?comment_status=moderated\">moderation queue</a>. One word or IP address per line. It will match inside words, so &#8220;press&#8221; will match &#8220;WordPress&#8221;."
-msgstr "Cuando un comentario contiene alguna de estas palabras en su contenido, nombre, URL, correo electrónico o IP, será mantenido en la <a href=\"edit-comments.php?comment_status=moderated\">cola de moderación</a>. Una palabra o IP por línea. También afectará a las palabras contenidas dentro de otras, como por ejemplo &#8220;press&#8221;, generará una coincidencia con &#8220;WordPress&#8221;"
 
 #: wp-admin/includes/class-wp-automatic-updater.php:526
 #: wp-admin/update-core.php:913 wp-admin/js/updates.js:863
@@ -15121,8 +15125,8 @@ msgid "Destination folder already exists."
 msgstr "La carpeta ya existe."
 
 #: wp-admin/includes/class-wp-upgrader.php:204 wp-admin/includes/file.php:1777
-#: wp-admin/includes/file.php:1958 wp-admin/includes/file.php:2051
-#: wp-admin/includes/file.php:2134
+#: wp-admin/includes/file.php:1963 wp-admin/includes/file.php:2056
+#: wp-admin/includes/file.php:2139
 msgid "Could not create directory."
 msgstr "No ha sido posible crear el directorio"
 
@@ -15406,8 +15410,8 @@ msgstr "No se puede recuperar el archivo."
 msgid "Could not extract file from archive."
 msgstr "No podemos descomprimir el archivo."
 
-#: wp-admin/includes/file.php:1831 wp-admin/includes/file.php:1985
-#: wp-admin/includes/file.php:2043 wp-admin/includes/update-core.php:1515
+#: wp-admin/includes/file.php:1831 wp-admin/includes/file.php:1990
+#: wp-admin/includes/file.php:2048 wp-admin/includes/update-core.php:1515
 msgid "Could not copy file."
 msgstr "No ha sido posible copiar el archivo."
 
@@ -15415,43 +15419,43 @@ msgstr "No ha sido posible copiar el archivo."
 msgid "Empty archive."
 msgstr "Archivo vacío."
 
-#: wp-admin/includes/file.php:2522
+#: wp-admin/includes/file.php:2527
 msgid "FTP"
 msgstr "FTP"
 
-#: wp-admin/includes/file.php:2525
+#: wp-admin/includes/file.php:2530
 msgid "FTPS (SSL)"
 msgstr "FTPS (SSL)"
 
-#: wp-admin/includes/file.php:2528
+#: wp-admin/includes/file.php:2533
 msgid "SSH2"
 msgstr "SSH2"
 
-#: wp-admin/includes/file.php:2554
+#: wp-admin/includes/file.php:2559
 msgid "Connection Information"
 msgstr "Datos de conexión"
 
-#: wp-admin/includes/file.php:2588
+#: wp-admin/includes/file.php:2593
 msgid "Hostname"
 msgstr "Servidor"
 
-#: wp-admin/includes/file.php:2630
+#: wp-admin/includes/file.php:2635
 msgid "Authentication Keys"
 msgstr "Claves de autentificación"
 
-#: wp-admin/includes/file.php:2632
+#: wp-admin/includes/file.php:2637
 msgid "Public Key:"
 msgstr "Clave pública:"
 
-#: wp-admin/includes/file.php:2636
+#: wp-admin/includes/file.php:2641
 msgid "Private Key:"
 msgstr "Clave privada:"
 
-#: wp-admin/includes/file.php:2609
+#: wp-admin/includes/file.php:2614
 msgid "Connection Type"
 msgstr "Tipo de conexión"
 
-#: wp-admin/includes/file.php:2661
+#: wp-admin/includes/file.php:2666
 msgid "Proceed"
 msgstr "Ejecutar"
 

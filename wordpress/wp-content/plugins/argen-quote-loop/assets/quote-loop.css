@@ -1,206 +1,418 @@
 /* ============================================================
-   ArgenChemical — Quote en Listado de Tienda
-   Archivo: assets/quote-loop.css
+   ARGEN QUOTE LOOP — quote-loop.css  v1.1.1
+   Fixes: grilla sin desborde · lista stepper visible · toggle alineado
    ============================================================ */
-
-/* ── Contenedor del formulario en la card ─────────────────── */
-.argen-quote-loop-form {
-    padding: 10px 0 4px;
-    border-top: 1px solid #e8e8e8;
-    margin-top: 10px;
-}
-
-/* ── Fila de variación (label + select) ───────────────────── */
-.argen-variation-row {
-    display: flex;
-    flex-direction: column;
+ 
+/* ─── TOGGLE GRILLA / LISTA ──────────────────────────────── */
+.argen-view-toggle {
+    display: inline-flex;
+    align-items: center;
     gap: 4px;
-    margin-bottom: 10px;
+    vertical-align: middle;
 }
-
+ 
+/* Wrapper que inyecta el JS para centrar el toggle en su fila */
+.argen-view-toggle-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+ 
+.argen-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    color: #777;
+    cursor: pointer;
+    transition: background 0.13s, color 0.13s, border-color 0.13s;
+    line-height: 1;
+    white-space: nowrap;
+}
+ 
+.argen-toggle-btn:hover {
+    border-color: #999;
+    color: #333;
+}
+ 
+.argen-toggle-btn.active {
+    background: #222;
+    border-color: #222;
+    color: #fff;
+}
+ 
+.argen-toggle-btn svg {
+    flex-shrink: 0;
+}
+ 
+/* ─── VISTA GRILLA — formulario dentro de la card ────────── */
+.argen-quote-loop-form {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-top: 10px;
+    font-size: 13px;
+}
+ 
+.argen-quote-loop-form *,
+.argen-quote-loop-form *::before,
+.argen-quote-loop-form *::after {
+    box-sizing: border-box;
+}
+ 
+.argen-variation-row {
+    margin-bottom: 8px;
+    width: 100%;
+}
+ 
 .argen-variation-label {
-    font-size: 0.78rem;
+    display: block;
+    font-size: 11px;
     font-weight: 600;
-    color: #555;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
+    color: #999;
+    margin-bottom: 3px;
 }
-
+ 
 .argen-variation-select {
     width: 100%;
-    padding: 7px 10px;
-    border: 1.5px solid #dde3e9;
+    min-width: 0;
+    padding: 6px 8px;
+    font-size: 13px;
+    border: 1px solid #ddd;
     border-radius: 6px;
-    font-size: 0.88rem;
-    color: #333;
     background: #fff;
+    color: #333;
     cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 30px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    appearance: auto;
 }
-
+ 
 .argen-variation-select:focus {
     outline: none;
-    border-color: #0073aa;
-    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.12);
+    border-color: #999;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.06);
 }
-
-.argen-variation-select:hover {
-    border-color: #aac;
-}
-
-/* ── Fila cantidad + botón: apilados en columna ───────────── */
+ 
+/* Cantidad + botón — GRILLA: dos filas, cada una ocupa el ancho completo */
 .argen-qty-quote-row {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-}
-
-/* ── Control de cantidad: ocupa todo el ancho ─────────────── */
-.argen-qty-wrapper {
-    display: flex;
-    align-items: center;
-    border: 1.5px solid #dde3e9;
-    border-radius: 6px;
-    overflow: hidden;
+    display: inline-flex;
+    grid-template-columns: 1fr;   /* una sola columna */
+    gap: 6px;
+    margin-top: 8px;
     width: 100%;
 }
-
+ 
+/* Stepper — compacto para ceder espacio al botón */
+.argen-qty-wrapper {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    max-width: 110px;
+}
+ 
 .argen-qty-btn {
-    background: #f5f7f9;
+    width: 16px;
+    height: 32px;
     border: none;
-    width: 30px;
-    height: 34px;
-    font-size: 1.1rem;
-    color: #555;
+    background: #f5f5f5;
+    color: #333;
+    font-size: 16px;
+    line-height: 1;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.15s ease, color 0.15s ease;
+    flex-shrink: 0;
+    transition: background 0.12s;
     padding: 0;
-    line-height: 1;
+    user-select: none;
 }
-
-.argen-qty-btn:hover {
-    background: #0073aa;
-    color: #fff;
-}
-
+ 
+.argen-qty-btn:hover  { background: #e5e5e5; }
+.argen-qty-btn:active { background: #d8d8d8; }
+ 
 .argen-qty-input {
-    flex: 1;
-    width: 100%;
-    height: 34px;
+    width: 34px;
+    height: 30px !important;
     border: none;
-    border-left: 1.5px solid #dde3e9;
-    border-right: 1.5px solid #dde3e9;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 13px;
     font-weight: 600;
     color: #333;
     background: #fff;
-    -moz-appearance: textfield;
     padding: 0;
+    -moz-appearance: textfield;
 }
-
+ 
 .argen-qty-input::-webkit-inner-spin-button,
 .argen-qty-input::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
+ 
 .argen-qty-input:focus {
     outline: none;
-    background: #f0f8ff;
+    background: #fafafa;
 }
-
-/* ── Botón Add to Quote ───────────────────────────────────── */
+ 
+/* Wrapper del botón — permite manejo independiente en ambas vistas */
+.argen-add-quote-wrap {
+    display: inline-flex;
+    min-width: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+    align-items: center;
+}
+ 
+/* Botón agregar */
 .argen-add-quote-btn {
-    width: 100%;
-    display: flex;
+    flex: 1;
+    min-width: 0;
+    height: 32px;
+    padding: 0 1.4vw;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #222;
+    border-radius: 6px;
+    background: #222;
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background 0.13s, border-color 0.13s;
+}
+ 
+.argen-add-quote-btn:hover    { background: #000; border-color: #000; }
+.argen-add-quote-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+ 
+/* Feedback */
+.argen-quote-feedback {
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 16px;
+    line-height: 1.4;
+}
+ 
+.argen-quote-feedback.argen-success { color: #2a7a2a; }
+.argen-quote-feedback.argen-error   { color: #c0392b; }
+ 
+/* ─── OCULTAR en GRILLA los elementos propios de lista ────── */
+.argen-list-img-wrap,
+.argen-list-name {
+    display: none;
+}
+ 
+/* ─── VISTA LISTA ─────────────────────────────────────────── */
+ 
+ul.products.argen-list-view {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    grid-template-columns: unset !important;
+}
+ 
+ul.products.argen-list-view li.product .woocommerce-loop-product__link img,
+ul.products.argen-list-view li.product a > img {
+    display: none !important;
+}
+ 
+ul.products.argen-list-view li.product .woocommerce-loop-product__title {
+    display: none !important;
+}
+ 
+ul.products.argen-list-view li.product .price {
+    display: none !important;
+}
+ 
+ul.products.argen-list-view li.product {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: 1px solid #ebebeb;
+    float: none !important;
+    clear: both;
+}
+ 
+ul.products.argen-list-view li.product:last-child {
+    border-bottom: none;
+}
+ 
+/*
+   GRID DE FILA — 5 columnas:
+     64px  → imagen
+     1fr   → nombre
+     200px → select presentación
+     90px  → stepper  (26+34+26 = 86px + 2px borders)
+     120px → botón agregar  ← columna PROPIA
+*/
+ul.products.argen-list-view li.product .argen-quote-loop-form {
+    display: grid !important;
+    grid-template-columns: 64px 1fr 200px 90px 120px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    margin-top: 0;
+    overflow: visible;
+    background: #fff;
+    transition: background 0.12s;
+}
+ 
+ul.products.argen-list-view li.product .argen-quote-loop-form:hover {
+    background: #f9f9f9;
+}
+ 
+ul.products.argen-list-view li.product .argen-form-inner {
+    display: contents;
+}
+ 
+/* Imagen */
+ul.products.argen-list-view li.product .argen-list-img-wrap {
+    display: flex !important;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    padding: 8px 12px;
-    background: #0073aa;   /* Color primario de tu tema — ajustar si es necesario */
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-    white-space: nowrap;
-    min-height: 36px;
-}
-
-.argen-add-quote-btn:hover {
-    background: #005a87;
-    box-shadow: 0 3px 10px rgba(0, 115, 170, 0.28);
-    transform: translateY(-1px);
-}
-
-.argen-add-quote-btn:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
-
-.argen-add-quote-btn:disabled {
-    background: #9ab8c8;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-/* Estado cargando */
-.argen-add-quote-btn.is-loading {
-    background: #9ab8c8;
-    pointer-events: none;
-}
-
-/* ── Feedback de éxito / error ────────────────────────────── */
-.argen-quote-feedback {
-    margin-top: 7px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    min-height: 18px;
+    width: 64px;
+    height: 43px;
+    overflow: hidden;
     border-radius: 4px;
-    padding: 0;
-    transition: opacity 0.3s ease;
-    opacity: 0;
+    background: #f5f5f5;
+    flex-shrink: 0;
 }
-
-.argen-quote-feedback.is-success {
-    color: #1a7340;
-    background: #e6f4ec;
-    padding: 5px 8px;
-    opacity: 1;
+ 
+ul.products.argen-list-view li.product .argen-list-img-wrap img.argen-list-thumb {
+    width: 64px;
+    height: 43px;
+    object-fit: contain;
+    display: block !important;
 }
-
-.argen-quote-feedback.is-error {
-    color: #c0392b;
-    background: #fdf0ee;
-    padding: 5px 8px;
-    opacity: 1;
+ 
+ul.products.argen-list-view li.product .argen-list-img-placeholder {
+    background: #eee;
 }
-
-.argen-quote-feedback.is-warning {
-    color: #8a5700;
-    background: #fff8e1;
-    padding: 5px 8px;
-    opacity: 1;
+ 
+/* Nombre */
+ul.products.argen-list-view li.product .argen-list-name {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+    line-height: 1.35;
 }
-
-/* ── Responsive: pantallas pequeñas ──────────────────────── */
-@media (max-width: 480px) {
-    .argen-add-quote-btn {
-        font-size: 0.78rem;
+ 
+/* Label de atributo oculto en lista */
+ul.products.argen-list-view li.product .argen-variation-label {
+    display: none;
+}
+ 
+ul.products.argen-list-view li.product .argen-variation-row {
+    margin-bottom: 0;
+    width: 100%;
+}
+ 
+ul.products.argen-list-view li.product .argen-variations-wrap {
+    min-width: 0;
+    width: 100%;
+}
+ 
+/* En lista: qty-quote-row es flex horizontal dentro de su columna */
+ul.products.argen-list-view li.product .argen-qty-quote-row {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    gap: 10px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+}
+ 
+/* El stepper NO crece; su columna ya tiene el ancho exacto */
+ul.products.argen-list-view li.product .argen-qty-wrapper {
+    flex-shrink: 0;
+    width: 100%;
+}
+ 
+/* El argen-add-quote-wrap ocupa su columna completa */
+ul.products.argen-list-view li.product .argen-add-quote-wrap {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex: none;
+}
+ 
+/* El botón llena el wrapper */
+ul.products.argen-list-view li.product .argen-add-quote-btn {
+    flex: 1;
+    margin-left: 0;
+    padding: 0 8px;
+    width: 100%;
+}
+ 
+/* Feedback ocupa toda la fila */
+ul.products.argen-list-view li.product .argen-quote-feedback {
+    grid-column: 2 / -1;
+    margin-top: 0;
+    padding-left: 2px;
+}
+ 
+/* ─── ENCABEZADO DE COLUMNAS (inyectado via JS) ───────────── */
+.argen-list-header {
+    display: grid;
+    grid-template-columns: 64px 1fr 200px 90px 120px;
+    gap: 10px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #aaa;
+    border-bottom: 1px solid #ddd;
+}
+ 
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media ( max-width: 900px ) {
+    ul.products.argen-list-view li.product .argen-quote-loop-form,
+    .argen-list-header {
+        grid-template-columns: 64px 1fr 150px 90px 100px;
+        gap: 8px;
     }
+}
+ 
+@media ( max-width: 650px ) {
+    ul.products.argen-list-view li.product .argen-quote-loop-form {
+        grid-template-columns: 56px 1fr;
+        grid-template-rows: auto auto auto auto auto;
+        gap: 6px 8px;
+        padding: 10px 8px;
+    }
+ 
+    ul.products.argen-list-view li.product .argen-list-img-wrap {
+        grid-column: 1;
+        grid-row: 1 / 3;
+        width: 56px;
+        height: 38px;
+    }
+ 
+    ul.products.argen-list-view li.product .argen-list-name       { grid-column: 2; grid-row: 1; }
+    ul.products.argen-list-view li.product .argen-variations-wrap { grid-column: 1 / -1; grid-row: 3; }
+    ul.products.argen-list-view li.product .argen-qty-quote-row   { grid-column: 1 / -1; grid-row: 4; }
+    ul.products.argen-list-view li.product .argen-quote-feedback  { grid-column: 1 / -1; grid-row: 5; }
+ 
+    .argen-list-header { display: none; }
+ 
+    .argen-view-toggle { justify-content: center; }
 }
