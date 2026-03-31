@@ -119,6 +119,18 @@
     flex-shrink: 0;
     max-width: 110px;
 }
+
+@media screen and (max-width: 650px) {
+  .argen-qty-wrapper {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+      max-width: 50%;
+  }
+}
  
 .argen-qty-btn {
     width: 16px;
@@ -353,6 +365,15 @@ ul.products.argen-list-view li.product .argen-add-quote-wrap {
     min-width: 0;
     flex: none;
 }
+
+@media screen and (max-width: 650px) {
+ul.products.argen-list-view li.product .argen-add-quote-wrap {
+    display: flex;
+    width: 50%;
+    min-width: 0;
+    flex: none;
+}
+
  
 /* El botón llena el wrapper */
 ul.products.argen-list-view li.product .argen-add-quote-btn {
