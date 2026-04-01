@@ -150,7 +150,7 @@ class Argen_Quote_Loop {
  
                 <?php
                 // Nombre del producto (visible en vista lista)
-                echo '<div class="argen-list-name">' . esc_html( $product->get_name() ) . '</div>';
+                echo '<div class="argen-list-name"><a href="' . esc_url( get_permalink( $product_id ) ) . '">' . esc_html( $product->get_name() ) . '</a></div>';
                 ?>
  
                 <div class="argen-variations-wrap">
@@ -240,7 +240,7 @@ class Argen_Quote_Loop {
             <?php echo $image_html; ?>
  
             <div class="argen-form-inner">
-                <div class="argen-list-name"><?php echo esc_html( $product->get_name() ); ?></div>
+                <div class="argen-list-name"><a href="<?php echo esc_url( get_permalink( $product_id ) ); ?>"><?php echo esc_html( $product->get_name() ); ?></a></div>
  
                 <div class="argen-qty-quote-row">
                     <div class="argen-qty-wrapper">
