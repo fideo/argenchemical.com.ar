@@ -1,0 +1,1890 @@
+# Translation of Plugins - YITH Request a Quote for WooCommerce - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - YITH Request a Quote for WooCommerce - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-07-30 09:19:25+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.3\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - YITH Request a Quote for WooCommerce - Stable (latest release)\n"
+
+#: plugin-fw/includes/class-yith-system-status.php:195
+msgid "Database"
+msgstr "Base de datos"
+
+#: plugin-fw/includes/class-yith-external-services.php:72
+msgctxt "External Services error message"
+msgid "Error: Unable to process the External Services API Request."
+msgstr "Error: no se ha podido procesar la petición a la API de servicios externos."
+
+#: plugin-fw/includes/class-yith-post-type-admin.php:470
+msgid "Reset filters"
+msgstr "Restablecer filtros"
+
+#. translators: Hidden accessibility text.
+#: plugin-fw/includes/class-yith-post-type-admin.php:414
+msgid "Show more details"
+msgstr "Muestra más detalles"
+
+#. translators: %s is the plugin name.
+#: init.php:127
+msgid "%s is enabled but not effective. It requires WooCommerce in order to work."
+msgstr "%s está activado pero no es efectivo. Se requiere WooCommerce para funcionar."
+
+#. translators: %s is the plugin name.
+#: init.php:55
+msgid "You can't activate the free version of %s while you are using the premium one."
+msgstr "No puedes activar la version gratuita de %s mientras estés utilizando la premium."
+
+#: plugin-options/request-options.php:98
+msgid "Privacy options"
+msgstr "Opciones de privacidad"
+
+#: plugin-options/request-options.php:69
+msgid "\"Update list\" options"
+msgstr "Opciones de «actualizar lista»"
+
+#: plugin-options/general-options.php:69
+msgid "After clicking on \"Add to quote\" the user:"
+msgstr "Después de hacer clic en «añadir al presupuesto», el usuario:"
+
+#: plugin-options/general-options.php:48
+msgid "Other options"
+msgstr "Otras opciones"
+
+#: plugin-options/general-options.php:23
+msgid "\"Add to quote\" options"
+msgstr "Opciones de «añadir al presupuesto»"
+
+#: plugin-options/customization-options.php:99
+msgid "Labels"
+msgstr "Etiquetas"
+
+#: plugin-options/customization-options.php:45
+msgid "\"Add to quote\" button"
+msgstr "Botón «añadir al presupuesto»"
+
+#: includes/class.yith-request-quote-admin.php:239
+msgctxt "Request a quote page name"
+msgid "Request a Quote"
+msgstr "Request a Quote"
+
+#: includes/class.yith-request-quote-admin.php:194
+msgid "Use the plugin to manually create quotes to send to your customers: the easiest way to manage quotes and the related orders in WooCommerce."
+msgstr "Utiliza el plugin para crear manualmente presupuestos para enviar a tus clientes: la forma más sencilla de gestionar presupuestos y los pedidos relacionados en WooCommerce."
+
+#: includes/class.yith-request-quote-admin.php:193
+msgid "Manually create and send custom quotes from the backend"
+msgstr "Crea manualmente y envía presupuestos personalizados desde el escritorio"
+
+#: includes/class.yith-request-quote-admin.php:190
+msgid "Send eye-catching quotes choosing one of the 9 templates included in the plugin or create a new custom template with the advanced Gutenberg builder."
+msgstr "Envía presupuestos llamativos eligiendo una de las 9 plantillas incluidas en el plugin o crea una nueva plantilla personalizada con el maquetador avanzado de Gutenberg."
+
+#: includes/class.yith-request-quote-admin.php:189
+msgid "9 ready-to-use quote PDF templates + Gutenberg builder"
+msgstr "9 plantillas PDF de presupuesto listas para usar + maquetador de Gutenberg"
+
+#: includes/class.yith-request-quote-admin.php:186
+msgid "Enable the option to allow users to send a quote request for products they added to the cart."
+msgstr "Activa la opción para permitir a los usuarios enviar una solicitud de presupuesto de productos que añadieron al carrito."
+
+#: includes/class.yith-request-quote-admin.php:185
+msgid "Convert the cart content into a quote request"
+msgstr "Convierte el contenido del carrito en una solicitud de presupuesto"
+
+#: includes/class.yith-request-quote-admin.php:182
+msgid "Add, remove, and edit the fields to create your own custom form or use a form created with one of the following plugins: Contact Form 7, Gravity Forms, Ninja Forms, or WPForms."
+msgstr "Añade, elimina y edita los campos para crear tu propio formulario personalizado o utiliza un formulario creado con uno de los siguientes plugins: Contact Form 7, Gravity Forms, Ninja Forms o WPForms."
+
+#: includes/class.yith-request-quote-admin.php:181
+msgid "Create and show a custom advanced form"
+msgstr "Crea y muestra una formulario avanzado personalizado"
+
+#: includes/class.yith-request-quote-admin.php:178
+msgid "Push users to ask for a quote for out of stock products and send them tailored offers."
+msgstr "Empuja a los usuarios a pedir presupuesto para productos agotados y envíales ofertas personalizadas."
+
+#: includes/class.yith-request-quote-admin.php:177
+msgid "Show the button automatically in out of stock products"
+msgstr "Muestra el botón automáticamente en productos agotados"
+
+#: includes/class.yith-request-quote-admin.php:174
+msgid "Choose whether to allow all users to request a quote or limit it only to registered users or those who have a specific role in your shop."
+msgstr "Elige si quieres permitir a todos los usuarios solicitar un presupuesto o limitarlo solo a los usuarios registrados o a aquellos que tengan una función específica en tu tienda."
+
+#: includes/class.yith-request-quote-admin.php:173
+msgid "Show the button only to registered users/specific user roles"
+msgstr "Muestra el botón solo para usuarios registrados/perfiles de usuario específico"
+
+#: includes/class.yith-request-quote-admin.php:170
+msgid "Enable the option to show the \"Add to quote\" button also on the Shop page, category pages, etc"
+msgstr "Activa la opción para mostrar el botón «añadir al presupuesto» también en la página de la tienda, páginas de categoría, etc."
+
+#: includes/class.yith-request-quote-admin.php:169
+msgid "Show the \"Add to quote\" button also on the other WooCommerce pages"
+msgstr "Muestra el botón «añadir al presupuesto» también en otras páginas de WooCommerce"
+
+#: includes/class.yith-request-quote-admin.php:146
+msgid "Configure the \"Request a quote\" page settings."
+msgstr "Configura los ajustes de la página «solicita un presupuesto»."
+
+#: includes/class.yith-request-quote-admin.php:141
+msgid "Configure style options to customize the buttons and labels."
+msgstr "Configura las opciones de estilo para personalizar los botones y las etiquetas."
+
+#: includes/class.yith-request-quote-admin.php:139
+msgid "Customization"
+msgstr "Personalización"
+
+#: includes/class.yith-request-quote-admin.php:136
+msgid "Configure the plugin's general settings."
+msgstr "Configura los ajustes generales del plugin."
+
+#: plugin-fw/includes/class-yit-plugin-panel-woocommerce.php:500
+#: plugin-fw/includes/class-yit-plugin-panel.php:1562
+msgid "Options saved!"
+msgstr "¡Opciones guardadas!"
+
+#: plugin-fw/templates/panel/v2/premium-tab.php:24
+msgctxt "Premium Tab"
+msgid "Check out the advanced features you can get by upgrading to premium!"
+msgstr "¡Echa un vistazo a las características avanzadas que puedes obtener si actualizas a premium!"
+
+#: plugin-fw/templates/panel/v2/premium-tab.php:22
+msgctxt "Premium Tab"
+msgid "Upgrade to unlock premium features"
+msgstr "Actualiza para desbloquear características premium"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:124
+msgctxt "Premium Tab"
+msgid "Verified Customer"
+msgstr "Cliente verificado"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:98
+msgctxt "Premium Tab"
+msgid "100% Money-back guarantee"
+msgstr "Garantía de devolución del 100% del dinero"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:97
+msgctxt "Premium Tab"
+msgid "Technical support"
+msgstr "Soporte técnico"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:96
+msgctxt "Premium Tab"
+msgid "Regular updates"
+msgstr "Actualizaciones periódicas"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:95
+msgctxt "Premium Tab"
+msgid "Advanced features"
+msgstr "Características avanzadas"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:83
+msgctxt "Premium Tab"
+msgid "Upgrade now to unlock premium features"
+msgstr "Actualiza ahora para desbloquear características premium"
+
+#. translators: %s is the discount percentage.
+#: plugin-fw/templates/panel/premium-tab-content.php:79
+msgctxt "Premium Tab"
+msgid "Upgrade now to get a %s%% off"
+msgstr "Actualiza ahora para obtener un %s%% de descuento"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1305
+msgid ""
+"At first, I was hesitant to buy the premium version so I started with the free option.\n"
+"After a while, seeing the quality of the plugin and the results I was getting, I decided to give it a shot and switch to premium. No regrets!\n"
+"They have an amazing support team that is always there no matter how big or small your problem is. Do yourself a favor and stop using free plugins that kind of work and just buy whatever plugin you need from YITH."
+msgstr ""
+"Al principio, dudaba si comprar la versión premium, así que empecé con la opción gratuita.\n"
+"Después de un tiempo, viendo la calidad del plugin y los resultados que estaba obteniendo, decidí darle una oportunidad y cambiarme a premium. ¡No me arrepiento!\n"
+"Tienen un equipo de soporte increíble que siempre está ahí por grande o pequeño que sea tu problema. Hazte un favor y deja de usar plugins gratuitos que no funcionan y compra cualquier plugin que necesites de YITH."
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:51
+msgctxt "Plugin in \"Your Store Tools\" tab"
+msgid "Get it"
+msgstr "Consíguelo"
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:46
+msgctxt "Plugin in \"Your Store Tools\" tab"
+msgid "Active"
+msgstr "Activo"
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:35
+msgctxt "Plugin in \"Your Store Tools\" tab"
+msgid "Best choice"
+msgstr "Mejor opción"
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:21
+msgid "Additional tools to improve UX, increase conversions, and loyalize customers."
+msgstr "Herramientas adicionales para mejorar la experiencia de usuario, aumentar las conversiones y fidelizar a tus clientes."
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:17
+msgid "#1 Independent Seller of <mark>WooCommerce plugins</mark>"
+msgstr "Vendedor independiente #1 de <mark>plugins para WooCommerce</mark>"
+
+#: plugin-fw/templates/fields/ajax-orders.php:16
+msgid "Search for an order..."
+msgstr "Buscar un pedido..."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:992
+msgctxt "Panel tab name"
+msgid "Your Store Tools"
+msgstr "Herramientas de tu tienda"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:45
+#: plugin-fw/templates/panel/v2/panel-option-label-tags.php:16
+msgctxt "Panel option tag"
+msgid "PREMIUM"
+msgstr "PREMIUM"
+
+#: plugin-fw/templates/panel/v2/panel-nav.php:36
+#: plugin-fw/templates/sysinfo/system-information-panel.php:46
+msgid "Collapse"
+msgstr "Cerrar"
+
+#: plugin-fw/templates/fields/media.php:72
+msgid "Upload a file"
+msgstr "Subir un archivo"
+
+#. translators: %s is the alternative action "Upload a file".
+#: plugin-fw/templates/fields/media.php:71
+msgid "Drag or %s"
+msgstr "Arrastrar o %s"
+
+#: plugin-fw/templates/fields/media.php:53
+msgid "Enter URL"
+msgstr "Introducir URL"
+
+#: plugin-fw/templates/fields/media.php:47
+msgid "Upload file"
+msgstr "Subir archivo"
+
+#: plugin-fw/templates/fields/file.php:14
+msgid "Drag or upload a file."
+msgstr "Arrastrar o subir un archivo."
+
+#: plugin-fw/includes/class-yit-plugin-panel-woocommerce.php:557
+msgid "Options reset correctly!"
+msgstr "¡Opciones restablecidas correctamente!"
+
+#: plugin-fw/includes/class-yit-assets.php:310
+msgid "You cannot drop files here."
+msgstr "Aquí no se pueden soltar archivos."
+
+#: plugin-fw/includes/class-yit-assets.php:309
+msgid "No file provided."
+msgstr "No se proporcionó ningún archivo."
+
+#: plugin-fw/includes/class-yit-assets.php:308
+msgctxt "Title"
+msgid "Error"
+msgstr "Error"
+
+#: plugin-fw/includes/class-yit-assets.php:296
+msgctxt "Enhanced select"
+msgid "Searching&hellip;"
+msgstr "Buscando&hellip;"
+
+#. translators: %s is the number of characters.
+#: plugin-fw/includes/class-yit-assets.php:295
+msgctxt "Enhanced select"
+msgid "Please enter %s or more characters"
+msgstr "Por favor, introduce %s o más caracteres"
+
+#: plugin-fw/includes/class-yit-assets.php:293
+msgctxt "Enhanced select"
+msgid "Please enter 1 or more characters"
+msgstr "Por favor, introduce 1 o más caracteres"
+
+#: plugin-fw/includes/class-yit-assets.php:292
+msgctxt "Enhanced select"
+msgid "No matches found"
+msgstr "No se han encontrado coincidencias"
+
+#. translators: %s is the number of steps.
+#: plugin-fw/templates/panel/welcome-modals/welcome.php:45
+msgid "Start with these %s steps:"
+msgstr "Comienza con estos %s pasos:"
+
+#: plugin-fw/templates/panel/welcome-modals/welcome.php:30
+msgid "Thank you for using our plugin"
+msgstr "Gracias por usar nuestro plugin"
+
+#: plugin-fw/templates/panel/welcome-modals/update.php:64
+#: plugin-fw/templates/panel/welcome-modals/welcome.php:60
+msgid "Got it, close this window"
+msgstr "Entendido, cierra esta ventana"
+
+#: plugin-fw/templates/panel/welcome-modals/update.php:49
+msgid "Check the changelog >"
+msgstr "Comprueba el registro de cambios >"
+
+#. translators: %s is the plugin version.
+#: plugin-fw/templates/panel/welcome-modals/update.php:44
+msgid "What's new in version %s"
+msgstr "Novedades en la versión %s"
+
+#. translators: %s is the plugin version.
+#: plugin-fw/templates/panel/welcome-modals/update.php:34
+msgid "is successfully updated to version %s."
+msgstr "se actualizó correctamente a la versión %s."
+
+#: plugin-fw/templates/bh-onboarding/onboarding-tabs.php:60
+msgid "Save"
+msgstr "Guardar"
+
+#: plugin-fw/includes/class-yith-bh-onboarding.php:85
+msgid "It is not possible save the options"
+msgstr "No es posible guardar las opciones"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1185
+msgid "See how it works before you start using it"
+msgstr "Mira cómo funciona antes de comenzar a utilizarlo"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1184
+msgid "Watch our <mark>\"First Steps\" video</mark>"
+msgstr "Mira nuestro <mark>vídeo «Primeros pasos»</mark> "
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1174
+msgid "Learn what you can really do with this powerful tool"
+msgstr "Aprende lo que realmente puedes hacer con esta potente herramienta"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1173
+msgid "Read the <mark>plugin documentation</mark>"
+msgstr "Lee la <mark>documentación del plugin</mark>"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:66
+msgctxt "Premium Tab"
+msgid "Check the premium features >"
+msgstr "Comprueba las características premium >"
+
+#: plugin-fw/templates/panel/help-tab.php:241
+msgctxt "Help tab support"
+msgid "Yes, I need help"
+msgstr "Sí, necesito ayuda"
+
+#: plugin-fw/templates/panel/help-tab.php:238
+msgctxt "Help tab support"
+msgid "Call or chat 24/7 with our support agents, or let our experts build your site."
+msgstr "Llama o chatea las 24 horas del día con nuestros agentes de soporte, o deja que nuestros expertos construyan tu sitio."
+
+#: plugin-fw/templates/panel/help-tab.php:235
+msgctxt "Help tab support"
+msgid "From DIY to full-service help"
+msgstr "Ayuda desde «hazlo tu mismo» hasta un servicio completo"
+
+#: plugin-fw/templates/panel/help-tab.php:231
+#: plugin-fw/templates/panel/help-tab.php:233
+msgctxt "Help tab support"
+msgid "Need some help?"
+msgstr "¿Necesitas ayuda?"
+
+#: plugin-fw/templates/panel/help-tab.php:220
+msgctxt "Help tab documentation"
+msgid "to learn how it works from the basics."
+msgstr "para aprender cómo funciona desde lo más básico."
+
+#: plugin-fw/templates/panel/help-tab.php:216
+#: plugin-fw/templates/panel/help-tab.php:218
+#: plugin-fw/templates/panel/help-tab.php:223
+msgctxt "Help tab documentation"
+msgid "Read the plugin documentation"
+msgstr "Lee la documentación del plugin"
+
+#. translators: 1. Plugin name.
+#: plugin-fw/includes/class-yit-plugin-panel.php:920
+msgctxt "Help tab default title"
+msgid "Thank you for using %s!"
+msgstr "¡Gracias por usar %s!"
+
+#. translators: 1. Plugin(s) name(s).
+#: plugin-fw/yit-plugin.php:282
+msgid "%s was deactivated as you're running an higher tier version of the same plugin."
+msgid_plural "%s were deactivated as you're running higher tier versions of the same plugins."
+msgstr[0] "%s ha sido desactivado, ya que estás ejecutando una versión superior del mismo plugin."
+msgstr[1] "%s han sido desactivados, ya que estás ejecutando versiones superiores de los mismos plugins."
+
+#: plugin-fw/templates/fields/ajax-terms.php:41
+msgid "Search for a category..."
+msgstr "Buscar una categoría..."
+
+#: plugin-fw/templates/fields/ajax-posts.php:41
+msgid "Search for a post..."
+msgstr "Buscar una entrada..."
+
+#: plugin-fw/templates/fields/ajax-customers.php:41
+msgid "Search for a customer..."
+msgstr "Buscar un cliente..."
+
+#: plugin-fw/templates/panel/help-tab.php:142
+msgctxt "Help tab Watch video tutorials link"
+msgid "to see some helpful use cases."
+msgstr "para ver algunos casos de uso útiles."
+
+#: plugin-fw/templates/panel/help-tab.php:129
+msgctxt "Help tab Read Documentation link"
+msgid "to learn how the plugin works from the basics."
+msgstr "para aprender cómo funciona el plugin desde lo más básico."
+
+#: plugin-fw/templates/panel/premium-tab-content.php:102
+msgctxt "Premium Tab"
+msgid "Get the premium version"
+msgstr "Obtén la versión premium"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:62
+msgctxt "Premium Tab"
+msgid "Check the free vs premium features >"
+msgstr "Comprueba las características gratuitas frente a las premium >"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:59
+msgctxt "Premium Tab"
+msgid "...and so much more!"
+msgstr "... ¡y mucho más!"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:977
+msgctxt "Premium tab name"
+msgid "Get premium"
+msgstr "Hazte premium"
+
+#. Translators: %1$f: Table size, %2$f: Index size, %3$f: Free size, %4$s
+#. Engine.
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:57
+msgid "Data: %1$.2fMB | Index: %2$.2fMB | Free: %3$.2fMB | Engine: %4$s"
+msgstr "Datos: %1$.2f MB | Índice: %2$.2f MB | Libre: %3$.2f MB | Motor: %4$s"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:46
+msgid "Database Free Size"
+msgstr "Tamaño libre de la base de datos"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:42
+msgid "Database Index Size"
+msgstr "Tamaño del índice de la base de datos"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:38
+msgid "Database Data Size"
+msgstr "Tamaño de los datos de la base de datos"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:34
+msgid "Total Database Size"
+msgstr "Tamaño total de la base de datos"
+
+#. Translators: %s: Codex link.
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:19
+msgid "WordPress requirements"
+msgstr "Requisitos de WordPress"
+
+#. Translators: %s: Codex link.
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:19
+msgid "WordPress recommends a minimum MySQL version of 5.6. See: %s"
+msgstr "WordPress recomienda, como mínimo, la versión 5.6 de MySQL. Ver: %s"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:28
+msgid "MySQL version"
+msgstr "Versión de MySQL"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:24
+msgid "Database Info"
+msgstr "Información de la base de datos"
+
+#. translators: %s is the name of the plugin that is loading the framework.
+#: plugin-fw/templates/sysinfo/tabs/main.php:66
+msgid "loaded by %s"
+msgstr "subido por %s"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:61
+msgid "YITH Plugin Framework Version"
+msgstr "Versión de YITH Plugin Framework"
+
+#: plugin-options/request-options.php:104
+msgid "Enable to show a privacy policy checkbox in the form."
+msgstr "Activa si quieres mostrar la casilla de verificación de política de privacidad en el formulario."
+
+#: plugin-options/request-options.php:83
+msgid "Enter the button's label."
+msgstr "Introducir la etiqueta del botón."
+
+#: plugin-options/request-options.php:82
+msgid "\"Update List\" label"
+msgstr "Etiqueta de ''Actualizar lista''"
+
+#: plugin-options/request-options.php:75
+msgid "Enable to show the \"Update list\" button."
+msgstr "Activa si quieres mostrar el botón de ''Actualizar lista''."
+
+#: plugin-options/request-options.php:74
+msgid "Show \"Update List\" button"
+msgstr "Mostrar botón de ''Actualizar lista''"
+
+#: plugin-options/request-options.php:60
+msgid "Product list above, form below"
+msgstr "Lista de producto arriba, formulario abajo"
+
+#: plugin-options/request-options.php:59
+msgid "Product list on left side, form on right side"
+msgstr "Lista de producto a la izquierda, formulario a la derecha"
+
+#: plugin-options/request-options.php:54
+msgid "Choose the layout for \"Request a quote\" page."
+msgstr "Escoge el diseño para la página de ''Solicitud de presupuesto''"
+
+#: plugin-options/request-options.php:49
+msgid "Create a page"
+msgstr "Crear una página"
+
+#: plugin-options/request-options.php:47
+msgctxt "part of the string (or Create a page) inside admin panel"
+msgid "or"
+msgstr "o"
+
+#: plugin-options/request-options.php:33
+msgid "in the page the following shortcode: [yith_ywraq_request_quote] "
+msgstr "en la página el siguiente shortcode: [yith_ywraq_request_quote] "
+
+#: plugin-options/request-options.php:32
+msgid "Please note: if you choose a page different from the default one (request quote) you need to insert"
+msgstr "Por favor, ten en cuenta: si eliges una página diferente de la predeterminada (solicitud de presupuesto) debes insertar"
+
+#: plugin-options/request-options.php:31
+msgid "Choose from this list the page on which users will see the list of products added to the quote and send the request."
+msgstr "Escoge desde esta lista la página en la que los usuarios verán los productos añadidos al presupuesto y enviar la solicitud."
+
+#: plugin-options/request-options.php:28
+msgid "\"Request a quote\" page"
+msgstr "Página de ''Solicitud de presupuesto''"
+
+#: plugin-options/request-options.php:23
+msgid "\"Request quote\" page options"
+msgstr "Opciones de página de ''Solicitud de presupuesto''"
+
+#: plugin-options/general-options.php:76
+#: plugin-options/general/settings-options.php:66
+msgid "Is automatically redirected to the quote request list."
+msgstr "Es redireccionado automáticamente a la lista de solicitud de presupuesto."
+
+#: plugin-options/general-options.php:75
+#: plugin-options/general/settings-options.php:65
+msgid "Sees a link to access the quote request list"
+msgstr "Ve un enlace para acceder a la lista de solicitud de presupuesto"
+
+#: plugin-options/general-options.php:70
+#: plugin-options/general/settings-options.php:60
+msgid "Choose what happens after the user clicks on the \"Add to quote\" button."
+msgstr "Escoge qué ocurre cuando el usuario hace clic en el botón de ''Añadir al presupuesto''."
+
+#: plugin-options/general/settings-options.php:59
+msgid "After click on \"Add to quote\" the user:"
+msgstr "Tras hacer clic en ''Añadir al presupuesto'' el usuario:"
+
+#: plugin-options/general-options.php:35
+#: plugin-options/general/settings-options.php:50
+msgid "Underneath \"Add to cart\" button"
+msgstr "Bajo el botón ''Añadir al carrito''"
+
+#: plugin-options/general-options.php:34
+#: plugin-options/general/settings-options.php:49
+msgid "Inline with \"Add to cart\""
+msgstr "Integrado con ''Añadir al carrito''"
+
+#: plugin-options/general-options.php:29
+#: plugin-options/general/settings-options.php:44
+msgid "Choose where to show the \"Add to quote\" button on single product pages."
+msgstr "Escoge dónde mostrar el botón de ''Añadir al presupuesto'' en las páginas de producto individual."
+
+#: plugin-options/general-options.php:28
+#: plugin-options/general/settings-options.php:43
+msgid "\"Add to quote\" position on single product page"
+msgstr "Posición de ''Añadir al presupuesto'' en la página de producto individual"
+
+#: plugin-options/general-options.php:62
+#: plugin-options/general/settings-options.php:36
+msgid "Enable to hide prices on all products."
+msgstr "Activa si quieres ocultar los precios en todos los productos."
+
+#: plugin-options/general-options.php:61
+#: plugin-options/general/settings-options.php:35
+msgid "Hide prices"
+msgstr "Ocultar los precios"
+
+#: plugin-options/general-options.php:54
+#: plugin-options/general/settings-options.php:28
+msgid "Enable to hide the \"Add to cart\" buttons on all products."
+msgstr "Activa si quieres ocultar los botones de ''Añadir al carrito'' en todos los productos."
+
+#: plugin-options/general-options.php:53
+#: plugin-options/general/settings-options.php:27
+msgid "Hide \"Add to cart\" buttons"
+msgstr "Ocultar botones de ''Añadir al carrito''"
+
+#: plugin-options/customization-options.php:129
+#: plugin-options/general/button-label-options.php:120
+msgid "Enter the text to show in the link that redirects users to the quote request list."
+msgstr "Introduce el texto a mostrar en el enlace que redirecciona a los usuarios a la lista de solicitud de presupuesto."
+
+#: plugin-options/customization-options.php:128
+#: plugin-options/general/button-label-options.php:119
+msgid "\"Browse the list\" label"
+msgstr "Etiqueta de ''Explorar lista''"
+
+#: plugin-options/customization-options.php:121
+#: plugin-options/general/button-label-options.php:111
+msgid "Enter the label to show when a product is already in the quote request list."
+msgstr "Introduce la etiqueta a mostrar cuando un producto ya está en la lista de solicitud de presupuesto."
+
+#: plugin-options/customization-options.php:120
+#: plugin-options/general/button-label-options.php:110
+msgid "\"Product already in the list\" label"
+msgstr "Etiqueta para ''El producto ya está en la lista''"
+
+#: plugin-options/customization-options.php:117
+#: plugin-options/general/button-label-options.php:107
+msgid "Product added to the list"
+msgstr "Producto añadido a la lista"
+
+#: plugin-options/customization-options.php:113
+#: plugin-options/general/button-label-options.php:103
+msgid "Enter the label to show when a product is added to a quote list."
+msgstr "Introduce la etiqueta a mostrar cuando un producto es añadido a la lista de presupuesto."
+
+#: plugin-options/customization-options.php:112
+#: plugin-options/general/button-label-options.php:102
+msgid "\"Product added to the list\" label"
+msgstr "Etiqueta para ''Producto añadido a la lista''"
+
+#: plugin-options/customization-options.php:105
+#: plugin-options/general/button-label-options.php:95
+msgid "Enter the label to show within the \"Add to quote\" button on a single product page."
+msgstr "Introduce la etiqueta a mostrar en el botón de ''Añadir al presupuesto'' en la página de producto individual."
+
+#: plugin-options/customization-options.php:104
+#: plugin-options/general/button-label-options.php:94
+msgid "\"Add to Quote\" label"
+msgstr "Etiqueta ''Añadir al presupuesto''"
+
+#: plugin-options/customization-options.php:84
+#: plugin-options/general/button-label-options.php:83
+msgid "Text Hover"
+msgstr "Texto al pasar el cursor"
+
+#: plugin-options/customization-options.php:79
+#: plugin-options/general/button-label-options.php:78
+msgid "Text"
+msgstr "Texto"
+
+#: plugin-options/customization-options.php:74
+#: plugin-options/general/button-label-options.php:73
+msgid "Background hover"
+msgstr "Fondo al pasar el cursor"
+
+#: plugin-options/customization-options.php:69
+#: plugin-options/general/button-label-options.php:68
+msgid "Background"
+msgstr "Fondo"
+
+#: plugin-options/customization-options.php:62
+#: plugin-options/general/button-label-options.php:61
+msgid "\"Add to quote\" colors"
+msgstr "Colores de ''Añadir al presupuesto''"
+
+#: plugin-options/customization-options.php:57
+#: plugin-options/general/button-label-options.php:56
+msgid "Text Link"
+msgstr "Enlace de texto"
+
+#: plugin-options/customization-options.php:51
+#: plugin-options/general/button-label-options.php:50
+msgid "Choose the style for the \"Add to quote\" button or link."
+msgstr "Escoge el estilo para el botón o enlace de ''Añadir al presupuesto''."
+
+#: plugin-options/customization-options.php:50
+#: plugin-options/general/button-label-options.php:49
+msgid "\"Add to quote\" style"
+msgstr "Estilo de ''Añadir al presupuesto''"
+
+#: plugin-options/general/button-label-options.php:44
+msgid "Button & Labels"
+msgstr "Botón y etiquetas"
+
+#: plugin-fw/templates/panel/help-tab.php:204
+msgctxt "Help tab submit ticket button"
+msgid "Submit a ticket"
+msgstr "Enviar ticket"
+
+#: plugin-fw/templates/panel/help-tab.php:196
+msgctxt "Help tab submit ticket description"
+msgid "If you are experiencing any technical issues, ask for help from our developers. Submit a ticket through our support desk and we will help you as soon as possible."
+msgstr "Si tienes algún problema técnico, pide ayuda a nuestros desarrolladores. Envía un tique a través de nuestro servicio de asistencia y te ayudaremos lo antes posible."
+
+#: plugin-fw/templates/panel/help-tab.php:193
+msgctxt "Help tab submit ticket title"
+msgid "Need help?"
+msgstr "¿Necesitas ayuda?"
+
+#: plugin-fw/templates/panel/help-tab.php:184
+msgctxt "Help tab FAQ link"
+msgid "View all FAQs >"
+msgstr "Ver todos los FAQs >"
+
+#: plugin-fw/templates/panel/help-tab.php:170
+msgctxt "Help tab FAQ title"
+msgid "Last FAQs in our Help Center"
+msgstr "Últimos FAQs en nuestro Centro de Ayuda"
+
+#: plugin-fw/templates/panel/help-tab.php:155
+msgctxt "Help tab view FAQs link"
+msgid "to find answers to your doubts."
+msgstr "para encontrar respuestas a tus dudas."
+
+#: plugin-fw/templates/panel/help-tab.php:152
+msgctxt "Help tab view FAQs link"
+msgid "Check the FAQs"
+msgstr "Comprueba los FAQ"
+
+#: plugin-fw/templates/panel/help-tab.php:139
+msgctxt "Help tab Watch video tutorials link"
+msgid "Watch our video tutorials"
+msgstr "Ve nuestros videotutoriales"
+
+#: plugin-fw/templates/panel/help-tab.php:126
+msgctxt "Help tab Read Documentation link"
+msgid "Read the documentation"
+msgstr "Lee la documentación"
+
+#: plugin-fw/templates/panel/help-tab.php:96
+msgctxt "Help tab Watch Videotutorials link"
+msgid "Videos are also available in:"
+msgstr "Los vídeos también están disponibles en:"
+
+#. translators: 1. Url to EN playlist.
+#: plugin-fw/templates/panel/help-tab.php:89
+msgctxt "Help tab view all video link"
+msgid "Check the full <a href=\"%s\" target=\"_blank\">Playlist on Youtube</a> to learn more >"
+msgstr "Consulta la <a href=\"%s\" target=\"_blank\">Lista de reproducción en Youtube</a> para saber más >"
+
+#: plugin-fw/templates/fields/image-dimensions.php:23
+msgctxt "Image height field label"
+msgid "Height"
+msgstr "Altura"
+
+#: plugin-fw/templates/fields/image-dimensions.php:18
+msgctxt "Image width field label"
+msgid "Width"
+msgstr "Anchura"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:929
+msgctxt "Help tab default description"
+msgid "We want to help you enjoy a wonderful experience with all of our products."
+msgstr "Queremos ayudarte a disfrutar de una experiencia maravillosa con todos nuestros productos."
+
+#. translators: 1. Plugin name.
+#: plugin-fw/includes/class-yit-plugin-panel.php:920
+msgctxt "Help tab default title"
+msgid "Thank you for purchasing %s!"
+msgstr "¡Gracias por comprar %s!"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1007
+msgctxt "Help tab name"
+msgid "Help"
+msgstr "Ayuda"
+
+#: plugin-fw/includes/class-yit-help-desk.php:148
+msgid "There was an error with your request; please try again later."
+msgstr "Se ha producido un error en tu solicitud; inténtalo de nuevo más tarde."
+
+#: plugin-fw/includes/class-yit-assets.php:337
+msgid "Are you sure you want to delete the selected items?"
+msgstr "¿Estás seguro de que quieres borrar los elementos seleccionados?"
+
+#: plugin-fw/includes/class-yit-assets.php:334 plugin-fw/yit-functions.php:1996
+msgctxt "Trash confirmation action"
+msgid "Yes, move to trash"
+msgstr "Sí, mover a la papelera"
+
+#: plugin-fw/includes/class-yit-assets.php:333
+msgid "Are you sure you want to trash the selected items?"
+msgstr "¿Estás seguro de que quieres mover a la papelera los elementos seleccionados?"
+
+#: includes/functions.yith-request-quote.php:483
+msgid "Reject"
+msgstr "Rechazar"
+
+#: includes/functions.yith-request-quote.php:480
+msgid "Accept"
+msgstr "Aceptar"
+
+#: includes/functions.yith-request-quote.php:474
+msgid "Add to Quote"
+msgstr "Añadir al presupuesto"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:51
+msgid "[Quote request]"
+msgstr "[Quote request]"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:50
+#: templates/emails/request-quote.php:29
+msgid "Quote request"
+msgstr "Solicitud de presupuesto"
+
+#: includes/class.yith-request-quote-admin.php:134
+#: plugin-options/general/settings-options.php:22
+msgid "General Options"
+msgstr "Opciones generales"
+
+#: plugin-fw/yit-functions.php:2131
+msgctxt "Term action"
+msgid "Delete"
+msgstr "Borrar"
+
+#: plugin-fw/yit-functions.php:2118
+msgctxt "Term action"
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: plugin-fw/yit-functions.php:2110
+msgctxt "Term action"
+msgid "Edit"
+msgstr "Editar"
+
+#: plugin-fw/yit-functions.php:2100
+msgctxt "Term action"
+msgid "View"
+msgstr "Ver"
+
+#: plugin-fw/yit-functions.php:2025 plugin-fw/yit-functions.php:2033
+#: plugin-fw/yit-functions.php:2149
+msgid "Further actions"
+msgstr "Otras acciones"
+
+#: plugin-fw/includes/class-yit-assets.php:338 plugin-fw/yit-functions.php:2014
+#: plugin-fw/yit-functions.php:2140
+msgctxt "Delete confirmation action"
+msgid "Yes, delete"
+msgstr "Si, borrar"
+
+#: plugin-fw/includes/class-yit-assets.php:336 plugin-fw/yit-functions.php:2011
+#: plugin-fw/yit-functions.php:2138
+msgid "Confirm delete"
+msgstr "Confirmar el borrado"
+
+#: plugin-fw/yit-functions.php:2004
+msgctxt "Post action"
+msgid "Delete Permanently"
+msgstr "Borrar permanentemente"
+
+#: plugin-fw/includes/class-yit-assets.php:332 plugin-fw/yit-functions.php:1993
+msgid "Confirm trash"
+msgstr "Confirmar el traslado a la papelera"
+
+#: plugin-fw/yit-functions.php:1987
+msgctxt "Post action"
+msgid "Trash"
+msgstr "A la papelera"
+
+#: plugin-fw/yit-functions.php:1979
+msgctxt "Post action"
+msgid "Restore"
+msgstr "Restaurar"
+
+#: plugin-fw/yit-functions.php:1967
+msgctxt "Post action"
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: plugin-fw/yit-functions.php:1959
+msgctxt "Post action"
+msgid "Edit"
+msgstr "Editar"
+
+#: plugin-fw/yit-functions.php:1948
+msgctxt "Post action"
+msgid "View"
+msgstr "Ver"
+
+#: plugin-fw/yit-functions.php:1939
+msgctxt "Post action"
+msgid "Preview"
+msgstr "Previsualizar"
+
+#. translators: %s is the title of the post object.
+#: plugin-fw/includes/class-yit-assets.php:337 plugin-fw/yit-functions.php:1927
+#: plugin-fw/yit-functions.php:2086
+msgid "This action cannot be undone and you will not be able to recover this data."
+msgstr "Esta acción no se puede revertir y no podrá recuperar estos datos."
+
+#. translators: %s is the title of the post object.
+#: plugin-fw/yit-functions.php:1927 plugin-fw/yit-functions.php:2086
+msgid "Are you sure you want to delete \"%s\"?"
+msgstr "¿Estás seguro de que quieres borrar \"%s\"?"
+
+#. translators: %s is the title of the post object.
+#: plugin-fw/yit-functions.php:1925
+msgid "Are you sure you want to move \"%s\" to trash?"
+msgstr "¿Estás seguro de que quieres mover \"%s\" a la papelera?"
+
+#. translators: %s is the name of the post type (example Back to "Membership
+#. Plans").
+#: plugin-fw/includes/class-yith-post-type-admin.php:294
+msgid "Back to the list"
+msgstr "Volver a la lista"
+
+#. translators: %s is the name of the post type (example Back to "Membership
+#. Plans").
+#: plugin-fw/includes/class-yith-post-type-admin.php:294
+msgid "Back to \"%s\""
+msgstr "Volver a \"%s\""
+
+#: plugin-fw/includes/class-yit-assets.php:321
+msgctxt "Button text"
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: plugin-fw/includes/class-yit-assets.php:320
+msgctxt "Button text"
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:31
+msgid "Options Saved"
+msgstr "Opciones guardadas"
+
+#: plugin-fw/templates/panel/v2/panel-content-page.php:58
+#: plugin-fw/templates/panel/v2/woocommerce/woocommerce-form.php:69
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:27
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:31
+msgid "Save Options"
+msgstr "Guardar Opciones"
+
+#: plugin-fw/templates/panel/panel-header.php:26
+#: plugin-fw/templates/panel/v2/panel-header.php:21
+msgid "help us by leaving a good review"
+msgstr "ayúdanos dejando una buena valoración"
+
+#: plugin-fw/templates/fields/copy-to-clipboard.php:45
+msgctxt "Copy-to-clipboard button text"
+msgid "Copy"
+msgstr "Copiar"
+
+#: plugin-fw/templates/fields/copy-to-clipboard.php:41
+msgctxt "Copy-to-clipboard message"
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+#. Plugin Name of the plugin
+#: init.php
+msgid "YITH Request a Quote for WooCommerce"
+msgstr "YITH Request a Quote for WooCommerce"
+
+#. translators: %s it the Elementor Widget title.
+#: plugin-fw/includes/builders/elementor/class-yith-elementor-widget.php:252
+msgctxt "Elementor Widget - section title"
+msgid "%s - Options"
+msgstr "%s - Opciones"
+
+#: plugin-fw/templates/fields/date-format.php:70
+msgid "Preview:"
+msgstr "Vista previa:"
+
+#: plugin-fw/includes/class-yit-pointers.php:97
+msgid "From now on, you can find the option panel of YITH plugins in YITH menu. Every time one of our plugins is added, a new entry will be added to this menu. For example, after the update, plugin options (such as for YITH WooCommerce Wishlist, YITH WooCommerce Ajax Search, etc.) will be moved from previous location to YITH menu."
+msgstr "Desde ahora puedes encontrar la opción en el panel de Plugins de YITH en el menú YITH plugins. Cada vez que uno de nuestros plugins es añadido, una nueva entrada será añadida a este menú. Por ejemplo, tras la actualización, las opciones de los plugins (tales como YITH WooCommerce Wishlist, YITH WooCommerce Ajax Search, etc.) serán movidos de la ubicación previa a la pestaña de YITH plugins."
+
+#. translators: 1. YITH site link; 2. WordPress site link.
+#: plugin-fw/includes/class-yit-pointers.php:84
+#: plugin-fw/includes/class-yit-pointers.php:100
+msgid "Discover all our plugins available on: %1$s and %2$s"
+msgstr "Descubre todos nuestros plugins disponibles en: %1$s y %2$s"
+
+#: plugin-fw/includes/class-yit-pointers.php:81
+msgid "From now on, you can find all plugin options in YITH menu. Plugin customization settings will be available as a new entry in YITH menu."
+msgstr "Desde ahora, puedes encontrar todas las opciones de los plugins en el menú YITH plugins. La personalización de los ajustes del plugins estará disponible como una nueva entrada en el menú YITH plugins."
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:72
+msgid "Plugins Requirements"
+msgstr "Requerimientos de los plugins"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:41
+msgid "Site Info"
+msgstr "Información del sitio"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:95
+msgid "Copy Code"
+msgstr "Copiar código"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:95
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+#. translators: %s file name.
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:86
+msgid "No Log file available. Enable the WordPress debug by adding this in the %s file of your installation"
+msgstr "No hay archivo de registro disponible. Activa la depuración de WordPress añadiendo este código en el archivo %s de tu instalación"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:59
+msgid "The file size exceeds 8 megabytes so it must be downloaded"
+msgstr "El archivo excede los 8 megabytes por lo que debe ser descargado"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:48
+msgid "Download"
+msgstr "Descargar"
+
+#: plugin-fw/includes/class-yith-system-status.php:199
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:108
+msgid "Log Files"
+msgstr "Archivos de registro"
+
+#: plugin-fw/includes/class-yith-system-status.php:191
+msgid "PHPInfo"
+msgstr "Información PHP"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:57
+msgid "External object cache"
+msgstr "Caché de objeto externo"
+
+#: plugin-fw/includes/class-yit-assets.php:335
+#: plugin-fw/includes/class-yit-assets.php:339
+#: plugin-fw/templates/sysinfo/tabs/main.php:54
+#: plugin-fw/templates/sysinfo/tabs/main.php:58
+#: plugin-fw/yit-functions.php:1995 plugin-fw/yit-functions.php:2013
+msgid "No"
+msgstr "No"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:54
+#: plugin-fw/templates/sysinfo/tabs/main.php:58
+msgid "Yes"
+msgstr "Sí"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:53
+msgid "Defined WP_CACHE"
+msgstr "WP_CACHE definido"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:18
+msgid "PHP error_log file"
+msgstr "Archivo PHP error_log"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:13
+msgid "WP debug.log file"
+msgstr "Archivo WP debug.log"
+
+#. translators: %1$s TLS label
+#: plugin-fw/includes/class-yith-system-status.php:624
+msgid "The system check cannot determine which %1$s version is installed due to a connection issue between your site and our server."
+msgstr "La comprobación del sistema no ha podido determinar qué versión de %1$s está instalada debido a un error entre tu sitio y nuestro servidor."
+
+#. translators: %1$s TLS label, %2$s cURL label
+#: plugin-fw/includes/class-yith-system-status.php:621
+msgid "The system check cannot determine which %1$s version is installed because %2$s module is disabled. Ask your hosting company to enable it."
+msgstr "La comprobación del sistema no ha podido determinar qué versión de %1$s está instalada porque el módulo %2$s está desactivado. Solicita a tu compañia de hosting que lo active."
+
+#: plugin-fw/includes/class-yith-system-status.php:563
+msgid "Contact your hosting company in order to install it."
+msgstr "Ponte en contacto con tu empresa de hosting para instalarlo."
+
+#: plugin-fw/includes/class-yit-assets.php:374
+msgid "Color value"
+msgstr "Valor del color"
+
+#: plugin-fw/includes/class-yit-assets.php:373
+msgid "Select Color"
+msgstr "Seleccionar color"
+
+#: plugin-fw/includes/class-yit-assets.php:372
+msgid "Select default color"
+msgstr "Seleccionar color predeterminado"
+
+#: plugin-fw/includes/class-yit-assets.php:371
+msgid "Default"
+msgstr "Predeterminado"
+
+#: plugin-fw/includes/class-yit-assets.php:370
+msgid "Clear color"
+msgstr "Borrar color"
+
+#: plugin-fw/includes/class-yit-assets.php:369
+msgid "Clear"
+msgstr "Borrar"
+
+#: plugin-options/request-options.php:53
+msgid "Page Layout"
+msgstr "Diseño de la página"
+
+#: plugin-fw/templates/fields/dimensions.php:94
+msgctxt "Tooltip in the \"Dimensions\" field"
+msgid "Link values together"
+msgstr "Enlazar valores juntos"
+
+#: plugin-fw/templates/fields/dimensions.php:16
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Left"
+msgstr "Izquierda"
+
+#: plugin-fw/templates/fields/dimensions.php:15
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Bottom"
+msgstr "Parte inferior"
+
+#: plugin-fw/templates/fields/dimensions.php:14
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Right"
+msgstr "Derecha"
+
+#: plugin-fw/templates/fields/dimensions.php:13
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Top"
+msgstr "Parte superior"
+
+#: plugin-fw/templates/panel/panel-header.php:27
+#: plugin-fw/templates/panel/v2/panel-header.php:22
+msgid ":) Thanks!"
+msgstr ":) ¡Gracias!"
+
+#: plugin-fw/templates/panel/panel-header.php:24
+#: plugin-fw/templates/panel/v2/panel-header.php:19
+msgid "to keep updating and improving the plugin. Please,"
+msgstr "para que podamos seguir actualizando y mejorando el plugin. Por favor,"
+
+#: plugin-fw/templates/panel/panel-header.php:23
+#: plugin-fw/templates/panel/v2/panel-header.php:18
+msgid "We need your support"
+msgstr "Necesitamos tu apoyo"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:49
+msgid "Output IP Address"
+msgstr "Dirección IP de salida"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:45
+msgid "Site URL"
+msgstr "URL del sitio"
+
+#. translators: 1. user display name; 2. user ID; 3. user email.
+#: plugin-fw/templates/fields/ajax-customers.php:68
+#: plugin-fw/templates/fields/ajax-customers.php:79
+msgid "%1$s (#%2$s &ndash; %3$s)"
+msgstr "%1$s (#%2$s &ndash; %3$s)"
+
+#: plugin-fw/includes/class-yith-system-status.php:522
+msgid "N/A"
+msgstr "N/D"
+
+#: plugin-fw/includes/class-yith-system-status.php:144
+msgid "Iconv Module"
+msgstr "Módulo Iconv"
+
+#. translators: %1$s open link tag, %2$s open link tag
+#: plugin-fw/includes/class-yith-system-status.php:372
+msgid "The system check has detected some compatibility issues on your installation.%1$sClick here%2$s to know more"
+msgstr "La comprobación del sistema ha detectado algunos problemas de compatibilidad en tu instalación.%1$sHaz clic quí%2$s para saber más"
+
+#: plugin-fw/includes/class-yith-system-status.php:368
+msgid "Warning!"
+msgstr "¡Atención!"
+
+#: plugin-fw/includes/class-yith-system-status.php:225
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: plugin-fw/includes/class-yith-system-status.php:146
+msgid "URL FOpen"
+msgstr "URL FOpen"
+
+#: plugin-fw/includes/class-yith-system-status.php:145
+msgid "OPCache Save Comments"
+msgstr "Guardar comentarios OPCache"
+
+#: plugin-fw/includes/class-yith-system-status.php:143
+msgid "GD Library"
+msgstr "Biblioteca GD"
+
+#: plugin-fw/includes/class-yith-system-status.php:142
+msgid "ImageMagick Version"
+msgstr "Versión ImageMagick"
+
+#: plugin-fw/includes/class-yith-system-status.php:141
+msgid "MultiByte String"
+msgstr "Cadena MultiByte"
+
+#: plugin-fw/includes/class-yith-system-status.php:140
+msgid "SimpleXML"
+msgstr "SimpleXML"
+
+#: plugin-fw/includes/class-yith-system-status.php:139
+msgid "WordPress Cron"
+msgstr "Cron de WordPress"
+
+#: plugin-fw/includes/class-yith-system-status.php:138
+msgid "TLS Version"
+msgstr "Versión TLS"
+
+#: plugin-fw/includes/class-yith-system-status.php:137
+msgid "PHP Version"
+msgstr "Versión PHP"
+
+#: plugin-fw/includes/class-yith-system-status.php:136
+msgid "Available Memory"
+msgstr "Memoria disponible"
+
+#: plugin-fw/includes/class-yith-system-status.php:135
+msgid "WooCommerce Version"
+msgstr "Versión de WooCommerce"
+
+#: plugin-fw/includes/class-yith-system-status.php:134
+msgid "WordPress Version"
+msgstr "Versión de WordPress"
+
+#: plugin-fw/includes/class-yith-system-status.php:161
+#: plugin-fw/includes/class-yith-system-status.php:162
+#: plugin-fw/includes/class-yith-system-status.php:187
+msgid "System Status"
+msgstr "Estado del sistema"
+
+#. translators: %1$s opening link tag, %2$s closing link tag
+#: plugin-fw/includes/class-yith-system-status.php:582
+#: plugin-fw/includes/class-yith-system-status.php:616
+msgid "Read more %1$shere%2$s or contact your hosting company in order to increase it."
+msgstr "Lee más %1$saquí%2$s o contacta a tu empresa de hosting para incrementarlo."
+
+#: plugin-fw/includes/class-yith-system-status.php:578
+msgid "Contact your hosting company in order to enable it."
+msgstr "Contacta con tu empresa de hosting para activarlo."
+
+#. translators: %1$s code, %2$s file name
+#: plugin-fw/includes/class-yith-system-status.php:570
+msgid "Remove %1$s from %2$s file"
+msgstr "Eliminar %1$s desde el archivo %2$s "
+
+#: plugin-fw/includes/class-yith-system-status.php:559
+#: plugin-fw/includes/class-yith-system-status.php:565
+msgid "Contact your hosting company in order to update it."
+msgstr "Ponte en contacto con tu empresa de hosting para actualizarlo."
+
+#: plugin-fw/includes/class-yith-system-status.php:555
+msgid "Update it to the latest version in order to benefit of all new features and security updates."
+msgstr "Actualízalo a la última versión para beneficiarte de todas las características y actualizaciones de seguridad."
+
+#. translators: %1$s plugin name, %2$s version number
+#: plugin-fw/includes/class-yith-system-status.php:549
+msgid "%1$s needs at least %2$s version"
+msgstr "%1$s necesita al menos la versión %2$s"
+
+#. translators: %s recommended memory amount
+#: plugin-fw/includes/class-yith-system-status.php:613
+msgid "For optimal functioning of our plugins, we suggest setting at least %s of available memory"
+msgstr "Para el óptimo funcionamiento de nuestros plugins, sugerimos al menos %s de memoria disponible"
+
+#. translators: %1$s plugin name, %2$s required memory amount
+#: plugin-fw/includes/class-yith-system-status.php:546
+msgid "%1$s needs at least %2$s of available memory"
+msgstr "%1$s necesita al menos %2$s de memoria disponible"
+
+#. translators: %1$s plugin name, %2$s requirement name
+#: plugin-fw/includes/class-yith-system-status.php:543
+msgid "%1$s needs %2$s enabled"
+msgstr "%1$s necesita %2$s activado"
+
+#: plugin-fw/includes/class-yith-system-status.php:518
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: plugin-fw/includes/class-yith-system-status.php:518
+msgid "Enabled"
+msgstr "Activado"
+
+#: plugin-fw/templates/sysinfo/system-information-panel.php:27
+msgid "YITH System Information"
+msgstr "Información de Sistema de YITH"
+
+#: plugin-fw/templates/fields/date-format.php:65
+msgid "Custom:"
+msgstr "Personalizado:"
+
+#: plugin-fw/templates/fields/select-buttons.php:20
+msgid "Remove All"
+msgstr "Eliminar todo"
+
+#: plugin-fw/templates/fields/select-buttons.php:19
+msgid "Add All"
+msgstr "Añadir todo"
+
+#: plugin-fw/includes/class-yith-dashboard.php:137
+msgctxt "Button label"
+msgid "Close"
+msgstr "Cerrar"
+
+#: plugin-fw/includes/class-yith-dashboard.php:97
+msgctxt "Plugin FW"
+msgid "Latest update released on"
+msgstr "Última actualización publicada el"
+
+#: plugin-fw/includes/class-yith-dashboard.php:96
+msgctxt "Plugin FW"
+msgid "View Changelog"
+msgstr "Ver Registro de cambios"
+
+#: plugin-fw/includes/class-yith-dashboard.php:63
+msgid "An error has occurred, which probably means the feed is down. Try again later."
+msgstr "Ha ocurrido un error, lo que puede que signifique que el feed ha caído. Inténtalo de nuevo más tarde."
+
+#: plugin-fw/includes/class-yith-dashboard.php:56
+msgid "RSS Error:"
+msgstr "Error RSS:"
+
+#: plugin-fw/includes/class-yith-dashboard.php:36
+msgid "Latest news from YITH Blog"
+msgstr "Últimas novedades del Blog de YITH"
+
+#: plugin-fw/includes/class-yith-dashboard.php:35
+msgid "YITH Latest Updates"
+msgstr "Últimas actualizaciones de YITH"
+
+#: plugin-fw/includes/builders/gutenberg/class-yith-gutenberg.php:156
+msgctxt "[gutenberg]: Category Name"
+msgid "YITH"
+msgstr "YITH"
+
+#. Author of the plugin
+#: init.php
+msgid "YITH"
+msgstr "YITH"
+
+#: plugin-fw/yit-plugin.php:98
+msgctxt "Plugin Row Meta"
+msgid "Premium version"
+msgstr "Versión premium"
+
+#: plugin-fw/yit-plugin.php:94
+msgctxt "Plugin Row Meta"
+msgid "Support"
+msgstr "Soporte"
+
+#. Description of the plugin
+#: init.php
+msgid "<code><strong>YITH Request a Quote for WooCommerce</strong></code> lets your customers ask for an estimate of a list of products they are interested in. It allows hiding prices and/or the \"Add to cart\" button so that your customers can request a quote on every product page. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>."
+msgstr "<code><strong>YITH Woocommerce Request A Quote</strong></code> permite a tus clientes solicitar un presupuesto de una lista de productos en la que estén interesados. Te permite ocultar el botón «añade al carrito» para que tus clientes puedan pedir un presupuesto en cada página de producto. <a href=\"https://yithemes.com/\" target=\"_blank\">Obtén más plugins para tu comercio electrónico en <strong>YITH</strong></a>."
+
+#. Plugin URI of the plugin
+#: init.php
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-request-a-quote"
+msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-request-a-quote"
+
+#: plugin-fw/yit-plugin.php:90
+msgctxt "Plugin Row Meta"
+msgid "Documentation"
+msgstr "Documentación"
+
+#: plugin-fw/yit-plugin.php:86
+msgctxt "Plugin Row Meta"
+msgid "Live Demo"
+msgstr "Demostración en vivo"
+
+#: plugin-fw/yit-plugin.php:243
+msgid "License"
+msgstr "Licencia"
+
+#: plugin-fw/yit-plugin.php:239
+msgctxt "Action links"
+msgid "Settings"
+msgstr "Ajustes"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:106
+msgctxt "Privacy Policy Content"
+msgid "Payments"
+msgstr "Pagos"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:103
+msgctxt "Privacy Policy Content"
+msgid "What we share with others"
+msgstr "Qué compartimos con otros"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:100
+msgctxt "Privacy Policy Content"
+msgid "Who on our team has access"
+msgstr "Quién en nuestro equipo tiene acceso"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:97
+msgctxt "Privacy Policy Content"
+msgid "What we collect and store"
+msgstr "Qué recopilamos y almacenamos"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:93
+msgctxt "Privacy Policy Content"
+msgid "This sample language includes the basics around what personal data your store may be collecting, storing and sharing, as well as who may have access to that data. Depending on what settings are enabled and which additional plugins are used, the specific information shared by your store will vary. We recommend consulting with a lawyer when deciding what information to disclose on your privacy policy."
+msgstr "Este idioma de prueba incluye la información principal sobre qué tipo de información puede estar recopilando, almacenando y compartiendo tu tienda, así como quién tiene acceso a esa información. Dependiendo de los ajustes configurados y qué plugins adicionales sean usados, la información específica compartida por tu sitio variará. Recomendamos consultar con un abogado cuando decidas qué información mostrar en tu política de privacidad."
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:61
+msgctxt "Privacy Policy Guide Title"
+msgid "YITH Plugins"
+msgstr "Plugins de YITH"
+
+#: plugin-options/request-options.php:128
+msgid "Your personal data will be used to process your request, support your experience throughout this website, and for other purposes described in our  [privacy_policy]."
+msgstr "Tus datos personales se usarán para procesar tu solicitud, respaldar tu experiencia en este sitio web y para otros fines descritos en nuestra [privacy_policy]."
+
+#: plugin-options/request-options.php:123
+msgid "Request a quote Privacy Policy"
+msgstr "Política de privacidad de Request a Quote"
+
+#: plugin-options/request-options.php:116
+msgid "I have read and agree to the website terms and conditions."
+msgstr "He leído y acepto los términos y condiciones del sitio."
+
+#: plugin-options/request-options.php:112
+#: plugin-options/request-options.php:124
+msgid "You can use the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)"
+msgstr "Puedes utilizar el shortcode [terms] y [privacy_policy] (from WooCommerce 3.4.0)"
+
+#: plugin-options/request-options.php:111
+msgid "Request a quote Privacy Policy Label"
+msgstr "Etiqueta de política de privacidad de Request a Quote"
+
+#: plugin-options/request-options.php:103
+msgid "Add Privacy Policy"
+msgstr "Añadir política de privacidad"
+
+#: plugin-fw/templates/fields/icons.php:78
+msgid "Set Default"
+msgstr "Establecer predeterminado"
+
+#: templates/request-quote-view.php:71
+msgid " SKU:"
+msgstr "SKU:"
+
+#: includes/functions.yith-request-quote.php:468
+msgid "Product added to the list!"
+msgstr "¡Producto añadido a la lista!"
+
+#: includes/class.yith-request-quote.php:716
+msgid "Please choose product options&hellip;"
+msgstr "Por favor elige opciones de producto&hellip;"
+
+#. translators: placeholder of missing attributes.
+#: includes/class.yith-request-quote.php:712
+msgid "%s is a required field"
+msgid_plural "%s are required fields"
+msgstr[0] "%s es un campo obligatorio"
+msgstr[1] "%s  son campos obligatorios"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:559
+#: plugin-fw/includes/class-yit-plugin-panel.php:562
+msgid "How to install premium version"
+msgstr "Cómo instalar la versión premium"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:240
+msgid "Enable this email notification"
+msgstr "Activar este aviso por correo electrónico"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:238
+msgid "Enable/Disable"
+msgstr "Activar/Desactivar"
+
+#. Author URI of the plugin
+#: init.php
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#: plugin-options/request-options.php:91 templates/request-quote-view.php:167
+msgid "Update List"
+msgstr "Actualizar lista"
+
+#: templates/request-quote-view.php:51
+msgid "Remove this item"
+msgstr "Eliminar este artículo"
+
+#: templates/request-quote-view.php:34
+msgid "Total"
+msgstr "Total"
+
+#: templates/request-quote-view.php:22
+msgid "No products in list"
+msgstr "No hay productos en la lista"
+
+#: templates/request-quote-form.php:54
+msgid "Send Your Request"
+msgstr "Enviar tu solicitud"
+
+#: templates/request-quote-form.php:38
+msgid "Notes on your request..."
+msgstr "Notas de tu solicitud..."
+
+#: templates/request-quote-form.php:37
+msgid "Message"
+msgstr "Mensaje"
+
+#: templates/request-quote-form.php:20
+msgid "Send the request"
+msgstr "Enviar la solicitud"
+
+#: templates/emails/request-quote.php:36
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#: templates/emails/request-quote.php:35 templates/request-quote-view.php:32
+#: templates/request-quote-view.php:132
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: templates/emails/request-quote.php:34 templates/request-quote-view.php:31
+#: templates/request-quote-view.php:67
+msgid "Product"
+msgstr "Producto"
+
+#. translators: %s: user name
+#: templates/emails/request-quote.php:23
+msgid "You received a quote request from %s. The request is the following:"
+msgstr "Se ha recibido una solicitud de presupuesto de %s:"
+
+#: templates/emails/plain/request-quote.php:60
+#: templates/emails/request-quote.php:78
+msgid "Email:"
+msgstr "Correo electrónico:"
+
+#: templates/emails/plain/request-quote.php:58
+#: templates/emails/request-quote.php:77
+msgid "Name:"
+msgstr "Nombre:"
+
+#: templates/emails/plain/request-quote.php:56
+#: templates/emails/request-quote.php:75
+msgid "Customer details"
+msgstr "Detalles de cliente"
+
+#: templates/emails/plain/request-quote.php:51
+#: templates/emails/request-quote.php:72
+msgid "Customer message"
+msgstr "Mensaje del cliente"
+
+#. translators: %s: user name
+#: templates/emails/plain/request-quote.php:21
+msgid "You have received a quote request from %s. The request is the following:"
+msgstr "Se ha recibido una solicitud de presupuesto de %s:"
+
+#: plugin-options/customization-options.php:125
+#: plugin-options/general/button-label-options.php:115
+msgid "This product is already in your quote request list."
+msgstr "Este producto ya está en tu lista de solicitudes de presupuesto."
+
+#: includes/class.yith-ywraq-shortcodes.php:46
+#: plugin-options/customization-options.php:109
+#: plugin-options/general/button-label-options.php:99
+msgid "Add to quote"
+msgstr "Añadir al presupuesto"
+
+#: plugin-options/customization-options.php:56
+#: plugin-options/general/button-label-options.php:55
+msgid "Button"
+msgstr "Botón"
+
+#: includes/class.yith-request-quote-admin.php:144
+msgid "\"Request Quote\" Page"
+msgstr "Página «solicita un presupuesto»"
+
+#: plugin-fw/templates/panel/v2/panel-content-page.php:59
+#: plugin-fw/templates/panel/v2/woocommerce/woocommerce-form.php:70
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:41
+msgid "Reset Defaults"
+msgstr "Restablecer valores predeterminados"
+
+#: plugin-fw/templates/fields/upload.php:39
+msgid "Reset"
+msgstr "Restablecer"
+
+#: plugin-fw/templates/fields/sidebars.php:54
+msgid "Right Sidebar"
+msgstr "Barra lateral derecha"
+
+#: plugin-fw/templates/fields/sidebars.php:39
+msgid "Left Sidebar"
+msgstr "Barra lateral izquierda"
+
+#: plugin-fw/templates/fields/sidebars.php:41
+#: plugin-fw/templates/fields/sidebars.php:56
+msgid "Choose a sidebar"
+msgstr "Elige una barra lateral"
+
+#: plugin-fw/templates/fields/sidebars.php:23
+msgid "Right sidebar"
+msgstr "Barra lateral derecha"
+
+#: plugin-fw/templates/fields/sidebars.php:26
+#: plugin-fw/templates/fields/sidebars.php:29
+msgid "No sidebar"
+msgstr "Sin barra lateral"
+
+#: plugin-fw/templates/fields/sidebars.php:20
+msgid "Left sidebar"
+msgstr "Barra lateral izquierda"
+
+#: plugin-fw/templates/fields/image-gallery.php:26
+#: plugin-fw/templates/fields/image-gallery.php:37
+msgid "Delete"
+msgstr "Eliminar"
+
+#: plugin-fw/templates/fields/image-gallery.php:35
+msgid "Add images"
+msgstr "Añadir imágenes"
+
+#: plugin-fw/templates/fields/image-gallery.php:34
+msgid "Add to gallery"
+msgstr "Añadir a la galería"
+
+#: plugin-fw/templates/fields/image-gallery.php:33
+msgid "Add Images to Gallery"
+msgstr "Añadir imágenes a la Galería"
+
+#: plugin-fw/templates/fields/image-gallery.php:36
+msgid "Delete image"
+msgstr "Eliminar imagen"
+
+#: plugin-fw/templates/fields/customtabs.php:93
+msgid "Do you want to remove the custom tab?"
+msgstr "¿Quieres eliminar la pestaña personalizada?"
+
+#: plugin-fw/templates/fields/customtabs.php:52
+msgid "Add custom product tab"
+msgstr "Añadir pestaña de producto personalizada"
+
+#: plugin-fw/templates/fields/customtabs.php:41
+#: plugin-fw/templates/fields/customtabs.php:82
+msgid "Content of the tab. (HTML is supported)"
+msgstr "Contenido de la pestaña. (Compatible con HTML)"
+
+#: plugin-fw/templates/fields/customtabs.php:40
+#: plugin-fw/templates/fields/customtabs.php:81
+msgid "Value"
+msgstr "Valor"
+
+#: plugin-fw/templates/fields/customtabs.php:17
+msgid "Expand all"
+msgstr "Expandir todo"
+
+#: plugin-fw/templates/fields/customtabs.php:17
+msgid "Close all"
+msgstr "Cerrar todo"
+
+#: plugin-fw/templates/fields/upload.php:34
+#: plugin-fw/templates/panel/woocommerce/woocommerce-upload.php:37
+msgid "Upload"
+msgstr "Subir"
+
+#: plugin-fw/templates/fields/customtabs.php:25
+#: plugin-fw/templates/fields/customtabs.php:68
+msgid "Remove"
+msgstr "Eliminar"
+
+#: plugin-fw/templates/fields/ajax-products.php:16
+msgid "Search for a product..."
+msgstr "Buscar un producto…"
+
+#: templates/request-quote-form.php:31
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: plugin-fw/includes/class-yit-pointers.php:96
+msgid "Plugins Upgraded"
+msgstr "Plugins mejorados"
+
+#: plugin-fw/includes/class-yit-pointers.php:80
+msgid "Plugins Activated"
+msgstr "Plugins activados"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1567
+msgid "Sorting successful."
+msgstr "Clasificación realizada con éxito"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1566
+msgid "Sorry, import is disabled."
+msgstr "Lo siento, la importación está desactivada."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1565
+msgid "The added file is not valid."
+msgstr "El archivo añadido no es válido."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1564
+msgid "An error has occurred during import. Please try again."
+msgstr "Ha ocurrido un error durante la importación. Por favor, inténtalo de nuevo."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1563
+msgid "Database imported correctly."
+msgstr "Base de datos importada correctamente."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1561
+msgid "Element updated correctly."
+msgstr "Elemento actualizado correctamente."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1560
+msgid "Element deleted correctly."
+msgstr "Elemento eliminado correctamente."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1559
+msgid "Settings reset"
+msgstr "Restablecer ajustes"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1558
+msgid "Settings saved"
+msgstr "Ajustes guardados"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1557
+msgid "The element you have entered already exists. Please, enter another name."
+msgstr "El elemento que has introducido ya existe. Por favor, introduce otro nombre."
+
+#: plugin-fw/includes/class-yit-assets.php:357
+#: plugin-fw/includes/class-yit-plugin-subpanel.php:134
+#: plugin-fw/templates/panel/panel-content-page.php:14
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#: plugin-fw/includes/class-yit-plugin-subpanel.php:137
+#: plugin-fw/templates/panel/panel-content-page.php:38
+msgid "Reset to default"
+msgstr "Restablecer valores predeterminados"
+
+#: plugin-fw/includes/class-yit-assets.php:358
+#: plugin-fw/includes/class-yit-plugin-subpanel.php:134
+#: plugin-fw/templates/panel/panel-content-page.php:14
+msgid "If you continue with this action, you will reset all options in this page."
+msgstr "Si continúas con esta acción, restablecerás todas las opciones en esta página."
+
+#: plugin-fw/includes/class-yit-plugin-subpanel.php:127
+#: plugin-fw/templates/panel/panel-content-page.php:29
+msgid "Save Changes"
+msgstr "Guardar cambios"
+
+#: plugin-fw/includes/class-yith-system-status.php:217
+msgid "YITH Plugins"
+msgstr "YITH Plugins"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:89
+msgid "Plugin Settings"
+msgstr "Ajustes del plugin"
+
+#: plugin-fw/includes/class-yit-plugin-panel-woocommerce.php:599
+msgid "The changes you have made will be lost if you leave this page."
+msgstr "Los cambios que has hecho se perderán si abandonas esta página."
+
+#: plugin-fw/templates/fields/customtabs.php:34
+#: plugin-fw/templates/fields/customtabs.php:76
+#: templates/request-quote-form.php:25
+msgid "Name"
+msgstr "Nombre"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:296
+msgid "Multipart"
+msgstr "Multiparte"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:295
+msgid "HTML"
+msgstr "HTML"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:294
+msgid "Plain text"
+msgstr "Texto sin formato"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:290
+msgid "Choose format for the email to be sent."
+msgstr "Elige el formato del correo electrónico a enviar."
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:288
+msgid "Email type"
+msgstr "Tipo de correo electrónico"
+
+#. translators: placeholder default email heading.
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:283
+msgid "This field lets you modify the main heading contained within the email notification. Leave blank to use the default heading: <code>%s</code>."
+msgstr "Este campo te permite modificar el encabezado del correo electrónico. Déjalo en blanco para usar un texto predeterminado: <code>%s</code>."
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:280
+msgid "Email Heading"
+msgstr "Encabezado del correo electrónico"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:276
+msgid "Send a carbon copy to the user"
+msgstr "Enviar una copia CC al usuario"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:274
+msgid "Send CC copy"
+msgstr "Enviar copia CC"
+
+#. translators: placeholder default recipient.
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:269
+msgid "Enter recipients (comma separated) for this email. Defaults to <code>%s</code>"
+msgstr "Introduce los correos electrónicos de los destinatarios (separados por comas). Por defecto es <code>%s</code>"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:266
+msgid "Recipient(s)"
+msgstr "Destinatario(s)"
+
+#. translators: placeholder subject.
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:261
+msgid "This field lets you modify the email subject line. Leave it blank to use default subject: <code>%s</code>."
+msgstr "Este campo te permite modificar el asunto del correo electrónico. Déjalo en blanco para usar un asunto predeterminado: <code>%s</code>."
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:258
+msgid "Subject"
+msgstr "Asunto"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:251
+msgid "\"From\" Email Address"
+msgstr "Dirección de correo electrónico \"De\""
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:244
+msgid "\"From\" Name"
+msgstr "Nombre \"De\""
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:133
+msgid "There was a problem in sending your request. Please try again."
+msgstr "Hubo un problema al enviar tu solicitud. Por favor, inténtalo nuevamente."
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:131
+msgid "Your request has been sent successfully"
+msgstr "¡Tu pedido fue enviado correctamente!"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:48
+msgid "This email is sent when a user clicks on \"Request a quote\" button"
+msgstr "Este correo se envía cuando un usuario hace clic en el botón de \"Solicitud de presupuesto\" "
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:47
+msgid "Email to request a quote"
+msgstr "Correo electrónico para solicitar un presupuesto"
+
+#: includes/class.yith-request-quote.php:582
+msgid "Your list is empty, add products to the list to send a request"
+msgstr "Tu lista está vacía, añade productos a la lista para enviar una solicitud"
+
+#: includes/class.yith-request-quote.php:578
+msgid "Please enter a valid email"
+msgstr "Por favor, introduce un correo electrónico válido"
+
+#: includes/class.yith-request-quote.php:573
+msgid "Please enter a name"
+msgstr "Por favor, introduce un nombre"
+
+#: includes/class.yith-request-quote.php:454
+msgid "Error occurred while adding product to Request a Quote list."
+msgstr "Ha ocurrido un error mientras se añadía el producto a la lista de solicitud de presupuesto"
+
+#: includes/class.yith-request-quote.php:288
+#: includes/functions.yith-request-quote.php:477
+msgid "Product already in the list."
+msgstr "El producto ya está en la lista."
+
+#: includes/functions.yith-request-quote.php:471
+#: plugin-options/customization-options.php:133
+#: plugin-options/general/button-label-options.php:124
+msgid "Browse the list"
+msgstr "Explorar la lista"
+
+#: includes/class.yith-request-quote-frontend.php:143
+msgid "Your list is empty"
+msgstr "La lista está vacía"
+
+#: includes/class.yith-request-quote-admin.php:238
+msgctxt "page_slug"
+msgid "request-quote"
+msgstr "request-quote"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:90
+msgid "Settings"
+msgstr "Ajustes"
