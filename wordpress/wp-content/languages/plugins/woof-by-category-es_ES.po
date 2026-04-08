@@ -1,0 +1,96 @@
+# Translation of Plugins - WOOF by Category - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - WOOF by Category - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-03-10 16:12:09+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - WOOF by Category - Stable (latest release)\n"
+
+#. translators: 1: plugin version.
+#: src/php/Main.php:1417
+msgid "Version %s"
+msgstr "Versión %s"
+
+#. translators: 1: plugin name, 2: wp.org review link with stars, 3: wp.org
+#. review link with text.
+#: src/php/Main.php:1382
+msgid "Please rate %1$s %2$s on %3$s. Thank you!"
+msgstr "Por favor, valora %1$s %2$s en %3$s. ¡Gracias!"
+
+#: src/php/Main.php:827
+msgid "-Default filters-"
+msgstr "-Filtros por defecto-"
+
+#. Plugin URI of the plugin
+#: woof-by-category.php
+msgid "https://wordpress.org/plugins/woof-by-category/"
+msgstr "https://es.wordpress.org/plugins/woof-by-category/"
+
+#: src/php/Main.php:1120
+msgid "WOOF by Category plugin has been deactivated."
+msgstr "El plugin WOOF by Category ha sido desactivado."
+
+#: src/php/Main.php:1331
+msgid "Settings"
+msgstr "Ajustes"
+
+#: src/php/Main.php:1330
+msgid "View WOOF by Category settings"
+msgstr "Ver los ajustes de WOOF by Category"
+
+#: src/php/Main.php:828
+msgid "-Shop Page-"
+msgstr "-Página de Tienda-"
+
+#. Author URI of the plugin
+#: woof-by-category.php
+msgid "https://kagg.eu/en/"
+msgstr "https://kagg.eu/en/"
+
+#. Author of the plugin
+#: woof-by-category.php
+msgid "KAGG Design"
+msgstr "KAGG Design"
+
+#. Description of the plugin
+#: woof-by-category.php
+msgid "WooCommerce Product Filter (WOOF) extension to display a set of filters depending on the current product category page."
+msgstr "Extensión WooCommerce Product Filter (WOOF) para mostrar un conjunto de filtros en función de la página de la categoría del producto actual."
+
+#: src/php/Main.php:1084
+msgid "WOOF by Category plugin requires the following plugins installed and activated: "
+msgstr "El plugin WOOF by Category requiere de los siguientes plugins instalados y activados: "
+
+#: src/php/Main.php:893
+msgid "Categories and Filters"
+msgstr "Filtros y Categorías"
+
+#: src/php/Main.php:883
+msgid "Filters"
+msgstr "Filtros"
+
+#: src/php/Main.php:874
+msgid "Product Category"
+msgstr "Categoría de Producto"
+
+#: src/php/Main.php:836
+msgid "--Select Filters--"
+msgstr "--Seleccionar Filtros--"
+
+#: src/php/Main.php:826
+msgid "--Select Category--"
+msgstr "--Seleccionar Categoría--"
+
+#: src/php/Main.php:780
+msgid "WOOF by Category Plugin Options"
+msgstr "Opciones de WOOF by Category"
+
+#. Plugin Name of the plugin
+#: woof-by-category.php src/php/Main.php:762 src/php/Main.php:763
+msgid "WOOF by Category"
+msgstr "WOOF by Category"
