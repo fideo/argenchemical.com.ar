@@ -2,34 +2,30 @@
 /**
  * Plugin Name: Argen Filter Categories
  * Plugin URI:  https://argenchemical.federicomazzei.com.ar
- * Description: Widget de sidebar con checkboxes para filtrar productos WooCommerce por categoría de forma dinámica (sin recargar la página). Compatible con el plugin Widget de Categorías Dinámico.
- * Version:     1.0.0
+ * Description: Widget de sidebar con checkboxes para filtrar productos WooCommerce. Los resultados se muestran en el área principal de la tienda, sin recargar la página. Compatible con Astra + WooCommerce + argen-quote-loop.
+ * Version:     1.2.0
  * Author:      Federico Mazzei
  * License:     GPL-2.0+
  * Text Domain: argen-filter-categories
  * Requires Plugins: woocommerce
  */
 
-// Seguridad: bloquear acceso directo al archivo
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 // ─────────────────────────────────────────────
-// CONSTANTES DEL PLUGIN
+// CONSTANTES
 // ─────────────────────────────────────────────
-define( 'AFC_VERSION',   '1.0.0' );
-define( 'AFC_DIR',       plugin_dir_path( __FILE__ ) );
-define( 'AFC_URL',       plugin_dir_url( __FILE__ ) );
+define( 'AFC_VERSION',     '1.2.0' );
+define( 'AFC_URL',         plugin_dir_url( __FILE__ ) );
 define( 'AFC_AJAX_ACTION', 'afc_filter_products' );
 
+
 // ─────────────────────────────────────────────
-// 1. REGISTRAR EL WIDGET
+// 1. REGISTRAR WIDGET
 // ─────────────────────────────────────────────
-function afc_register_widget() {
+add_action( 'widgets_init', function () {
     register_widget( 'AFC_Filter_Widget' );
-}
-add_action( 'widgets_init', 'afc_register_widget' );
+} );
 
 
 // ─────────────────────────────────────────────
@@ -41,340 +37,531 @@ class AFC_Filter_Widget extends WP_Widget {
         parent::__construct(
             'afc_filter_widget',
             __( 'Filtro de Categorías (Argen)', 'argen-filter-categories' ),
-            array(
-                'description' => __( 'Filtra productos WooCommerce por categoría usando checkboxes dinámicos.', 'argen-filter-categories' ),
+            [
+                'description' => __( 'Checkboxes para filtrar productos WooCommerce. Los resultados aparecen en la zona principal de la tienda.', 'argen-filter-categories' ),
                 'classname'   => 'afc-filter-widget',
-            )
+            ]
         );
     }
 
-    // ── FRONTEND ──────────────────────────────
+    // ── Frontend ──────────────────────────────
     public function widget( $args, $instance ) {
 
-        // Verificar que WooCommerce esté activo
-        if ( ! class_exists( 'WooCommerce' ) ) {
-            return;
-        }
+        if ( ! class_exists( 'WooCommerce' ) ) return;
 
-        $titulo        = ! empty( $instance['title'] )         ? $instance['title']         : __( 'Filtrar por Categoría', 'argen-filter-categories' );
-        $mostrar_count = ! empty( $instance['mostrar_count'] ) ? true                        : false;
-        $cols          = ! empty( $instance['columnas'] )      ? absint( $instance['columnas'] ) : 3;
-        $posts_por_pag = ! empty( $instance['por_pagina'] )    ? absint( $instance['por_pagina'] ) : 9;
+        $titulo        = ! empty( $instance['title'] )         ? $instance['title'] : __( 'Categorías', 'argen-filter-categories' );
+        $mostrar_count = ! empty( $instance['mostrar_count'] );
+        $mostrar_hijos = ! empty( $instance['mostrar_hijos'] );
 
-        $categorias = get_terms( array(
+        // Nueva opción: mostrar widget abierto o cerrado por defecto
+        // 'open'  → lista visible al cargar la página
+        // 'closed' → lista oculta, el usuario la abre manualmente
+        $estado_inicial = ! empty( $instance['estado_inicial'] ) ? $instance['estado_inicial'] : 'open';
+        $widget_abierto = ( $estado_inicial === 'open' );
+
+        $categorias = get_terms( [
             'taxonomy'   => 'product_cat',
             'orderby'    => 'name',
             'order'      => 'ASC',
             'hide_empty' => true,
             'parent'     => 0,
-        ) );
+        ] );
 
-        if ( empty( $categorias ) || is_wp_error( $categorias ) ) {
-            return;
-        }
+        if ( empty( $categorias ) || is_wp_error( $categorias ) ) return;
 
         echo $args['before_widget'];
 
+        // ── Título con botón de colapso ────────
+        // El título tiene un botón para que el usuario pueda
+        // abrir/cerrar todo el widget (independiente de los checkboxes).
         if ( $titulo ) {
-            echo $args['before_title'] . apply_filters( 'widget_title', esc_html( $titulo ) ) . $args['after_title'];
+            echo $args['before_title'];
+            /*echo '<button class="afc-widget-toggle" '
+                . 'aria-expanded="' . ( $widget_abierto ? 'true' : 'false' ) . '" '
+                . 'aria-controls="afc-widget-body-' . esc_attr( $this->id ) . '" '
+                . 'aria-label="' . esc_attr__( 'Mostrar u ocultar filtros', 'argen-filter-categories' ) . '">'
+                . apply_filters( 'widget_title', esc_html( $titulo ) )
+                . '<span class="afc-widget-toggle-icon" aria-hidden="true"></span>'
+                . '</button>';*/
+            echo apply_filters( 'widget_title', esc_html( $titulo ) );
+            echo $args['after_title'];
         }
 
-        // Contenedor principal del widget
-        echo '<div class="afc-widget-inner" '
-            . 'data-cols="' . esc_attr( $cols ) . '" '
-            . 'data-per-page="' . esc_attr( $posts_por_pag ) . '">';
+        // ── Cuerpo colapsable del widget ───────
+        // data-default-open lo lee el JS para saber el estado inicial
+        // sin depender de clases que podrían ser sobrescritas por el tema.
+        echo '<div class="afc-widget-body" '
+            . 'id="afc-widget-body-' . esc_attr( $this->id ) . '" '
+            . 'data-default-open="' . ( $widget_abierto ? '1' : '0' ) . '">';
 
-        // ── Lista de checkboxes ────────────────
-        echo '<ul class="afc-cat-list">';
+        echo '<ul class="afc-cat-list" role="group" aria-label="'
+            . esc_attr__( 'Categorías de productos', 'argen-filter-categories' ) . '">';
 
         foreach ( $categorias as $cat ) {
-            $count_html = '';
-            if ( $mostrar_count ) {
-                $count_html = '<span class="afc-count">' . absint( $cat->count ) . '</span>';
-            }
 
-            // Obtener imagen de la categoría (thumbnail de WooCommerce)
-            $thumbnail_id  = get_term_meta( $cat->term_id, 'thumbnail_id', true );
-            $img_src       = $thumbnail_id
+            $thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+            $img_src      = $thumbnail_id
                 ? wp_get_attachment_image_url( $thumbnail_id, 'thumbnail' )
                 : wc_placeholder_img_src( 'thumbnail' );
 
-            echo '<li class="afc-cat-item">';
-            echo '<label class="afc-cat-label">';
-            echo '<input type="checkbox" '
-                . 'class="afc-cat-checkbox" '
-                . 'value="' . esc_attr( $cat->term_id ) . '" '
-                . 'data-slug="' . esc_attr( $cat->slug ) . '">';
+            $count_html  = $mostrar_count ? '<span class="afc-count">' . absint( $cat->count ) . '</span>' : '';
+            $checkbox_id = 'afc-cat-' . $cat->term_id;
+
+            $hijos = [];
+            if ( $mostrar_hijos ) {
+                $hijos = get_terms( [
+                    'taxonomy'   => 'product_cat',
+                    'parent'     => $cat->term_id,
+                    'hide_empty' => true,
+                ] );
+            }
+            $tiene_hijos = ! empty( $hijos ) && ! is_wp_error( $hijos );
+            $item_class  = 'afc-cat-item' . ( $tiene_hijos ? ' has-children' : '' );
+
+            echo '<li class="' . esc_attr( $item_class ) . ' is-open" data-cat-id="' . esc_attr( $cat->term_id ) . '">';
+            echo '<div class="afc-cat-row">';
+
+            // Label: checkbox + thumbnail + nombre + contador
+            echo '<label class="afc-cat-label" for="' . esc_attr( $checkbox_id ) . '">';
+            echo '<input type="checkbox"'
+                . ' id="'         . esc_attr( $checkbox_id ) . '"'
+                . ' class="afc-cat-checkbox"'
+                . ' value="'      . esc_attr( $cat->term_id ) . '"'
+                . ' data-slug="'  . esc_attr( $cat->slug ) . '">';
+            echo '<span class="afc-checkbox-visual" aria-hidden="true"></span>';
             echo '<span class="afc-cat-thumb">'
-                . '<img src="' . esc_url( $img_src ) . '" '
-                . 'alt="' . esc_attr( $cat->name ) . '" '
-                . 'width="32" height="32" loading="lazy">'
+                . '<img src="' . esc_url( $img_src ) . '" alt="" width="28" height="28" loading="lazy">'
                 . '</span>';
             echo '<span class="afc-cat-name">' . esc_html( $cat->name ) . '</span>';
             echo $count_html;
             echo '</label>';
+
+            // Botón toggle para subcategorías (acordeón)
+            if ( $tiene_hijos ) {
+                echo '<button class="afc-subcat-toggle" aria-expanded="true" '
+                    . 'aria-label="' . esc_attr( sprintf( __( 'Expandir %s', 'argen-filter-categories' ), $cat->name ) ) . '">'
+                    . '<span class="afc-toggle-icon" aria-hidden="true"></span>'
+                    . '</button>';
+            }
+
+            echo '</div>'; // .afc-cat-row
+
+            // Subcategorías
+            if ( $tiene_hijos ) {
+                echo '<ul class="afc-subcat-list">';
+                foreach ( $hijos as $hijo ) {
+                    $hijo_count_html = $mostrar_count ? '<span class="afc-count">' . absint( $hijo->count ) . '</span>' : '';
+                    $hijo_id         = 'afc-cat-' . $hijo->term_id;
+
+                    echo '<li class="afc-cat-item afc-subcat-item" data-cat-id="' . esc_attr( $hijo->term_id ) . '">';
+                    echo '<div class="afc-cat-row">';
+                    echo '<label class="afc-cat-label" for="' . esc_attr( $hijo_id ) . '">';
+                    echo '<input type="checkbox"'
+                        . ' id="'        . esc_attr( $hijo_id ) . '"'
+                        . ' class="afc-cat-checkbox"'
+                        . ' value="'     . esc_attr( $hijo->term_id ) . '"'
+                        . ' data-slug="' . esc_attr( $hijo->slug ) . '"'
+                        . ' data-parent="' . esc_attr( $cat->term_id ) . '">';
+                    echo '<span class="afc-checkbox-visual" aria-hidden="true"></span>';
+                    echo '<span class="afc-cat-name">' . esc_html( $hijo->name ) . '</span>';
+                    echo $hijo_count_html;
+                    echo '</label>';
+                    echo '</div>';
+                    echo '</li>';
+                }
+                echo '</ul>';
+            }
+
             echo '</li>';
         }
 
         echo '</ul>'; // .afc-cat-list
 
-        // ── Botón "Limpiar filtros" ────────────
-        echo '<button class="afc-clear-btn" style="display:none;">'
-            . '<span class="afc-clear-icon">✕</span> '
+        // Botón limpiar (oculto hasta que haya alguna selección)
+        echo '<button class="afc-clear-btn" style="display:none;" '
+            . 'aria-label="' . esc_attr__( 'Limpiar todos los filtros', 'argen-filter-categories' ) . '">'
+            . '<span aria-hidden="true">✕</span> '
             . esc_html__( 'Limpiar filtros', 'argen-filter-categories' )
             . '</button>';
 
-        echo '</div>'; // .afc-widget-inner
-
-        // ── Área de resultados (fuera del widget, en el contenido principal) ──
-        // Se renderiza solo una vez aunque haya múltiples widgets en la página.
-        // El JS lo ubica si existe; sino lo inserta dinámicamente.
-        if ( ! did_action( 'afc_results_rendered' ) ) {
-            do_action( 'afc_results_rendered' );
-            echo '<div id="afc-results-area" '
-                . 'data-cols="' . esc_attr( $cols ) . '" '
-                . 'data-per-page="' . esc_attr( $posts_por_pag ) . '" '
-                . 'aria-live="polite" aria-atomic="true">'
-                . '<div class="afc-results-inner"></div>'
-                . '<div class="afc-loader" aria-label="' . esc_attr__( 'Cargando productos...', 'argen-filter-categories' ) . '">'
-                . '<span></span><span></span><span></span>'
-                . '</div>'
-                . '</div>';
-        }
-
+        echo '</div>'; // .afc-widget-body
         echo $args['after_widget'];
     }
 
-    // ── BACKEND: formulario de configuración ──
+    // ── Backend: formulario de configuración ──
     public function form( $instance ) {
-        $title         = ! empty( $instance['title'] )         ? $instance['title']         : __( 'Filtrar por Categoría', 'argen-filter-categories' );
-        $mostrar_count = ! empty( $instance['mostrar_count'] ) ? '1'                         : '0';
-        $columnas      = ! empty( $instance['columnas'] )      ? absint( $instance['columnas'] ) : 3;
-        $por_pagina    = ! empty( $instance['por_pagina'] )    ? absint( $instance['por_pagina'] ) : 9;
+        $title          = ! empty( $instance['title'] )          ? $instance['title']                  : __( 'Categorías', 'argen-filter-categories' );
+        $mostrar_count  = ! empty( $instance['mostrar_count'] )  ? '1'                                 : '0';
+        $mostrar_hijos  = ! empty( $instance['mostrar_hijos'] )  ? '1'                                 : '0';
+        $estado_inicial = ! empty( $instance['estado_inicial'] ) ? $instance['estado_inicial']         : 'open';
+        $cols           = ! empty( $instance['columnas'] )       ? absint( $instance['columnas'] )     : 3;
+        $per_page       = ! empty( $instance['por_pagina'] )     ? absint( $instance['por_pagina'] )   : 9;
         ?>
         <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
                 <?php esc_html_e( 'Título:', 'argen-filter-categories' ); ?>
             </label>
             <input class="widefat"
-                   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-                   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-                   type="text"
-                   value="<?php echo esc_attr( $title ); ?>">
+                id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
+                name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
+                type="text" value="<?php echo esc_attr( $title ); ?>">
         </p>
 
         <p>
             <input type="checkbox"
-                   id="<?php echo esc_attr( $this->get_field_id( 'mostrar_count' ) ); ?>"
-                   name="<?php echo esc_attr( $this->get_field_name( 'mostrar_count' ) ); ?>"
-                   value="1" <?php checked( $mostrar_count, '1' ); ?>>
+                id="<?php echo esc_attr( $this->get_field_id( 'mostrar_count' ) ); ?>"
+                name="<?php echo esc_attr( $this->get_field_name( 'mostrar_count' ) ); ?>"
+                value="1" <?php checked( $mostrar_count, '1' ); ?>>
             <label for="<?php echo esc_attr( $this->get_field_id( 'mostrar_count' ) ); ?>">
                 <?php esc_html_e( 'Mostrar cantidad de productos', 'argen-filter-categories' ); ?>
             </label>
         </p>
 
         <p>
+            <input type="checkbox"
+                id="<?php echo esc_attr( $this->get_field_id( 'mostrar_hijos' ) ); ?>"
+                name="<?php echo esc_attr( $this->get_field_name( 'mostrar_hijos' ) ); ?>"
+                value="1" <?php checked( $mostrar_hijos, '1' ); ?>>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'mostrar_hijos' ) ); ?>">
+                <?php esc_html_e( 'Mostrar subcategorías', 'argen-filter-categories' ); ?>
+            </label>
+        </p>
+
+        <?php
+        // ── Nueva opción: estado inicial del widget ────────────────
+        // Determina si la lista de categorías se muestra abierta
+        // o cerrada cuando el visitante llega a la página.
+        ?>
+        <p style="border-top:1px solid #ddd; padding-top:10px; margin-top:4px;">
+            <strong><?php esc_html_e( 'Estado inicial del widget:', 'argen-filter-categories' ); ?></strong>
+        </p>
+        <p>
+            <label>
+                <input type="radio"
+                    name="<?php echo esc_attr( $this->get_field_name( 'estado_inicial' ) ); ?>"
+                    value="open"
+                    <?php checked( $estado_inicial, 'open' ); ?>>
+                <?php esc_html_e( 'Abierto (las categorías se ven al cargar la página)', 'argen-filter-categories' ); ?>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="radio"
+                    name="<?php echo esc_attr( $this->get_field_name( 'estado_inicial' ) ); ?>"
+                    value="closed"
+                    <?php checked( $estado_inicial, 'closed' ); ?>>
+                <?php esc_html_e( 'Cerrado (el visitante debe hacer click para ver las categorías)', 'argen-filter-categories' ); ?>
+            </label>
+        </p>
+
+        <p style="border-top:1px solid #ddd; padding-top:10px; margin-top:4px;">
+            <strong><?php esc_html_e( 'Grilla de resultados:', 'argen-filter-categories' ); ?></strong>
+        </p>
+        <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'columnas' ) ); ?>">
-                <?php esc_html_e( 'Columnas en el grid de resultados:', 'argen-filter-categories' ); ?>
+                <?php esc_html_e( 'Columnas:', 'argen-filter-categories' ); ?>
             </label>
             <select class="widefat"
-                    id="<?php echo esc_attr( $this->get_field_id( 'columnas' ) ); ?>"
-                    name="<?php echo esc_attr( $this->get_field_name( 'columnas' ) ); ?>">
-                <?php foreach ( array( 2, 3, 4 ) as $n ) : ?>
-                    <option value="<?php echo $n; ?>" <?php selected( $columnas, $n ); ?>>
+                id="<?php echo esc_attr( $this->get_field_id( 'columnas' ) ); ?>"
+                name="<?php echo esc_attr( $this->get_field_name( 'columnas' ) ); ?>">
+                <?php foreach ( [ 2, 3, 4 ] as $n ) : ?>
+                    <option value="<?php echo $n; ?>" <?php selected( $cols, $n ); ?>>
                         <?php echo $n; ?> <?php esc_html_e( 'columnas', 'argen-filter-categories' ); ?>
                     </option>
                 <?php endforeach; ?>
             </select>
         </p>
-
         <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'por_pagina' ) ); ?>">
                 <?php esc_html_e( 'Productos por página:', 'argen-filter-categories' ); ?>
             </label>
             <input class="widefat"
-                   id="<?php echo esc_attr( $this->get_field_id( 'por_pagina' ) ); ?>"
-                   name="<?php echo esc_attr( $this->get_field_name( 'por_pagina' ) ); ?>"
-                   type="number" min="1" max="48"
-                   value="<?php echo esc_attr( $por_pagina ); ?>">
+                id="<?php echo esc_attr( $this->get_field_id( 'por_pagina' ) ); ?>"
+                name="<?php echo esc_attr( $this->get_field_name( 'por_pagina' ) ); ?>"
+                type="number" min="1" max="48"
+                value="<?php echo esc_attr( $per_page ); ?>">
         </p>
         <?php
     }
 
-    // ── GUARDAR configuración ─────────────────
+    // ── Guardar configuración ─────────────────
     public function update( $new_instance, $old_instance ) {
-        $instance                  = array();
-        $instance['title']         = sanitize_text_field( $new_instance['title'] );
-        $instance['mostrar_count'] = ! empty( $new_instance['mostrar_count'] ) ? '1' : '0';
-        $instance['columnas']      = absint( $new_instance['columnas'] );
-        $instance['por_pagina']    = absint( $new_instance['por_pagina'] );
-        return $instance;
+        $estado = sanitize_text_field( $new_instance['estado_inicial'] ?? 'open' );
+        return [
+            'title'          => sanitize_text_field( $new_instance['title'] ),
+            'mostrar_count'  => ! empty( $new_instance['mostrar_count'] ) ? '1' : '0',
+            'mostrar_hijos'  => ! empty( $new_instance['mostrar_hijos'] ) ? '1' : '0',
+            'estado_inicial' => in_array( $estado, [ 'open', 'closed' ], true ) ? $estado : 'open',
+            'columnas'       => max( 2, min( 4, absint( $new_instance['columnas'] ) ) ),
+            'por_pagina'     => max( 1, min( 48, absint( $new_instance['por_pagina'] ) ) ),
+        ];
     }
 }
 
 
 // ─────────────────────────────────────────────
-// 3. ENDPOINT AJAX — Filtrar productos
+// 3. INYECTAR CONTENEDOR EN EL CONTENIDO PRINCIPAL
 // ─────────────────────────────────────────────
-/**
- * Maneja la petición AJAX y devuelve HTML de productos.
- * Responde tanto a usuarios logueados como no logueados.
- */
+add_action( 'woocommerce_before_shop_loop', 'afc_inject_results_container', 5 );
+
+function afc_inject_results_container() {
+    if ( ! ( is_shop() || is_product_category() || is_product_tag() ) ) return;
+
+    $cols     = 3;
+    $per_page = 9;
+
+    $sidebars = wp_get_sidebars_widgets();
+    foreach ( $sidebars as $widget_ids ) {
+        if ( empty( $widget_ids ) ) continue;
+        foreach ( $widget_ids as $widget_id ) {
+            if ( strpos( $widget_id, 'afc_filter_widget' ) === 0 ) {
+                $number = str_replace( 'afc_filter_widget-', '', $widget_id );
+                $opts   = get_option( 'widget_afc_filter_widget' );
+                if ( isset( $opts[ $number ] ) ) {
+                    $inst     = $opts[ $number ];
+                    $cols     = ! empty( $inst['columnas'] )   ? absint( $inst['columnas'] )   : 3;
+                    $per_page = ! empty( $inst['por_pagina'] ) ? absint( $inst['por_pagina'] ) : 9;
+                }
+                break 2;
+            }
+        }
+    }
+    ?>
+    <div id="afc-results-area"
+         data-cols="<?php echo esc_attr( $cols ); ?>"
+         data-per-page="<?php echo esc_attr( $per_page ); ?>"
+         aria-live="polite"
+         aria-atomic="true"
+         style="display:none;">
+
+        <div class="afc-results-header">
+            <span class="afc-results-count-text"></span>
+            <button class="afc-results-close">
+                <span aria-hidden="true">←</span>
+                <?php esc_html_e( 'Ver todos los productos', 'argen-filter-categories' ); ?>
+            </button>
+        </div>
+
+        <div class="afc-loader" aria-hidden="true">
+            <span></span><span></span><span></span>
+        </div>
+
+        <div class="afc-results-inner"></div>
+
+    </div>
+    <?php
+}
+
+
+// ─────────────────────────────────────────────
+// 4. ENDPOINT AJAX
+//    Genera exactamente la misma estructura HTML
+//    que usa argen-quote-loop para las tarjetas,
+//    de modo que quote-loop.css/js las controla.
+// ─────────────────────────────────────────────
+add_action( 'wp_ajax_'        . AFC_AJAX_ACTION, 'afc_ajax_filter_products' );
+add_action( 'wp_ajax_nopriv_' . AFC_AJAX_ACTION, 'afc_ajax_filter_products' );
+
 function afc_ajax_filter_products() {
 
-    // ── Seguridad: verificar nonce ─────────────
     check_ajax_referer( AFC_AJAX_ACTION, 'nonce' );
 
-    // ── Sanitizar parámetros de entrada ────────
-    $cat_ids    = isset( $_POST['cat_ids'] )    ? array_map( 'absint', (array) $_POST['cat_ids'] )    : array();
-    $cols       = isset( $_POST['cols'] )       ? absint( $_POST['cols'] )                             : 3;
-    $per_page   = isset( $_POST['per_page'] )   ? absint( $_POST['per_page'] )                         : 9;
-    $paged      = isset( $_POST['paged'] )      ? absint( $_POST['paged'] )                            : 1;
+    $cat_ids  = isset( $_POST['cat_ids'] )  ? array_map( 'absint', (array) $_POST['cat_ids'] ) : [];
+    $cols     = isset( $_POST['cols'] )     ? max( 1, min( 5, absint( $_POST['cols'] ) ) )      : 3;
+    $per_page = isset( $_POST['per_page'] ) ? max( 1, min( 48, absint( $_POST['per_page'] ) ) ) : 9;
+    $paged    = isset( $_POST['paged'] )    ? max( 1, absint( $_POST['paged'] ) )                : 1;
 
-    // Límites de seguridad
-    $cols     = max( 1, min( 6, $cols ) );
-    $per_page = max( 1, min( 48, $per_page ) );
-    $paged    = max( 1, $paged );
+    if ( empty( $cat_ids ) ) {
+        wp_send_json_error( [ 'message' => 'No categories provided.' ] );
+    }
 
-    // ── Construir WP_Query ─────────────────────
-    $query_args = array(
+    $query = new WP_Query( [
         'post_type'      => 'product',
         'post_status'    => 'publish',
         'posts_per_page' => $per_page,
         'paged'          => $paged,
         'orderby'        => 'title',
         'order'          => 'ASC',
-    );
+        'tax_query'      => [ [
+            'taxonomy'         => 'product_cat',
+            'field'            => 'term_id',
+            'terms'            => $cat_ids,
+            'operator'         => 'IN',
+            'include_children' => true,
+        ] ],
+    ] );
 
-    if ( ! empty( $cat_ids ) ) {
-        $query_args['tax_query'] = array(
-            array(
-                'taxonomy'         => 'product_cat',
-                'field'            => 'term_id',
-                'terms'            => $cat_ids,
-                'operator'         => 'IN',
-                'include_children' => true,
-            ),
-        );
-    }
-
-    $query = new WP_Query( $query_args );
-
-    // ── Sin resultados ─────────────────────────
     if ( ! $query->have_posts() ) {
-        wp_send_json_success( array(
-            'html'       => '<p class="afc-no-results">' . esc_html__( 'No se encontraron productos para las categorías seleccionadas.', 'argen-filter-categories' ) . '</p>',
-            'total'      => 0,
-            'pages'      => 0,
-            'current'    => 1,
-        ) );
+        wp_send_json_success( [
+            'html'    => '<p class="afc-no-results">'
+                . esc_html__( 'No se encontraron productos para las categorías seleccionadas.', 'argen-filter-categories' )
+                . '</p>',
+            'total'   => 0,
+            'pages'   => 0,
+            'current' => 1,
+        ] );
     }
 
-    // ── Generar HTML de la grilla ──────────────
+    // ── Nonce de argen-quote-loop (si está activo) ─────────────────
+    // argen-quote-loop usa su propio nonce para el AJAX de agregar al presupuesto.
+    // Lo generamos acá para incrustarlo en el data-nonce del botón.
+    $quote_nonce_action = 'argen_add_to_quote'; // debe coincidir con el plugin hermano
+    $quote_nonce        = wp_create_nonce( $quote_nonce_action );
+
     ob_start();
 
-    echo '<div class="afc-products-grid afc-cols-' . esc_attr( $cols ) . '">';
+    // ── Wrapper: misma estructura que genera WooCommerce ──────────
+    // ul.products con la clase de columnas que usa Astra/WooCommerce.
+    // Así quote-loop.css y quote-loop.js funcionan sin modificaciones.
+    echo '<ul class="products columns-' . esc_attr( $cols ) . ' afc-filtered-products">';
 
     while ( $query->have_posts() ) {
         $query->the_post();
-        global $product;
 
-        if ( ! $product instanceof WC_Product ) {
-            $product = wc_get_product( get_the_ID() );
+        $product_id = get_the_ID();
+        $product    = wc_get_product( $product_id );
+        if ( ! $product ) continue;
+
+        // ── Imagen para vista lista (argen-list-img-wrap) ──────────
+        $img_src = get_the_post_thumbnail_url( $product_id, 'thumbnail' );
+        if ( ! $img_src ) {
+            $img_src = wc_placeholder_img_src( 'thumbnail' );
         }
 
-        if ( ! $product ) {
-            continue;
+        // ── Variaciones del producto ───────────────────────────────
+        $variations_html = '';
+        if ( $product->is_type( 'variable' ) ) {
+            $attributes = $product->get_variation_attributes();
+            foreach ( $attributes as $attr_name => $options ) {
+                $attr_label      = wc_attribute_label( $attr_name );
+                $attr_name_clean = sanitize_title( $attr_name );
+
+                $variations_html .= '<div class="argen-variation-row">';
+                $variations_html .= '<label class="argen-variation-label">' . esc_html( $attr_label ) . '</label>';
+                $variations_html .= '<select class="argen-variation-select" data-attribute="' . esc_attr( $attr_name_clean ) . '">';
+                $variations_html .= '<option value="">' . esc_html__( 'Elegí una opción', 'argen-filter-categories' ) . '</option>';
+                foreach ( $options as $option ) {
+                    $variations_html .= '<option value="' . esc_attr( $option ) . '">' . esc_html( $option ) . '</option>';
+                }
+                $variations_html .= '</select>';
+                $variations_html .= '</div>';
+            }
         }
 
-        $permalink     = get_permalink();
-        $img_html      = get_the_post_thumbnail( get_the_ID(), 'woocommerce_thumbnail', array( 'class' => 'afc-product-img' ) );
-        $price_html    = $product->get_price_html();
-        $on_sale       = $product->is_on_sale();
-        $cats          = get_the_terms( get_the_ID(), 'product_cat' );
-        $cat_name      = ( $cats && ! is_wp_error( $cats ) ) ? esc_html( $cats[0]->name ) : '';
-        $badge         = $on_sale ? '<span class="afc-badge afc-badge-sale">' . esc_html__( 'Oferta', 'argen-filter-categories' ) . '</span>' : '';
+        // ── HTML de la tarjeta ─────────────────────────────────────
+        // Estructura idéntica a la que genera argen-quote-loop.php,
+        // para que quote-loop.css y quote-loop.js la controlen al 100%.
+        ?>
+        <li class="product type-product">
+            <form class="argen-quote-loop-form">
+                <div class="argen-form-inner">
 
-        echo '<article class="afc-product-card">';
-        echo '<a href="' . esc_url( $permalink ) . '" class="afc-product-img-wrap" tabindex="-1" aria-hidden="true">';
-        echo $img_html ?: '<div class="afc-product-img-placeholder"></div>';
-        echo $badge;
-        echo '</a>';
+                    <!-- Imagen (visible en vista lista) -->
+                    <div class="argen-list-img-wrap">
+                        <img class="argen-list-thumb"
+                             src="<?php echo esc_url( $img_src ); ?>"
+                             alt="<?php echo esc_attr( get_the_title() ); ?>"
+                             width="64" height="43" loading="lazy">
+                    </div>
 
-        echo '<div class="afc-product-body">';
-        if ( $cat_name ) {
-            echo '<span class="afc-product-cat">' . $cat_name . '</span>';
-        }
-        echo '<h3 class="afc-product-title">';
-        echo '<a href="' . esc_url( $permalink ) . '">' . esc_html( get_the_title() ) . '</a>';
-        echo '</h3>';
+                    <!-- Nombre (visible en vista lista) -->
+                    <div class="argen-list-name">
+                        <a href="<?php echo esc_url( get_permalink() ); ?>">
+                            <?php echo esc_html( get_the_title() ); ?>
+                        </a>
+                    </div>
 
-        if ( $price_html ) {
-            echo '<div class="afc-product-price">' . wp_kses_post( $price_html ) . '</div>';
-        }
+                    <!-- Variaciones -->
+                    <?php if ( $variations_html ) : ?>
+                        <div class="argen-variations-wrap">
+                            <?php echo $variations_html; ?>
+                        </div>
+                    <?php endif; ?>
 
-        echo '<a href="' . esc_url( $permalink ) . '" class="afc-product-btn">'
-            . esc_html__( 'Ver producto', 'argen-filter-categories' )
-            . '</a>';
-        echo '</div>'; // .afc-product-body
+                    <!-- Cantidad + botón -->
+                    <div class="argen-qty-quote-row">
+                        <div class="argen-qty-wrapper">
+                            <button type="button" class="argen-qty-btn argen-qty-minus" aria-label="<?php esc_attr_e( 'Reducir cantidad', 'argen-filter-categories' ); ?>">−</button>
+                            <input type="number"
+                                   class="argen-qty-input"
+                                   value="1" min="1" max="9999"
+                                   aria-label="<?php esc_attr_e( 'Cantidad', 'argen-filter-categories' ); ?>">
+                            <button type="button" class="argen-qty-btn argen-qty-plus" aria-label="<?php esc_attr_e( 'Aumentar cantidad', 'argen-filter-categories' ); ?>">+</button>
+                        </div>
 
-        echo '</article>';
+                        <div class="argen-add-quote-wrap">
+                            <button type="button"
+                                    class="argen-add-quote-btn"
+                                    data-product-id="<?php echo esc_attr( $product_id ); ?>"
+                                    data-nonce="<?php echo esc_attr( $quote_nonce ); ?>">
+                                <?php esc_html_e( 'Agregar', 'argen-filter-categories' ); ?>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Feedback AJAX -->
+                    <div class="argen-quote-feedback" aria-live="polite"></div>
+
+                </div><!-- .argen-form-inner -->
+            </form><!-- .argen-quote-loop-form -->
+
+            <!-- Nombre e imagen para VISTA GRILLA (los genera el tema/WooCommerce) -->
+            <!-- En grilla, argen-list-img-wrap y argen-list-name están display:none  -->
+            <!-- y la imagen real la mostramos aquí para que el tema la estilice      -->
+            <a href="<?php echo esc_url( get_permalink() ); ?>" class="woocommerce-loop-product__link">
+                <?php echo get_the_post_thumbnail( $product_id, 'woocommerce_thumbnail' ); ?>
+                <h2 class="woocommerce-loop-product__title"><?php echo esc_html( get_the_title() ); ?></h2>
+            </a>
+
+        </li>
+        <?php
     }
 
-    echo '</div>'; // .afc-products-grid
-
+    echo '</ul>'; // .products
     wp_reset_postdata();
 
-    $html = ob_get_clean();
-
-    wp_send_json_success( array(
-        'html'    => $html,
+    wp_send_json_success( [
+        'html'    => ob_get_clean(),
         'total'   => (int) $query->found_posts,
         'pages'   => (int) $query->max_num_pages,
         'current' => $paged,
-    ) );
+    ] );
 }
-add_action( 'wp_ajax_'        . AFC_AJAX_ACTION, 'afc_ajax_filter_products' );
-add_action( 'wp_ajax_nopriv_' . AFC_AJAX_ACTION, 'afc_ajax_filter_products' );
 
 
 // ─────────────────────────────────────────────
-// 4. CARGAR ESTILOS Y SCRIPTS
+// 5. ASSETS
 // ─────────────────────────────────────────────
+add_action( 'wp_enqueue_scripts', 'afc_enqueue_assets' );
+
 function afc_enqueue_assets() {
+    if ( ! class_exists( 'WooCommerce' ) ) return;
 
-    // Solo cargar si WooCommerce está activo
-    if ( ! class_exists( 'WooCommerce' ) ) {
-        return;
-    }
-
+    // Solo cargamos nuestro CSS de sidebar + contenedor de resultados.
+    // Los estilos de las tarjetas los maneja quote-loop.css del plugin hermano.
     wp_enqueue_style(
         'afc-style',
         AFC_URL . 'assets/afc-style.css',
-        array(),
+        [],
         AFC_VERSION
     );
 
     wp_enqueue_script(
         'afc-script',
         AFC_URL . 'assets/afc-script.js',
-        array(),          // Sin dependencias (vanilla JS)
+        [],
         AFC_VERSION,
-        true              // Footer
+        true
     );
 
-    // Pasar variables de PHP a JS de forma segura
-    wp_localize_script( 'afc-script', 'afcData', array(
+    wp_localize_script( 'afc-script', 'afcData', [
         'ajaxUrl' => admin_url( 'admin-ajax.php' ),
         'nonce'   => wp_create_nonce( AFC_AJAX_ACTION ),
         'action'  => AFC_AJAX_ACTION,
-        'i18n'    => array(
-            'loading'   => __( 'Cargando productos...', 'argen-filter-categories' ),
-            'noResults' => __( 'No se encontraron productos.', 'argen-filter-categories' ),
-            'error'     => __( 'Ocurrió un error. Intentá nuevamente.', 'argen-filter-categories' ),
-            'all'       => __( 'todos', 'argen-filter-categories' ),
-            'results'   => __( 'productos encontrados', 'argen-filter-categories' ),
-        ),
-    ) );
+        'i18n'    => [
+            'error'   => __( 'Ocurrió un error. Intentá nuevamente.', 'argen-filter-categories' ),
+            'found'   => __( 'productos encontrados', 'argen-filter-categories' ),
+            'noFound' => __( 'No se encontraron productos para las categorías seleccionadas.', 'argen-filter-categories' ),
+        ],
+    ] );
 }
-add_action( 'wp_enqueue_scripts', 'afc_enqueue_assets' );

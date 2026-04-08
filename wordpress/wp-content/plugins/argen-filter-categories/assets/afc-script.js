@@ -1,30 +1,31 @@
 /**
- * Argen Filter Categories
+ * Argen Filter Categories — v1.2.0
  * Archivo: assets/afc-script.js
- * Versión: 1.0.0
  *
- * Funcionalidades:
- * - Escucha cambios en los checkboxes del widget
- * - Envía petición AJAX con las categorías seleccionadas
- * - Renderiza los productos sin recargar la página
- * - Paginación dinámica
- * - Debounce para no saturar el servidor
- * - Estado "is-checked" en los ítems del sidebar
+ * Responsabilidades:
+ * 1. Toggle abierto/cerrado del widget (opción configurable en el backend)
+ * 2. Checkboxes → AJAX → resultados en el contenido principal
+ * 3. Acordeón de subcategorías
+ * 4. Ocultar/restaurar el loop nativo de WooCommerce
+ * 5. Paginación dinámica
+ * 6. Re-inicializar el stepper de argen-quote-loop en los resultados AJAX
  */
 
 (function () {
     'use strict';
 
-    // ── Configuración ──────────────────────────
-    var DEBUG    = false;     // ← true para ver logs en consola
-    var DEBOUNCE = 280;       // ms de espera tras el último check
+    var DEBUG    = false;   // ← true para activar logs en consola
+    var DEBOUNCE = 260;     // ms de espera tras el último cambio de checkbox
 
-    // ── Referencias al DOM ─────────────────────
-    var widget      = null;   // .afc-filter-widget o .afc-widget-inner
-    var resultsArea = null;   // #afc-results-area
-    var clearBtn    = null;   // .afc-clear-btn
+    // ── Referencias globales ───────────────────
+    var resultsArea  = null;
+    var resultsInner = null;
+    var countText    = null;
+    var closeBtn     = null;
+    var clearBtn     = null;
+    var nativeLoop   = null;
     var debounceTimer;
-    var currentPage = 1;
+    var currentPage  = 1;
 
     // ── Helpers ────────────────────────────────
     function log() {
@@ -33,10 +34,6 @@
         }
     }
 
-    /**
-     * Obtiene los IDs de categorías actualmente marcadas.
-     * @returns {number[]}
-     */
     function getCheckedIds() {
         var boxes = document.querySelectorAll('.afc-cat-checkbox:checked');
         return Array.prototype.map.call(boxes, function (cb) {
@@ -44,105 +41,179 @@
         });
     }
 
-    /**
-     * Lee la configuración del área de resultados (cols, per_page).
-     * @returns {{cols: number, perPage: number}}
-     */
     function getConfig() {
-        var cols    = parseInt(resultsArea.dataset.cols, 10)    || 3;
-        var perPage = parseInt(resultsArea.dataset.perPage, 10) || 9;
-        return { cols: cols, perPage: perPage };
+        return {
+            cols:    parseInt(resultsArea.dataset.cols, 10)    || 3,
+            perPage: parseInt(resultsArea.dataset.perPage, 10) || 9,
+        };
     }
 
-    // ── UI helpers ─────────────────────────────
+    // ──────────────────────────────────────────
+    // A. TOGGLE ABIERTO / CERRADO DEL WIDGET
+    //
+    //    Lee data-default-open del .afc-widget-body
+    //    (puesto por PHP según la opción del backend).
+    //    El visitante puede cambiar el estado; lo
+    //    guardamos en sessionStorage para que persista
+    //    durante la sesión pero no entre visitas.
+    // ──────────────────────────────────────────
+    function initWidgetCollapse() {
+        var toggleBtns = document.querySelectorAll('.afc-widget-toggle');
+
+        toggleBtns.forEach(function (btn) {
+            var bodyId  = btn.getAttribute('aria-controls');
+            var body    = bodyId ? document.getElementById(bodyId) : null;
+            if (!body) return;
+
+            var defaultOpen = body.dataset.defaultOpen !== '0'; // '1' = abierto
+            var storageKey  = 'afc_widget_open_' + bodyId;
+            var savedState  = sessionStorage.getItem(storageKey);
+
+            // Determinar estado inicial:
+            // - Si el visitante ya interactuó → usar su preferencia guardada en sesión
+            // - Si es su primera visita → usar la opción configurada en el backend
+            var isOpen;
+            if (savedState !== null) {
+                isOpen = savedState === '1';
+            } else {
+                isOpen = defaultOpen;
+            }
+
+            applyCollapseState(btn, body, isOpen, false);
+
+            btn.addEventListener('click', function () {
+                var currentlyOpen = btn.getAttribute('aria-expanded') === 'true';
+                applyCollapseState(btn, body, !currentlyOpen, true);
+            });
+        });
+    }
 
     /**
-     * Sincroniza la clase .is-checked de cada .afc-cat-item
-     * con el estado de su checkbox.
+     * Aplica el estado abierto/cerrado al widget.
+     * @param {HTMLElement} btn    - Botón .afc-widget-toggle
+     * @param {HTMLElement} body   - Div .afc-widget-body
+     * @param {boolean}     open   - true = abierto
+     * @param {boolean}     save   - guardar en sessionStorage
      */
+    function applyCollapseState(btn, body, open, save) {
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        body.classList.toggle('afc-body-closed', !open);
+
+        if (save) {
+            try {
+                sessionStorage.setItem('afc_widget_open_' + body.id, open ? '1' : '0');
+            } catch (e) {}
+        }
+
+        log('Widget collapse →', open ? 'abierto' : 'cerrado');
+    }
+
+    // ──────────────────────────────────────────
+    // B. SINCRONIZAR ESTILOS DE CHECKBOXES
+    // ──────────────────────────────────────────
     function syncCheckedStyles() {
-        var items = document.querySelectorAll('.afc-cat-item');
-        items.forEach(function (item) {
+        document.querySelectorAll('.afc-cat-item').forEach(function (item) {
             var cb = item.querySelector('.afc-cat-checkbox');
-            if (!cb) return;
-            item.classList.toggle('is-checked', cb.checked);
+            if (cb) item.classList.toggle('is-checked', cb.checked);
         });
 
-        var ids = getCheckedIds();
         if (clearBtn) {
-            clearBtn.style.display = ids.length > 0 ? 'flex' : 'none';
+            clearBtn.style.display = getCheckedIds().length > 0 ? 'flex' : 'none';
         }
     }
 
-    /**
-     * Muestra u oculta el estado de carga.
-     * @param {boolean} loading
-     */
-    function setLoading(loading) {
-        if (!resultsArea) return;
-        resultsArea.classList.toggle('afc-loading', loading);
-        log('loading:', loading);
+    // ──────────────────────────────────────────
+    // C. MOSTRAR / OCULTAR ÁREA DE RESULTADOS
+    // ──────────────────────────────────────────
+    function showResultsArea() {
+        if (resultsArea) resultsArea.style.display = '';
+        if (nativeLoop)  nativeLoop.style.display  = 'none';
     }
 
-    /**
-     * Inserta el HTML de resultados y el área de meta-info.
-     * @param {string}  html
-     * @param {number}  total
-     * @param {number}  pages
-     * @param {number}  page
-     */
+    function hideResultsArea() {
+        if (resultsArea) resultsArea.style.display = 'none';
+        if (nativeLoop)  nativeLoop.style.display  = '';
+    }
+
+    function setLoading(on) {
+        if (resultsArea) resultsArea.classList.toggle('afc-is-loading', on);
+    }
+
+    // ──────────────────────────────────────────
+    // D. RENDERIZAR RESULTADOS
+    // ──────────────────────────────────────────
     function renderResults(html, total, pages, page) {
-        var inner = resultsArea.querySelector('.afc-results-inner');
-        if (!inner) return;
+        if (!resultsInner) return;
 
-        // Meta info
-        var metaHtml = '';
-        if (total > 0) {
-            var ids = getCheckedIds();
-            var catText = ids.length > 0
-                ? afcData.i18n.results
-                : afcData.i18n.results;
-
-            metaHtml = '<div class="afc-results-meta">'
-                + '<span class="afc-results-count"><strong>' + total + '</strong> ' + catText + '</span>'
-                + '</div>';
+        if (countText) {
+            countText.innerHTML = total > 0
+                ? '<strong>' + total + '</strong> ' + afcData.i18n.found
+                : '';
         }
 
-        // Paginación
         var paginationHtml = pages > 1 ? buildPagination(pages, page) : '';
+        resultsInner.innerHTML = html + paginationHtml;
 
-        inner.innerHTML = metaHtml + html + paginationHtml;
-
-        // Binding de la paginación
         bindPagination();
 
-        // Scroll suave al área de resultados (solo si el usuario scrolleó)
-        if (page > 1 || getCheckedIds().length > 0) {
-            scrollToResults();
-        }
+        // ── Importante: re-inicializar el stepper de argen-quote-loop ──
+        // Los botones −/+ que inyecta el AJAX necesitan que el JS del
+        // plugin hermano los "vea". Como quote-loop.js usa delegación
+        // de eventos en $(document), los eventos ya funcionan.
+        // Sin embargo, si hay algún init adicional (ej: jQuery plugin),
+        // disparamos un evento custom para que lo capture.
+        triggerQuoteLoopInit();
     }
 
     /**
-     * Construye el HTML de la paginación.
+     * Dispara evento custom 'afc:results_rendered' en document.
+     * argen-quote-loop puede escucharlo si necesita re-inicializar algo.
+     * También dispara wc_fragment_refresh por compatibilidad con WooCommerce.
      */
-    function buildPagination(total, current) {
-        var html = '<nav class="afc-pagination" aria-label="Paginación de productos">';
+    function triggerQuoteLoopInit() {
+        var event;
+        try {
+            event = new CustomEvent('afc:results_rendered', { bubbles: true });
+        } catch (e) {
+            // IE fallback
+            event = document.createEvent('Event');
+            event.initEvent('afc:results_rendered', true, true);
+        }
+        document.dispatchEvent(event);
 
-        // Botón anterior
-        html += '<button class="afc-page-btn afc-prev" data-page="' + (current - 1) + '" '
+        // Si jQuery está disponible, disparar también eventos de WC
+        if (window.jQuery) {
+            jQuery(document.body).trigger('wc_fragment_refresh');
+        }
+
+        log('triggerQuoteLoopInit disparado');
+    }
+
+    function renderError() {
+        if (resultsInner) {
+            resultsInner.innerHTML = '<p class="afc-no-results">' + afcData.i18n.error + '</p>';
+        }
+        if (countText) countText.innerHTML = '';
+    }
+
+    // ──────────────────────────────────────────
+    // E. PAGINACIÓN
+    // ──────────────────────────────────────────
+    function buildPagination(total, current) {
+        var html = '<nav class="afc-pagination" aria-label="Paginación">';
+
+        html += '<button class="afc-page-btn" data-page="' + (current - 1) + '" '
             + (current <= 1 ? 'disabled' : '')
             + ' aria-label="Página anterior">‹</button>';
 
-        // Páginas numeradas
         for (var i = 1; i <= total; i++) {
-            html += '<button class="afc-page-btn ' + (i === current ? 'is-active' : '') + '" '
-                + 'data-page="' + i + '" '
-                + (i === current ? 'aria-current="page"' : '')
+            html += '<button class="afc-page-btn' + (i === current ? ' is-active' : '') + '" '
+                + 'data-page="' + i + '"'
+                + (i === current ? ' aria-current="page"' : '')
                 + '>' + i + '</button>';
         }
 
-        // Botón siguiente
-        html += '<button class="afc-page-btn afc-next" data-page="' + (current + 1) + '" '
+        html += '<button class="afc-page-btn" data-page="' + (current + 1) + '" '
             + (current >= total ? 'disabled' : '')
             + ' aria-label="Página siguiente">›</button>';
 
@@ -150,209 +221,189 @@
         return html;
     }
 
-    /**
-     * Agrega eventos a los botones de paginación.
-     */
     function bindPagination() {
-        var btns = resultsArea.querySelectorAll('.afc-page-btn:not(:disabled):not(.is-active)');
-        btns.forEach(function (btn) {
+        if (!resultsInner) return;
+        resultsInner.querySelectorAll('.afc-page-btn:not(:disabled):not(.is-active)').forEach(function (btn) {
             btn.addEventListener('click', function () {
                 var page = parseInt(btn.dataset.page, 10);
-                if (!isNaN(page)) {
+                if (!isNaN(page) && page > 0) {
                     currentPage = page;
                     fetchProducts(currentPage);
+                    var top = resultsArea.getBoundingClientRect().top + window.pageYOffset - 100;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
                 }
             });
         });
     }
 
-    /**
-     * Scroll suave hacia el área de resultados.
-     */
-    function scrollToResults() {
-        if (!resultsArea) return;
-        var offset = resultsArea.getBoundingClientRect().top + window.pageYOffset - 80;
-        window.scrollTo({ top: offset, behavior: 'smooth' });
-    }
-
-    /**
-     * Estado vacío (ningún checkbox activo).
-     */
-    function renderEmptyState() {
-        var inner = resultsArea.querySelector('.afc-results-inner');
-        if (!inner) return;
-        inner.innerHTML = '<div class="afc-empty-state">'
-            + '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">'
-            + '<rect x="2" y="3" width="20" height="14" rx="2"/>'
-            + '<path d="M8 21h8M12 17v4"/>'
-            + '</svg>'
-            + '<p>Seleccioná una o más categorías<br>para ver los productos.</p>'
-            + '</div>';
-    }
-
-    // ── AJAX ───────────────────────────────────
-
-    /**
-     * Realiza la petición AJAX y actualiza el área de resultados.
-     * @param {number} page  — Número de página a cargar
-     */
+    // ──────────────────────────────────────────
+    // F. AJAX
+    // ──────────────────────────────────────────
     function fetchProducts(page) {
-
         var ids    = getCheckedIds();
         var config = getConfig();
 
-        log('fetchProducts — ids:', ids, '| page:', page, '| config:', config);
+        if (ids.length === 0) { hideResultsArea(); return; }
 
-        // Si no hay nada seleccionado → mostrar estado vacío
-        if (ids.length === 0) {
-            setLoading(false);
-            renderEmptyState();
-            return;
-        }
-
+        showResultsArea();
         setLoading(true);
 
-        // Construir FormData
         var formData = new FormData();
         formData.append('action',   afcData.action);
         formData.append('nonce',    afcData.nonce);
         formData.append('cols',     config.cols);
         formData.append('per_page', config.perPage);
         formData.append('paged',    page || 1);
+        ids.forEach(function (id) { formData.append('cat_ids[]', id); });
 
-        ids.forEach(function (id) {
-            formData.append('cat_ids[]', id);
-        });
-
-        // Fetch API (moderno, con fallback XMLHttpRequest)
         if (window.fetch) {
-            fetch(afcData.ajaxUrl, {
-                method:      'POST',
-                credentials: 'same-origin',
-                body:        formData,
-            })
-            .then(function (res) {
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                return res.json();
-            })
-            .then(function (data) {
-                setLoading(false);
-                if (data.success) {
-                    renderResults(data.data.html, data.data.total, data.data.pages, data.data.current);
-                } else {
+            fetch(afcData.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: formData })
+                .then(function (res) {
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    return res.json();
+                })
+                .then(handleResponse)
+                .catch(function (err) {
+                    log('Error fetch:', err);
+                    setLoading(false);
                     renderError();
-                }
-            })
-            .catch(function (err) {
-                log('Error fetch:', err);
-                setLoading(false);
-                renderError();
-            });
+                });
         } else {
-            // Fallback XHR para IE/navegadores muy viejos
+            // Fallback XHR para navegadores antiguos
             var xhr = new XMLHttpRequest();
             xhr.open('POST', afcData.ajaxUrl, true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState !== 4) return;
                 setLoading(false);
                 if (xhr.status === 200) {
-                    try {
-                        var data = JSON.parse(xhr.responseText);
-                        if (data.success) {
-                            renderResults(data.data.html, data.data.total, data.data.pages, data.data.current);
-                        } else {
-                            renderError();
-                        }
-                    } catch (e) {
-                        renderError();
-                    }
-                } else {
-                    renderError();
-                }
+                    try { handleResponse(JSON.parse(xhr.responseText)); }
+                    catch (e) { renderError(); }
+                } else { renderError(); }
             };
             xhr.send(formData);
         }
     }
 
-    /**
-     * Muestra un mensaje de error genérico.
-     */
-    function renderError() {
-        var inner = resultsArea && resultsArea.querySelector('.afc-results-inner');
-        if (inner) {
-            inner.innerHTML = '<p class="afc-no-results">' + afcData.i18n.error + '</p>';
+    function handleResponse(data) {
+        setLoading(false);
+        if (data && data.success) {
+            renderResults(data.data.html, data.data.total, data.data.pages, data.data.current);
+        } else {
+            renderError();
         }
     }
 
-    // ── Evento principal: cambio en checkbox ──
+    // ──────────────────────────────────────────
+    // G. ACORDEÓN DE SUBCATEGORÍAS
+    // ──────────────────────────────────────────
+    function initSubcatToggles() {
+        document.querySelectorAll('.afc-subcat-toggle').forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
 
-    /**
-     * Dispara fetchProducts con debounce para no saturar el servidor
-     * cuando el usuario marca varios checkboxes rápidamente.
-     */
-    function onCheckboxChange() {
-        currentPage = 1; // Volver a la primera página al cambiar filtros
-        syncCheckedStyles();
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(function () {
-            fetchProducts(currentPage);
-        }, DEBOUNCE);
+                var item = btn.closest
+                    ? btn.closest('.afc-cat-item')
+                    : getParentByClass(btn, 'afc-cat-item');
+
+                if (!item) return;
+
+                var isOpen = item.classList.contains('is-open');
+                item.classList.toggle('is-open', !isOpen);
+                btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+            });
+        });
     }
 
-    // ── Botón limpiar filtros ──────────────────
+    function getParentByClass(el, cls) {
+        var current = el.parentElement;
+        while (current) {
+            if (current.classList && current.classList.contains(cls)) return current;
+            current = current.parentElement;
+        }
+        return null;
+    }
 
+    // ──────────────────────────────────────────
+    // H. DETECTAR LOOP NATIVO DE WOOCOMMERCE
+    //    Astra + WooCommerce puede generar distintos
+    //    selectores según la configuración del tema.
+    // ──────────────────────────────────────────
+    function findNativeLoop() {
+        var selectors = [
+            'ul.products',
+            '.woocommerce-loop-product',
+            '.products.columns-3',
+            '.products.columns-4',
+            '.wc-block-grid__products',
+        ];
+        for (var i = 0; i < selectors.length; i++) {
+            var el = document.querySelector(selectors[i]);
+            if (el) { log('Loop nativo:', selectors[i]); return el; }
+        }
+        log('ADVERTENCIA: loop nativo no encontrado.');
+        return null;
+    }
+
+    // ──────────────────────────────────────────
+    // H. LIMPIAR FILTROS
+    // ──────────────────────────────────────────
     function clearAllFilters() {
-        var boxes = document.querySelectorAll('.afc-cat-checkbox');
-        boxes.forEach(function (cb) { cb.checked = false; });
+        document.querySelectorAll('.afc-cat-checkbox').forEach(function (cb) { cb.checked = false; });
         currentPage = 1;
         syncCheckedStyles();
-        renderEmptyState();
+        hideResultsArea();
     }
 
-    // ── Inicialización ─────────────────────────
-
+    // ──────────────────────────────────────────
+    // I. INICIALIZACIÓN
+    // ──────────────────────────────────────────
     function init() {
 
-        // Buscar el área de resultados
-        resultsArea = document.getElementById('afc-results-area');
+        // El área de resultados existe solo en la página de tienda
+        resultsArea  = document.getElementById('afc-results-area');
+        if (!resultsArea) return;
 
-        if (!resultsArea) {
-            log('ADVERTENCIA: #afc-results-area no encontrado en el DOM.');
-            return;
-        }
+        resultsInner = resultsArea.querySelector('.afc-results-inner');
+        countText    = resultsArea.querySelector('.afc-results-count-text');
+        closeBtn     = resultsArea.querySelector('.afc-results-close');
+        clearBtn     = document.querySelector('.afc-filter-widget .afc-clear-btn');
+        nativeLoop   = findNativeLoop();
 
-        // Buscar el widget
-        widget = document.querySelector('.afc-filter-widget');
-        if (!widget) {
-            log('ADVERTENCIA: .afc-filter-widget no encontrado en el DOM.');
-            return;
-        }
+        // A. Toggle abierto/cerrado del widget
+        initWidgetCollapse();
 
-        clearBtn = widget.querySelector('.afc-clear-btn');
+        // B. Acordeón de subcategorías
+        initSubcatToggles();
 
-        // Sincronizar estilos iniciales
-        syncCheckedStyles();
-
-        // Estado inicial sin selección
-        renderEmptyState();
-
-        // ── Eventos en checkboxes ──────────────
+        // C. Checkboxes
         var checkboxes = document.querySelectorAll('.afc-cat-checkbox');
         log('Checkboxes encontrados:', checkboxes.length);
 
         checkboxes.forEach(function (cb) {
-            cb.addEventListener('change', onCheckboxChange);
+            cb.addEventListener('change', function () {
+                currentPage = 1;
+                syncCheckedStyles();
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(function () {
+                    var ids = getCheckedIds();
+                    if (ids.length === 0) { hideResultsArea(); } else { fetchProducts(currentPage); }
+                }, DEBOUNCE);
+            });
         });
 
-        // ── Evento en botón limpiar ────────────
-        if (clearBtn) {
-            clearBtn.addEventListener('click', clearAllFilters);
-        }
+        // D. Botón "Ver todos los productos"
+        if (closeBtn) closeBtn.addEventListener('click', clearAllFilters);
+
+        // E. Botón "Limpiar filtros" del sidebar
+        if (clearBtn) clearBtn.addEventListener('click', clearAllFilters);
+
+        // F. Estado visual inicial
+        syncCheckedStyles();
 
         log('Plugin inicializado correctamente.');
     }
 
-    // Esperar al DOM
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
