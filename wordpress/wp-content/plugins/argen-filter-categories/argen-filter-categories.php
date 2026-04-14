@@ -44,6 +44,43 @@ class AFC_Filter_Widget extends WP_Widget {
         );
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // TOGGLE: Botones para cambiar entre vista Grilla y Lista
+    // ─────────────────────────────────────────────────────────────
+    public function render_view_toggle() {
+        // Solo en páginas de tienda/categorías
+        if ( ! is_shop() && ! is_product_category() && ! is_product_tag() ) {
+            return;
+        }
+        ?>
+        <div class="argen-view-toggle" role="group" aria-label="<?php esc_attr_e( 'Cambiar vista', 'argen-quote-loop' ); ?>">
+        <button class="argen-toggle-btn argen-toggle-grid active"
+        data-view="grid"
+        title="<?php esc_attr_e( 'Vista grilla', 'argen-quote-loop' ); ?>"
+        aria-pressed="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+        <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+        </svg>
+        <span><?php _e( 'Grilla', 'argen-quote-loop' ); ?></span>
+        </button>
+        <button class="argen-toggle-btn argen-toggle-list"
+        data-view="list"
+        title="<?php esc_attr_e( 'Vista lista', 'argen-quote-loop' ); ?>"
+        aria-pressed="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+        <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+        <span><?php _e( 'Lista', 'argen-quote-loop' ); ?></span>
+        </button>
+        </div>
+        <?php
+    }
+
+
+
     // ── Frontend ──────────────────────────────
     public function widget( $args, $instance ) {
 
@@ -118,7 +155,7 @@ class AFC_Filter_Widget extends WP_Widget {
             $tiene_hijos = ! empty( $hijos ) && ! is_wp_error( $hijos );
             $item_class  = 'afc-cat-item' . ( $tiene_hijos ? ' has-children' : '' );
 
-            echo '<li class="' . esc_attr( $item_class ) . ' is-open" data-cat-id="' . esc_attr( $cat->term_id ) . '">';
+            echo '<li class="' . esc_attr( $item_class ) . ' is-open is-checked" data-cat-id="' . esc_attr( $cat->term_id ) . '">';
             echo '<div class="afc-cat-row">';
 
             // Label: checkbox + thumbnail + nombre + contador
@@ -153,7 +190,7 @@ class AFC_Filter_Widget extends WP_Widget {
                     $hijo_count_html = $mostrar_count ? '<span class="afc-count">' . absint( $hijo->count ) . '</span>' : '';
                     $hijo_id         = 'afc-cat-' . $hijo->term_id;
 
-                    echo '<li class="afc-cat-item afc-subcat-item" data-cat-id="' . esc_attr( $hijo->term_id ) . '">';
+                    echo '<li class="afc-cat-item afc-subcat-item is-open" data-cat-id="' . esc_attr( $hijo->term_id ) . ' ">';
                     echo '<div class="afc-cat-row">';
                     echo '<label class="afc-cat-label" for="' . esc_attr( $hijo_id ) . '">';
                     echo '<input type="checkbox"'
@@ -194,8 +231,8 @@ class AFC_Filter_Widget extends WP_Widget {
         $mostrar_count  = ! empty( $instance['mostrar_count'] )  ? '1'                                 : '0';
         $mostrar_hijos  = ! empty( $instance['mostrar_hijos'] )  ? '1'                                 : '0';
         $estado_inicial = ! empty( $instance['estado_inicial'] ) ? $instance['estado_inicial']         : 'open';
-        $cols           = ! empty( $instance['columnas'] )       ? absint( $instance['columnas'] )     : 3;
-        $per_page       = ! empty( $instance['por_pagina'] )     ? absint( $instance['por_pagina'] )   : 9;
+        $cols           = ! empty( $instance['columnas'] )       ? absint( $instance['columnas'] )     : 4;
+        $per_page       = ! empty( $instance['por_pagina'] )     ? absint( $instance['por_pagina'] )   : 12;
         ?>
         <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
@@ -307,8 +344,10 @@ add_action( 'woocommerce_before_shop_loop', 'afc_inject_results_container', 5 );
 function afc_inject_results_container() {
     if ( ! ( is_shop() || is_product_category() || is_product_tag() ) ) return;
 
-    $cols     = 3;
-    $per_page = 9;
+    //$cols     = 4;
+    // Asegurarse de que $cols esté inicializado correctamente
+    $cols = isset( $_POST['cols'] ) ? max( 1, min( 5, absint( $_POST['cols'] ) ) ) : 4;
+    $per_page = 12;
 
     $sidebars = wp_get_sidebars_widgets();
     foreach ( $sidebars as $widget_ids ) {
@@ -317,16 +356,17 @@ function afc_inject_results_container() {
             if ( strpos( $widget_id, 'afc_filter_widget' ) === 0 ) {
                 $number = str_replace( 'afc_filter_widget-', '', $widget_id );
                 $opts   = get_option( 'widget_afc_filter_widget' );
-                if ( isset( $opts[ $number ] ) ) {
-                    $inst     = $opts[ $number ];
-                    $cols     = ! empty( $inst['columnas'] )   ? absint( $inst['columnas'] )   : 3;
-                    $per_page = ! empty( $inst['por_pagina'] ) ? absint( $inst['por_pagina'] ) : 9;
-                }
+                //if ( isset( $opts[ $number ] ) ) {
+                //    $inst     = $opts[ $number ];
+                //    $cols     = ! empty( $inst['columnas'] )   ? absint( $inst['columnas'] )   : 4;
+                //    $per_page = ! empty( $inst['por_pagina'] ) ? absint( $inst['por_pagina'] ) : 12;
+                //}
                 break 2;
             }
         }
     }
     ?>
+
     <div id="afc-results-area"
          data-cols="<?php echo esc_attr( $cols ); ?>"
          data-per-page="<?php echo esc_attr( $per_page ); ?>"
@@ -334,12 +374,21 @@ function afc_inject_results_container() {
          aria-atomic="true"
          style="display:none;">
 
+
         <div class="afc-results-header">
             <span class="afc-results-count-text"></span>
-            <button class="afc-results-close">
+
+            <!-- Aquí va el toggle de vista -->
+            <?php
+            $plugin_instance = new AFC_Filter_Widget(); // Reemplaza con el nombre real de tu clase
+            $plugin_instance->render_view_toggle();
+            ?>
+
+            <!--<button class="afc-results-close">
                 <span aria-hidden="true">←</span>
-                <?php esc_html_e( 'Ver todos los productos', 'argen-filter-categories' ); ?>
-            </button>
+                <?php // esc_html_e( 'Ver todos los productos', 'argen-filter-categories' ); ?>
+            </button>-->
+
         </div>
 
         <div class="afc-loader" aria-hidden="true">
@@ -367,8 +416,8 @@ function afc_ajax_filter_products() {
     check_ajax_referer( AFC_AJAX_ACTION, 'nonce' );
 
     $cat_ids  = isset( $_POST['cat_ids'] )  ? array_map( 'absint', (array) $_POST['cat_ids'] ) : [];
-    $cols     = isset( $_POST['cols'] )     ? max( 1, min( 5, absint( $_POST['cols'] ) ) )      : 3;
-    $per_page = isset( $_POST['per_page'] ) ? max( 1, min( 48, absint( $_POST['per_page'] ) ) ) : 9;
+    $cols     = isset( $_POST['cols'] )     ? max( 1, min( 5, absint( $_POST['cols'] ) ) )      : 4;
+    $per_page = isset( $_POST['per_page'] ) ? max( 1, min( 48, absint( $_POST['per_page'] ) ) ) : 12;
     $paged    = isset( $_POST['paged'] )    ? max( 1, absint( $_POST['paged'] ) )                : 1;
 
     if ( empty( $cat_ids ) ) {
@@ -402,18 +451,12 @@ function afc_ajax_filter_products() {
         ] );
     }
 
-    // ── Nonce de argen-quote-loop (si está activo) ─────────────────
-    // argen-quote-loop usa su propio nonce para el AJAX de agregar al presupuesto.
-    // Lo generamos acá para incrustarlo en el data-nonce del botón.
-    $quote_nonce_action = 'argen_add_to_quote'; // debe coincidir con el plugin hermano
-    $quote_nonce        = wp_create_nonce( $quote_nonce_action );
-
     ob_start();
 
-    // ── Wrapper: misma estructura que genera WooCommerce ──────────
-    // ul.products con la clase de columnas que usa Astra/WooCommerce.
-    // Así quote-loop.css y quote-loop.js funcionan sin modificaciones.
+    // ul.products con columns-{N}: Astra usa esta clase para definir el grid CSS.
+    // $cols viene del POST (enviado por afc-script.js desde data-cols del contenedor).
     echo '<ul class="products columns-' . esc_attr( $cols ) . ' afc-filtered-products">';
+    //echo '<ul class="products columns-4 afc-filtered-products">';
 
     while ( $query->have_posts() ) {
         $query->the_post();
@@ -428,86 +471,115 @@ function afc_ajax_filter_products() {
             $img_src = wc_placeholder_img_src( 'thumbnail' );
         }
 
-        // ── Variaciones del producto ───────────────────────────────
+        // ── Nonce POR PRODUCTO — obligatorio para pasar la validación
+        //    de argen-quote-loop.php línea 324:
+        //    wp_verify_nonce( $_POST['nonce'], 'argen_quote_loop_' . $product_id )
+        $product_nonce = wp_create_nonce( 'argen_quote_loop_' . $product_id );
+
+        // ── Variaciones: misma lógica que argen-quote-loop.php ─────
+        // data-attribute debe llevar el attr_name original (ej: "pa_presentacion")
+        // para que quote-loop.js construya "attribute_pa_presentacion" y
+        // find_matching_product_variation() encuentre la variación correcta.
         $variations_html = '';
         if ( $product->is_type( 'variable' ) ) {
             $attributes = $product->get_variation_attributes();
             foreach ( $attributes as $attr_name => $options ) {
-                $attr_label      = wc_attribute_label( $attr_name );
-                $attr_name_clean = sanitize_title( $attr_name );
+                $attr_label = wc_attribute_label( $attr_name );
+                $taxonomy   = 'pa_' . sanitize_title( str_replace( 'pa_', '', $attr_name ) );
+
+                // Resolver etiquetas legibles desde la taxonomía (igual que argen-quote-loop)
+                $options_to_render = [];
+                foreach ( $options as $option ) {
+                    if ( taxonomy_exists( $taxonomy ) ) {
+                        $term  = get_term_by( 'slug', $option, $taxonomy );
+                        $label = $term ? $term->name : $option;
+                    } else {
+                        $label = $option;
+                    }
+                    $options_to_render[ $option ] = $label;
+                }
+
+                // Ordenar numéricamente (ej: 1L, 5L, 20L, 200L)
+                uasort( $options_to_render, function ( $a, $b ) {
+                    preg_match( '/[\d]+([.,]\d+)?/', $a, $ma );
+                    preg_match( '/[\d]+([.,]\d+)?/', $b, $mb );
+                    $na = isset( $ma[0] ) ? (float) str_replace( ',', '.', $ma[0] ) : 0;
+                    $nb = isset( $mb[0] ) ? (float) str_replace( ',', '.', $mb[0] ) : 0;
+                    return $na <=> $nb;
+                } );
 
                 $variations_html .= '<div class="argen-variation-row">';
                 $variations_html .= '<label class="argen-variation-label">' . esc_html( $attr_label ) . '</label>';
-                $variations_html .= '<select class="argen-variation-select" data-attribute="' . esc_attr( $attr_name_clean ) . '">';
+                $variations_html .= '<select class="argen-variation-select"'
+                    . ' name="'           . esc_attr( $attr_name ) . '"'
+                    . ' data-attribute="' . esc_attr( $attr_name ) . '">';
                 $variations_html .= '<option value="">' . esc_html__( 'Elegí una opción', 'argen-filter-categories' ) . '</option>';
-                foreach ( $options as $option ) {
-                    $variations_html .= '<option value="' . esc_attr( $option ) . '">' . esc_html( $option ) . '</option>';
+                foreach ( $options_to_render as $slug => $label ) {
+                    $variations_html .= '<option value="' . esc_attr( $slug ) . '">' . esc_html( $label ) . '</option>';
                 }
-                $variations_html .= '</select>';
-                $variations_html .= '</div>';
+                $variations_html .= '</select></div>';
             }
         }
 
-        // ── HTML de la tarjeta ─────────────────────────────────────
-        // Estructura idéntica a la que genera argen-quote-loop.php,
-        // para que quote-loop.css y quote-loop.js la controlen al 100%.
+        // ── HTML de la tarjeta — estructura 1:1 con argen-quote-loop ──
         ?>
         <li class="product type-product">
-            <form class="argen-quote-loop-form">
-                <div class="argen-form-inner">
 
-                    <!-- Imagen (visible en vista lista) -->
-                    <div class="argen-list-img-wrap">
-                        <img class="argen-list-thumb"
-                             src="<?php echo esc_url( $img_src ); ?>"
-                             alt="<?php echo esc_attr( get_the_title() ); ?>"
-                             width="64" height="43" loading="lazy">
-                    </div>
+            <?php if ( $product->is_type( 'variable' ) ) : ?>
+            <div class="argen-quote-loop-form" data-product-id="<?php echo esc_attr( $product_id ); ?>">
+            <?php else : ?>
+            <div class="argen-quote-loop-form argen-simple" data-product-id="<?php echo esc_attr( $product_id ); ?>">
+            <?php endif; ?>
+
+                <!-- Imagen (visible en vista lista via CSS de quote-loop) -->
+                <div class="argen-list-img-wrap">
+                    <img class="argen-list-thumb"
+                         src="<?php echo esc_url( $img_src ); ?>"
+                         alt="<?php echo esc_attr( get_the_title() ); ?>"
+                         width="64" height="43" loading="lazy">
+                </div>
+
+                <div class="argen-form-inner">
 
                     <!-- Nombre (visible en vista lista) -->
                     <div class="argen-list-name">
-                        <a href="<?php echo esc_url( get_permalink() ); ?>">
-                            <?php echo esc_html( get_the_title() ); ?>
-                        </a>
+                        <a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a>
                     </div>
 
-                    <!-- Variaciones -->
+                    <!-- Variaciones (solo productos variables) -->
                     <?php if ( $variations_html ) : ?>
                         <div class="argen-variations-wrap">
                             <?php echo $variations_html; ?>
                         </div>
                     <?php endif; ?>
 
-                    <!-- Cantidad + botón -->
+                    <!-- Cantidad + botón Agregar -->
                     <div class="argen-qty-quote-row">
                         <div class="argen-qty-wrapper">
-                            <button type="button" class="argen-qty-btn argen-qty-minus" aria-label="<?php esc_attr_e( 'Reducir cantidad', 'argen-filter-categories' ); ?>">−</button>
-                            <input type="number"
-                                   class="argen-qty-input"
-                                   value="1" min="1" max="9999"
-                                   aria-label="<?php esc_attr_e( 'Cantidad', 'argen-filter-categories' ); ?>">
-                            <button type="button" class="argen-qty-btn argen-qty-plus" aria-label="<?php esc_attr_e( 'Aumentar cantidad', 'argen-filter-categories' ); ?>">+</button>
+                            <button type="button" class="argen-qty-btn argen-qty-minus" aria-label="Disminuir">−</button>
+                            <input type="number" class="argen-qty-input"
+                                   name="quantity" value="1" min="1" max="9999"
+                                   aria-label="Cantidad">
+                            <button type="button" class="argen-qty-btn argen-qty-plus" aria-label="Aumentar">+</button>
                         </div>
 
                         <div class="argen-add-quote-wrap">
                             <button type="button"
                                     class="argen-add-quote-btn"
                                     data-product-id="<?php echo esc_attr( $product_id ); ?>"
-                                    data-nonce="<?php echo esc_attr( $quote_nonce ); ?>">
-                                <?php esc_html_e( 'Agregar', 'argen-filter-categories' ); ?>
+                                    data-nonce="<?php echo esc_attr( $product_nonce ); ?>">
+                                <?php esc_html_e( 'Agregar', 'argen-quote-loop' ); ?>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Feedback AJAX -->
                     <div class="argen-quote-feedback" aria-live="polite"></div>
 
                 </div><!-- .argen-form-inner -->
-            </form><!-- .argen-quote-loop-form -->
 
-            <!-- Nombre e imagen para VISTA GRILLA (los genera el tema/WooCommerce) -->
-            <!-- En grilla, argen-list-img-wrap y argen-list-name están display:none  -->
-            <!-- y la imagen real la mostramos aquí para que el tema la estilice      -->
+            </div><!-- .argen-quote-loop-form -->
+
+            <!-- Imagen y título para vista GRILLA (estilizados por el tema Astra) -->
             <a href="<?php echo esc_url( get_permalink() ); ?>" class="woocommerce-loop-product__link">
                 <?php echo get_the_post_thumbnail( $product_id, 'woocommerce_thumbnail' ); ?>
                 <h2 class="woocommerce-loop-product__title"><?php echo esc_html( get_the_title() ); ?></h2>
@@ -546,13 +618,24 @@ function afc_enqueue_assets() {
         AFC_VERSION
     );
 
+    wp_enqueue_style(
+        'quote-loop',
+        AFC_URL . 'assets/quote-loop.css',
+        [],
+        AFC_VERSION
+    );
+
     wp_enqueue_script(
         'afc-script',
         AFC_URL . 'assets/afc-script.js',
-        [],
+        [ 'jquery' ],   // necesita jQuery para el toggle de vista y add-to-quote
         AFC_VERSION,
         true
     );
+
+    // NOTA: quote-loop.js ya NO se carga por separado.
+    // El stepper, add-to-quote y toggle de vista están integrados
+    // en afc-script.js (Bloque 2) para evitar duplicación de eventos.
 
     wp_localize_script( 'afc-script', 'afcData', [
         'ajaxUrl' => admin_url( 'admin-ajax.php' ),

@@ -104,7 +104,7 @@ class Argen_Quote_Loop {
         </div>
         <?php
     }
- 
+
  
     // ─────────────────────────────────────────────────────────────
     // 1. RENDERIZAR el formulario en cada card del loop

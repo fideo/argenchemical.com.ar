@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-04-01 19:28:14+0000\n"
+"PO-Revision-Date: 2026-04-11 11:57:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48106,10 +48106,6 @@ msgstr "Descargar %d"
 msgid "Name for the attribute (shown on the front-end)."
 msgstr "Nombre para el atributo (mostrado en la tienda)."
 
-#: includes/admin/class-wc-admin-attributes.php:438
-msgid "Enable Archives?"
-msgstr "¿Activamos el archivo?"
-
 #. translators: 1: old order status 2: new order status
 #: includes/class-wc-order.php:464
 msgid "Order status changed from %1$s to %2$s."
@@ -48659,6 +48655,10 @@ msgstr[1] ""
 #: assets/client/blocks/order-confirmation-summary.js:1
 msgid "Payment method:"
 msgstr "Método de pago:"
+
+#: includes/admin/class-wc-admin-attributes.php:438
+msgid "Enable Archives?"
+msgstr "¿Activar archivos?"
 
 #: i18n/states.php:1513
 msgid "Albay"
