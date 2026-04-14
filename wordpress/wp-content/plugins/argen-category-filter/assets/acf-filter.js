@@ -1,14 +1,13 @@
 /**
- * Argen Category Filter — acf-filter.js  v2.0.0
+ * Argen Category Filter — acf-filter.js  v2.1.0
  *
- * Funcionalidades:
- * 1. Checkboxes múltiples en widget propio (una o varias categorías)
- * 2. AJAX sin recarga: reemplaza ul.products con resultados filtrados
- * 3. Oculta TODOS los elementos nativos del loop al filtrar
- * 4. Restaura el estado original al limpiar filtros
- * 5. Acordeón de subcategorías
- * 6. Mantiene la vista Grilla/Lista de argen-quote-loop
- * 7. Paginación AJAX dentro del filtro
+ * Cambios v2.1.0:
+ * - Botones Grilla/Lista siempre visibles (no se ocultan al filtrar)
+ * - Eliminado el párrafo "Mostrando X-Y de Z resultados" de los filtrados
+ * - hideNativeLoop() oculta ul.products, paginación, resultado-count y ordering
+ *   pero NUNCA el toggle de vista
+ * - El toggle Grilla/Lista de argen-quote-loop actúa sobre los productos
+ *   filtrados gracias al evento delegado
  */
 
 (function ($) {
@@ -18,23 +17,22 @@
 
     // ── Estado ─────────────────────────────────────────────────────
     var state = {
-        termIds:  [],      // IDs de categorías marcadas
+        termIds:  [],
         paged:    1,
         perPage:  0,
         loading:  false,
         filtered: false,
     };
 
-    // ── Referencias capturadas UNA VEZ al iniciar ──────────────────
-    var $woo;                      // .woocommerce — contenedor principal del loop
-    var $nativeProducts;           // ul.products original
-    var $nativePagination;         // .woocommerce-pagination original
-    var $nativeResultCount;        // .woocommerce-result-count
-    var $nativeOrdering;           // .woocommerce-ordering
-    var $nativeViewToggle;         // .argen-view-toggle-wrap o .argen-view-toggle
-    var $nativeResultCountHTML;    // HTML original del conteo (para restaurar)
+    // ── Referencias capturadas al iniciar ──────────────────────────
+    var $woo;
+    var $nativeProducts;
+    var $nativePagination;
+    var $nativeResultCount;
+    var $nativeOrdering;
+    var $nativeResultCountHTML;
 
-    // Elementos inyectados por este plugin (para limpiar fácil)
+    // Elementos inyectados
     var $filteredProducts   = null;
     var $filteredPagination = null;
 
@@ -45,16 +43,12 @@
     // ──────────────────────────────────────────────────────────────
     function init() {
         $woo = $('.woocommerce');
-        if ( ! $woo.length ) return;
+        if ( !$woo.length ) return;
 
-        // Guardar referencias exactas antes de cualquier modificación
         $nativeProducts        = $woo.find('ul.products').first();
         $nativePagination      = $woo.find('.woocommerce-pagination').first();
         $nativeResultCount     = $('.woocommerce-result-count').first();
         $nativeOrdering        = $('.woocommerce-ordering').first();
-        $nativeViewToggle      = $('.argen-view-toggle-wrap').length
-                                    ? $('.argen-view-toggle-wrap').first()
-                                    : $('.argen-view-toggle').first();
         $nativeResultCountHTML = $nativeResultCount.html();
 
         state.perPage = $nativeProducts.data('per-page') || 0;
@@ -66,32 +60,28 @@
     }
 
     // ──────────────────────────────────────────────────────────────
-    // B. ACORDEÓN DE SUBCATEGORÍAS
+    // B. ACORDEÓN
     // ──────────────────────────────────────────────────────────────
     function initAccordion() {
         $(document).on('click', '.acf-toggle-btn', function (e) {
             e.preventDefault();
             e.stopPropagation();
-
-            var $btn  = $(this);
-            var $item = $btn.closest('.acf-cat-item');
+            var $item = $(this).closest('.acf-cat-item');
             var open  = $item.hasClass('acf-is-open');
-
             $item.toggleClass('acf-is-open', !open);
-            $btn.attr('aria-expanded', open ? 'false' : 'true');
+            $(this).attr('aria-expanded', !open ? 'true' : 'false');
         });
     }
 
     // ──────────────────────────────────────────────────────────────
-    // C. CHECKBOXES — detectar cambios y disparar fetch con debounce
+    // C. CHECKBOXES
     // ──────────────────────────────────────────────────────────────
     function bindCheckboxes() {
         $(document).on('change', '.acf-checkbox', function () {
             syncCheckedState();
             state.paged = 1;
-
             clearTimeout( debounceTimer );
-            debounceTimer = setTimeout( function () {
+            debounceTimer = setTimeout(function () {
                 if ( state.termIds.length === 0 ) {
                     clearFilter();
                 } else {
@@ -101,36 +91,24 @@
         });
     }
 
-    /**
-     * Lee todos los checkboxes marcados y actualiza state.termIds
-     * y las clases visuales .acf-is-checked de cada li.
-     */
     function syncCheckedState() {
         state.termIds = [];
-
         $('.acf-checkbox').each(function () {
-            var $cb   = $(this);
-            var $item = $cb.closest('.acf-cat-item');
-            var checked = $cb.is(':checked');
-
+            var $cb      = $(this);
+            var $item    = $cb.closest('.acf-cat-item');
+            var checked  = $cb.is(':checked');
             $item.toggleClass('acf-is-checked', checked);
-
-            if ( checked ) {
-                state.termIds.push( parseInt( $cb.val(), 10 ) );
-            }
+            if ( checked ) state.termIds.push( parseInt( $cb.val(), 10 ) );
         });
-
         // Mostrar/ocultar botón "Limpiar filtros"
-        var $clearBtn = $('.acf-clear-btn');
-        $clearBtn.toggle( state.termIds.length > 0 );
+        $('.acf-clear-btn').toggle( state.termIds.length > 0 );
     }
 
     // ──────────────────────────────────────────────────────────────
-    // D. BOTÓN LIMPIAR
+    // D. LIMPIAR
     // ──────────────────────────────────────────────────────────────
     function bindClearButton() {
         $(document).on('click', '.acf-clear-btn', function () {
-            // Desmarcar todos los checkboxes
             $('.acf-checkbox').prop('checked', false);
             syncCheckedState();
             clearFilter();
@@ -138,7 +116,7 @@
     }
 
     // ──────────────────────────────────────────────────────────────
-    // E. PAGINACIÓN AJAX
+    // E. PAGINACIÓN
     // ──────────────────────────────────────────────────────────────
     function bindPagination() {
         $woo.on('click', '.acf-page:not([disabled])', function () {
@@ -146,9 +124,7 @@
             if ( !isNaN(page) && page > 0 ) {
                 state.paged = page;
                 fetchProducts();
-                $('html, body').animate(
-                    { scrollTop: $woo.offset().top - 80 }, 300
-                );
+                $('html, body').animate({ scrollTop: $woo.offset().top - 80 }, 300);
             }
         });
     }
@@ -162,28 +138,22 @@
         setLoading( true );
 
         var postData = {
-            action:  acfData.action,
-            nonce:   acfData.nonce,
-            paged:   state.paged,
+            action: acfData.action,
+            nonce:  acfData.nonce,
+            paged:  state.paged,
         };
-
-        // Enviar cada term_id como term_ids[]
-        $.each( state.termIds, function ( i, id ) {
+        $.each( state.termIds, function (i, id) {
             postData['term_ids[' + i + ']'] = id;
         });
-
         if ( state.perPage > 0 ) postData.per_page = state.perPage;
 
         $.ajax({
             url:  acfData.ajaxUrl,
             type: 'POST',
             data: postData,
-            success: function (response) {
-                if ( response.success ) {
-                    renderProducts( response.data );
-                } else {
-                    showError();
-                }
+            success: function (res) {
+                if ( res.success ) renderProducts( res.data );
+                else showError();
             },
             error: showError,
             complete: function () {
@@ -194,70 +164,67 @@
     }
 
     // ──────────────────────────────────────────────────────────────
-    // G. RENDERIZAR RESULTADOS
+    // G. RENDERIZAR
     // ──────────────────────────────────────────────────────────────
     function renderProducts( data ) {
-
-        // 1. Ocultar loop nativo y todos sus elementos asociados
         hideNativeLoop();
 
-        // 2. Limpiar resultados anteriores
+        // Limpiar anteriores
         if ( $filteredProducts )   { $filteredProducts.remove();   $filteredProducts   = null; }
         if ( $filteredPagination ) { $filteredPagination.remove(); $filteredPagination = null; }
+        $woo.find('.acf-result-count-filtered').remove();
 
-        // 3. Insertar nuevos productos antes del ul nativo (que está oculto)
+        // Insertar productos filtrados
         $filteredProducts = $( data.html ).addClass('acf-results-enter');
         $nativeProducts.before( $filteredProducts );
 
-        // 4. Insertar paginación filtrada
+        // Insertar paginación si existe
         if ( data.pagination ) {
             $filteredPagination = $( data.pagination );
             $filteredProducts.after( $filteredPagination );
         }
 
-        // 5. Actualizar conteo
-        updateResultCount( data.total, data.current, state.perPage || data.total );
-
-        // 6. Aplicar vista Grilla/Lista guardada en localStorage
+        // Aplicar vista grilla/lista actual
         applyCurrentView();
 
         state.filtered = true;
     }
 
     // ──────────────────────────────────────────────────────────────
-    // H. OCULTAR / MOSTRAR TODOS LOS ELEMENTOS NATIVOS
+    // H. OCULTAR / MOSTRAR LOOP NATIVO
+    //    IMPORTANTE: el toggle Grilla/Lista (.argen-view-toggle-wrap)
+    //    NUNCA se oculta — debe seguir visible siempre.
     // ──────────────────────────────────────────────────────────────
     function hideNativeLoop() {
-        $nativeProducts.hide();
-        $nativePagination.hide();
-        $nativeResultCount.hide();
-        $nativeOrdering.hide();
-        $nativeViewToggle.hide();
-        $nativeProducts.prev('.argen-list-header').hide();
+        $nativeProducts.addClass('acf-force-hide');
+        $nativeProducts.removeClass('products');
+        $nativePagination.addClass('acf-force-hide');
+        $nativeResultCount.addClass('acf-force-hide');
+        $nativeOrdering.addClass('acf-force-hide');
+        $nativeProducts.prev('.argen-list-header').addClass('acf-force-hide');
+        $('.woocommerce-pagination').not( $nativePagination ).addClass('acf-force-hide');
     }
 
     function showNativeLoop() {
-        $nativeProducts.show();
-        $nativePagination.show();
-        $nativeResultCount.show();
-        $nativeOrdering.show();
-        $nativeViewToggle.show();
-        $nativeProducts.prev('.argen-list-header').show();
+        $nativeProducts.removeClass('acf-force-hide');
+        $nativePagination.removeClass('acf-force-hide');
+        $nativeResultCount.removeClass('acf-force-hide');
+        $nativeOrdering.removeClass('acf-force-hide');
+        $nativeProducts.prev('.argen-list-header').removeClass('acf-force-hide');
+        $('.woocommerce-pagination').not( $nativePagination ).removeClass('acf-force-hide');
     }
 
     // ──────────────────────────────────────────────────────────────
-    // I. LIMPIAR FILTRO — volver al estado original
+    // I. LIMPIAR FILTRO
     // ──────────────────────────────────────────────────────────────
     function clearFilter() {
         if ( $filteredProducts )   { $filteredProducts.remove();   $filteredProducts   = null; }
         if ( $filteredPagination ) { $filteredPagination.remove(); $filteredPagination = null; }
-
-        // Limpiar encabezados de lista huérfanos
+        $woo.find('.acf-result-count-filtered').remove();
+        // Encabezados de lista huérfanos
         $woo.find('.argen-list-header').not( $nativeProducts.prev() ).remove();
 
         showNativeLoop();
-
-        // Restaurar conteo original
         $nativeResultCount.html( $nativeResultCountHTML );
 
         state.termIds  = [];
@@ -266,8 +233,12 @@
     }
 
     // ──────────────────────────────────────────────────────────────
-    // J. APLICAR VISTA GRILLA / LISTA A LOS RESULTADOS FILTRADOS
-    //    Lee la preferencia que guarda argen-quote-loop en localStorage
+    // J. APLICAR VISTA GRILLA / LISTA
+    //    Los botones Grilla/Lista de argen-quote-loop llaman a
+    //    applyView() sobre $('ul.products'). Cuando hay filtro activo,
+    //    ese selector también encuentra nuestro ul filtrado, así que
+    //    el toggle funciona automáticamente sobre los resultados.
+    //    Solo necesitamos manejar el argen-list-header.
     // ──────────────────────────────────────────────────────────────
     function applyCurrentView() {
         if ( !$filteredProducts ) return;
@@ -283,16 +254,13 @@
 
         if ( view === 'list' ) {
             $ul.addClass('argen-list-view');
-
             if ( !$ul.prev('.argen-list-header').length ) {
                 $([
                     '<div class="argen-list-header">',
-                    '<span></span>',
-                    '<span>Producto</span>',
+                    '<span></span><span>Producto</span>',
                     '<span>Presentación</span>',
                     '<span style="text-align:center">Cantidad</span>',
-                    '<span></span>',
-                    '</div>'
+                    '<span></span></div>'
                 ].join('')).insertBefore( $ul );
             }
         } else {
@@ -308,9 +276,8 @@
         if ( on ) {
             if ( !$woo.find('.acf-loading-overlay').length ) {
                 $woo.css('position', 'relative').prepend(
-                    '<div class="acf-loading-overlay" aria-label="Cargando productos" role="status">'
-                    + '<span class="acf-spinner"></span>'
-                    + '</div>'
+                    '<div class="acf-loading-overlay" role="status" aria-label="Cargando">'
+                    + '<span class="acf-spinner"></span></div>'
                 );
             }
         } else {
@@ -318,34 +285,13 @@
         }
     }
 
-    function updateResultCount( total, current, perPage ) {
-        // Mostrar siempre el conteo aunque esté oculto el nativo
-        // Lo mostramos como texto simple encima de los resultados filtrados
-        var $existing = $woo.find('.acf-result-count-filtered');
-        if ( !$existing.length ) {
-            $existing = $('<p class="woocommerce-result-count acf-result-count-filtered"></p>');
-            if ( $filteredProducts ) {
-                $filteredProducts.before( $existing );
-            }
-        }
-
-        if ( total === 0 ) {
-            $existing.text( acfData.i18n.noResult );
-            return;
-        }
-
-        var from = ( current - 1 ) * perPage + 1;
-        var to   = Math.min( current * perPage, total );
-        $existing.text( 'Mostrando ' + from + '\u2013' + to + ' de ' + total + ' resultados' );
-    }
-
     function showError() {
         if ( $filteredProducts ) $filteredProducts.remove();
-        $filteredProducts = $( '<p class="woocommerce-info acf-no-results">' + acfData.i18n.error + '</p>' );
+        $filteredProducts = $('<p class="woocommerce-info">' + acfData.i18n.error + '</p>');
         $nativeProducts.before( $filteredProducts );
     }
 
-    // Cuando el usuario cambia entre Grilla/Lista, re-aplicar a los filtrados
+    // Cuando quote-loop.js cambia la vista, re-aplicar al filtrado también
     $(document).on('click', '.argen-toggle-btn', function () {
         if ( state.filtered ) setTimeout( applyCurrentView, 50 );
     });

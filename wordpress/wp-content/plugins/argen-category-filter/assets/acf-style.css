@@ -280,7 +280,18 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Sin resultados ─────────────────────────── */
+/* ── Ocultar loop nativo con !important ─────
+   jQuery .hide() agrega display:none sin !important y algunos estilos
+   del tema lo sobreescriben. Esta clase garantiza el ocultamiento. */
+ul.acf-force-hide {
+    display: none !important;
+}
+ul.argen-list-view.acf-force-hide {
+    display: none !important;
+}
+nav.woocommerce-pagination.acf-force-hide{
+    display: none !important;
+}
 .acf-no-results {
     text-align: center;
     padding: 40px 0;
