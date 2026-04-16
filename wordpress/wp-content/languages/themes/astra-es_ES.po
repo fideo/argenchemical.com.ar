@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Astra package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-03-24 09:42:55+0000\n"
+"PO-Revision-Date: 2026-04-14 19:33:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +24,48 @@ msgstr "El tema Astra para WordPress es ultrarrápido y altamente personalizable
 msgid "Astra"
 msgstr "Astra"
 
-#: inc/core/class-astra-command-palette.php:79
+#: inc/lib/bsf-analytics/class-bsf-analytics.php:323
+msgid "No, thanks"
+msgstr "No, gracias"
+
+#: inc/abilities/customizer/general/sidebar/class-astra-update-sidebar-width.php:113
+msgid "Please provide a width value between 15 and 50."
+msgstr "Por favor, introduce un valor de ancho entre 15 y 50."
+
+#: inc/abilities/customizer/general/sidebar/class-astra-get-sidebar.php:25
+msgid "Get Astra Sidebar Settings"
+msgstr "Obtener ajustes de la barra lateral de Astra"
+
+#: inc/abilities/customizer/general/sidebar/class-astra-get-sidebar-width.php:25
+msgid "Get Astra Sidebar Width"
+msgstr "Obtener el ancho de la barra lateral de Astra"
+
+#: inc/abilities/customizer/general/sidebar/class-astra-get-sidebar-style.php:25
+msgid "Get Astra Sidebar Style"
+msgstr "Obtener el estilo de la barra lateral de Astra"
+
+#: inc/abilities/customizer/general/sidebar/class-astra-get-sidebar-layout.php:25
+msgid "Get Astra Sidebar Layout"
+msgstr "Obtener el diseño de la barra lateral de Astra"
+
+#: inc/abilities/customizer/footer/class-astra-update-footer-builder.php:439
+#: inc/abilities/customizer/footer/class-astra-update-footer-builder.php:455
+#: inc/abilities/customizer/footer/class-astra-update-footer-builder.php:471
+msgid "Valid options: full, content"
+msgstr "Opciones válidas: completo, contenido"
+
+#: inc/abilities/customizer/footer/class-astra-update-footer-builder.php:393
+#: inc/abilities/customizer/footer/class-astra-update-footer-builder.php:408
+#: inc/abilities/customizer/footer/class-astra-update-footer-builder.php:423
+msgid "Value must be between 1 and 5."
+msgstr "El valor debe estar entre 1 y 5."
+
+#: inc/abilities/customizer/footer/class-astra-update-footer-builder.php:327
+#: inc/abilities/customizer/header/class-astra-update-header-builder.php:327
+msgid "Astra theme helper functions not available."
+msgstr "Las funciones auxiliares del tema Astra no están disponibles."
+
+#: inc/core/class-astra-command-palette.php:84
 msgid "Search everything: from site settings to pages and design tools"
 msgstr "Busca todo: desde ajustes del sitio a páginas y herramientas de diseño."
 
@@ -34,51 +75,51 @@ msgstr "Busca todo: desde ajustes del sitio a páginas y herramientas de diseño
 msgid "Learn"
 msgstr "Aprende"
 
-#: inc/core/class-astra-command-palette.php:198
+#: inc/core/class-astra-command-palette.php:203
 msgid "WooCommerce, Shop, Store, Products, Single Product, Cart, Checkout, Account, My Account, Orders, Sidebar"
 msgstr "WooCommerce, tienda, almacén, productos, producto simple, carrito, pago, cuenta, mi cuenta, pedidos, barra lateral"
 
-#: inc/core/class-astra-command-palette.php:197
+#: inc/core/class-astra-command-palette.php:202
 msgid "Customizer: WooCommerce"
 msgstr "Personalizador: WooCommerce"
 
-#: inc/core/class-astra-command-palette.php:187
+#: inc/core/class-astra-command-palette.php:192
 msgid "General, Sidebar, Accessibility, Skip to Content, Block Editor, Gutenberg, Misc, Scroll To Top, Back to Top"
 msgstr "General, barra lateral, accesibilidad, ir al contenido, editor de bloques, Gutenberg, varios, desplazarse arriba, volver arriba"
 
-#: inc/core/class-astra-command-palette.php:186
+#: inc/core/class-astra-command-palette.php:191
 msgid "Customizer: General"
 msgstr "Personalizador: General"
 
-#: inc/core/class-astra-command-palette.php:180
+#: inc/core/class-astra-command-palette.php:185
 msgid "Blog, Archive, Single Post, Post, Single Page, Page, Content, Excerpt, Featured Image, Meta, Author, Date, Categories, Tags, Comments"
 msgstr "Blog, archivos, entrada individual, entrada, página individual, página, contenido, extracto, imagen destacada, metadatos, autor, fecha, categorías, etiquetas, comentarios"
 
-#: inc/core/class-astra-command-palette.php:179
+#: inc/core/class-astra-command-palette.php:184
 msgid "Customizer: Blog"
 msgstr "Personalizador: Blog"
 
-#: inc/core/class-astra-command-palette.php:173
+#: inc/core/class-astra-command-palette.php:178
 msgid "Footer, Footer Widgets, Footer Bar, Copyright, Primary Footer, Above Footer, Below Footer, Menu, Social, HTML, Widget"
 msgstr "Pie de página, widgets de pie de página, barra de pie de página, copyright, pie de página principal, encima del pie de página, debajo del pie de página, menú, redes sociales, HTML, widget"
 
-#: inc/core/class-astra-command-palette.php:172
+#: inc/core/class-astra-command-palette.php:177
 msgid "Customizer: Footer"
 msgstr "Personalizador: Pie de página"
 
-#: inc/core/class-astra-command-palette.php:166
+#: inc/core/class-astra-command-palette.php:171
 msgid "Header, Site Identity, Logo, Site Title, Tagline, Primary Header, Primary Menu, Menu, Navigation, Above Header, Below Header, Mobile Header, Mobile Menu, Search, Button, Social, Account, Cart, Widget, HTML, Off Canvas, Mobile Trigger"
 msgstr "Cabecera, identidad del sitio, logotipo, título del sitio, eslogan, cabecera principal, menú principal, menú, navegación, encima de la cabecera, debajo de la cabecera, cabecera móvil, menú móvil, búsqueda, botón, redes sociales, cuenta, carrito, widget, HTML, fuera del lienzo, activador móvil"
 
-#: inc/core/class-astra-command-palette.php:165
+#: inc/core/class-astra-command-palette.php:170
 msgid "Customizer: Header"
 msgstr "Personalizador: Cabecera"
 
-#: inc/core/class-astra-command-palette.php:159
+#: inc/core/class-astra-command-palette.php:164
 msgid "Global, Container, Layout, Colors, Color, Background, Base Colors, Typography, Font, Fonts, Headings, Text, Buttons, Button, Style, Base Typography"
 msgstr "Global, contenedor, diseño, colores, color, fondo, colores base, tipografía, fuente, fuentes, encabezados, texto, botones, botón, estilo, tipografía base"
 
-#: inc/core/class-astra-command-palette.php:158
+#: inc/core/class-astra-command-palette.php:163
 msgid "Customizer: Global"
 msgstr "Personalizador: Global"
 
@@ -312,7 +353,7 @@ msgstr "Haz que tu sitio web sea fácilmente reconocible y esté en consonancia 
 msgid "Brand Basics"
 msgstr "Fundamentos de la marca"
 
-#: admin/includes/class-astra-api-init.php:227
+#: admin/includes/class-astra-api-init.php:235
 msgid "Progress saved successfully."
 msgstr "Progreso guardado correctamente"
 
@@ -632,10 +673,6 @@ msgstr "Despídete de los procesos de pago lentos y aumenta las ventas con una e
 msgid "Modern Cart: A smarter way to sell"
 msgstr "Carrito moderno: un modo inteligente de vender"
 
-#: inc/lib/bsf-analytics/class-bsf-analytics.php:242
-msgid "Help us improve %1$s and our other products!<br><br>With your permission, we'd like to collect <strong>non-sensitive information</strong> from your website — like your PHP version and which features you use — so we can fix bugs faster, make smarter decisions, and build features that actually matter to you. <em>No personal info. Ever.</em>"
-msgstr "¡Ayúdanos a mejorar %1$s y nuestros demás productos!<br><br>Con tu permiso, nos gustaría recopilar <strong>información no confidencial</strong> de tu sitio web, como tu versión de PHP y las características que utilizas, para que podamos corregir fallos más rápido, tomar decisiones más inteligentes y crear características que realmente te importen. <em>Ninguna información personal. Nunca.</em>"
-
 #: inc/customizer/class-astra-customizer.php:721
 msgid "This request is only allowed in the Customizer screen."
 msgstr "Esta solicitud solo está permitida en la pantalla del personalizador."
@@ -806,11 +843,6 @@ msgstr "Opinión rápida"
 msgid "Oops! Something went wrong. Please refresh the page and try again."
 msgstr "¡Vaya! Algo ha ido mal. Por favor, recarga la página e inténtalo de nuevo."
 
-#. translators: %s Product title
-#: inc/lib/bsf-analytics/class-bsf-analytics.php:513
-msgid "Allow %s products to track non-sensitive usage tracking data."
-msgstr "Permite a los productos de %s hacer el seguimiento del rastreo de datos de uso no sensibles."
-
 #: inc/core/builder/class-astra-builder-helper.php:777
 #: inc/core/builder/class-astra-builder-helper.php:951
 msgid "Color Switcher"
@@ -821,50 +853,50 @@ msgstr "Cambiador de color"
 msgid "Posts"
 msgstr "Entradas"
 
-#: admin/class-astra-bsf-analytics.php:132
+#: admin/class-astra-bsf-analytics.php:157
 #: inc/lib/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:132
 #: inc/lib/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:307
 msgid "Please tell us more details."
 msgstr "Por favor, cuéntanos más detalles."
 
-#: admin/class-astra-bsf-analytics.php:131
+#: admin/class-astra-bsf-analytics.php:156
 #: inc/lib/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:306
 msgid "Other"
 msgstr "Otros"
 
-#: admin/class-astra-bsf-analytics.php:126
+#: admin/class-astra-bsf-analytics.php:151
 #: inc/lib/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:301
 msgid "Please tell us more about the feature."
 msgstr "Por favor, cuéntanos algo más sobre esa característica."
 
-#: admin/class-astra-bsf-analytics.php:125
+#: admin/class-astra-bsf-analytics.php:150
 #: inc/lib/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:300
 msgid "It's missing a specific feature."
 msgstr "Le falta una característica específica."
 
-#: admin/class-astra-bsf-analytics.php:120
+#: admin/class-astra-bsf-analytics.php:145
 msgid "Could you please specify which theme?"
 msgstr "¿Podrías especificar qué tema?"
 
-#: admin/class-astra-bsf-analytics.php:119
+#: admin/class-astra-bsf-analytics.php:144
 msgid "I found a better alternative theme."
 msgstr "He encontrado un tema que es una mejor alternativa."
 
-#: admin/class-astra-bsf-analytics.php:114
+#: admin/class-astra-bsf-analytics.php:139
 #: inc/lib/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:289
 msgid "Please tell us more about what went wrong?"
 msgstr "Por favor, cuéntanos más sobre qué salió mal"
 
-#: admin/class-astra-bsf-analytics.php:113
+#: admin/class-astra-bsf-analytics.php:138
 msgid "The theme isn't working properly."
 msgstr "El tema no está funcionando correctamente."
 
-#: admin/class-astra-bsf-analytics.php:108
+#: admin/class-astra-bsf-analytics.php:133
 #: inc/lib/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:283
 msgid "How can we assist you?"
 msgstr "¿Cómo podemos ayudarte?"
 
-#: admin/class-astra-bsf-analytics.php:107
+#: admin/class-astra-bsf-analytics.php:132
 #: inc/lib/bsf-analytics/modules/deactivation-survey/classes/class-deactivation-survey-feedback.php:282
 msgid "This is a temporary deactivation for testing."
 msgstr "Es una desactivación temporal, para hacer pruebas."
@@ -9162,8 +9194,8 @@ msgstr "Úsalo con imágenes transparentes para conseguir unos resultados óptim
 msgid "Logo Color"
 msgstr "Color del logotipo"
 
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:112
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:130
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:109
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:127
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:121
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:197
 #: inc/abilities/customizer/globals/container/class-astra-update-container-layout.php:133
@@ -9186,8 +9218,8 @@ msgstr "Estilo de la barra lateral del curso/lección"
 msgid "Global Sidebar Style"
 msgstr "Estilo global de la barra lateral"
 
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:118
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:135
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:115
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:132
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:128
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:213
 #: inc/abilities/customizer/globals/container/class-astra-update-container-layout.php:139
@@ -9667,7 +9699,7 @@ msgstr "Instalando"
 msgid "Dashboard"
 msgstr "Escritorio"
 
-#: admin/includes/class-astra-api-init.php:243
+#: admin/includes/class-astra-api-init.php:251
 msgid "Sorry, you cannot list resources."
 msgstr "Lo siento, no puedes listar recursos."
 
@@ -11511,28 +11543,15 @@ msgstr[1] "%1$s productos"
 msgid "Enable Cross-sells"
 msgstr "Activar las ventas cruzadas"
 
-#: inc/lib/bsf-analytics/class-bsf-analytics.php:516
+#: inc/lib/bsf-analytics/class-bsf-analytics.php:549
 msgid " This will be applicable for all sites from the network."
 msgstr "Esto será aplicable a todos los sitios de la red."
 
-#: inc/lib/bsf-analytics/class-bsf-analytics.php:468
+#: inc/lib/bsf-analytics/class-bsf-analytics.php:501
 msgid "Usage Tracking"
 msgstr "Seguimiento del uso"
 
-#: inc/lib/bsf-analytics/class-bsf-analytics.php:294
-msgid "No Thanks"
-msgstr "No, gracias"
-
-#: inc/lib/bsf-analytics/class-bsf-analytics.php:283
-msgid "Yes! Allow it"
-msgstr "¡Sí! Lo permito"
-
-#. translators: %s usage doc link
-#: inc/lib/bsf-analytics/class-bsf-analytics.php:273
-msgid " Know More."
-msgstr "Saber más."
-
-#: inc/lib/bsf-analytics/class-bsf-analytics.php:249
+#: inc/lib/bsf-analytics/class-bsf-analytics.php:278
 msgid "This will be applicable for all sites from the network."
 msgstr "Esto será aplicable a todos los sitios de la red."
 
@@ -11768,8 +11787,8 @@ msgstr "Color del título"
 msgid "Hover"
 msgstr "Al pasar el cursor"
 
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:111
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:129
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:108
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:126
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:120
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:193
 #: inc/abilities/customizer/globals/container/class-astra-update-container-layout.php:132
@@ -12029,44 +12048,44 @@ msgstr "Color del separador"
 msgid "Breadcrumb"
 msgstr "Migas de pan"
 
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:954
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:965
 msgctxt "weekly archives date format"
 msgid "W"
 msgstr "W"
 
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:926
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:1363
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:937
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:1374
 msgctxt "daily archives date format"
 msgid "j"
 msgstr "j"
 
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:925
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:982
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:1359
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:936
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:993
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:1370
 msgctxt "monthly archives date format"
 msgid "F"
 msgstr "F"
 
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:924
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:953
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:981
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:1008
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:1355
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:935
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:964
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:992
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:1019
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:1366
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr "Y"
 
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:908
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:919
 msgctxt "hour archives time format"
 msgid "g a"
 msgstr "g a"
 
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:891
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:902
 msgctxt "minute archives time format"
 msgid "i"
 msgstr "i"
 
-#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:874
+#: inc/addons/breadcrumbs/class-astra-breadcrumb-trail.php:885
 msgctxt "minute and hour archives time format"
 msgid "g:i a"
 msgstr "g:i a"
@@ -12988,7 +13007,7 @@ msgstr "Blog Pro"
 msgid "Spacing"
 msgstr "Espaciado"
 
-#: inc/lib/bsf-analytics/class-bsf-analytics.php:521
+#: inc/lib/bsf-analytics/class-bsf-analytics.php:554
 msgid "Learn More."
 msgstr "Saber más."
 
@@ -13383,11 +13402,11 @@ msgstr "%s anterior"
 msgid "Next %s"
 msgstr "%s siguiente"
 
-#: inc/abilities/customizer/globals/buttons/class-astra-get-global-buttons.php:66
+#: inc/abilities/customizer/globals/buttons/class-astra-get-global-buttons.php:63
 msgid "Button text hover color."
 msgstr "Color de texto del botón al pasar el cursor."
 
-#: inc/abilities/customizer/globals/buttons/class-astra-get-global-buttons.php:62
+#: inc/abilities/customizer/globals/buttons/class-astra-get-global-buttons.php:59
 msgid "Button text color."
 msgstr "Color de texto del botón."
 
@@ -13793,8 +13812,8 @@ msgstr "Logotipo a la izquierda"
 msgid "Content Width"
 msgstr "Ancho del contenido"
 
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:113
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:131
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:110
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:128
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:122
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:133
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:201
@@ -13919,8 +13938,8 @@ msgstr "Página"
 msgid "Content Boxed"
 msgstr "Recuadro de contenido"
 
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:117
-#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:134
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:114
+#: inc/abilities/customizer/globals/container/class-astra-get-container-layout.php:131
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:127
 #: inc/abilities/customizer/globals/container/class-astra-list-container-settings.php:209
 #: inc/abilities/customizer/globals/container/class-astra-update-container-layout.php:138
@@ -14106,7 +14125,7 @@ msgstr "Color de los enlaces al pasar el cursor"
 msgid "Text Color"
 msgstr "Color de texto"
 
-#: inc/abilities/customizer/globals/buttons/class-astra-get-global-buttons.php:74
+#: inc/abilities/customizer/globals/buttons/class-astra-get-global-buttons.php:71
 msgid "Button background hover color."
 msgstr "Color de fondo del botón al pasar el cursor."
 

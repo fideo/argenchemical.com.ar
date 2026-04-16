@@ -90,7 +90,7 @@ class ACF_Category_Widget extends WP_Widget {
                 ? '<span class="acf-count">(' . absint( $cat->count ) . ')</span>'
                 : '';
 
-            $item_class = 'acf-cat-item' . ( $tiene_hijos ? ' acf-has-children' : '' );
+            $item_class = 'acf-cat-item' . ( $tiene_hijos ? ' acf-has-children' : '' ) . ' acf-is-open';
 
             echo '<li class="' . esc_attr( $item_class ) . '">';
 
@@ -113,7 +113,7 @@ class ACF_Category_Widget extends WP_Widget {
             // Botón para expandir/colapsar subcategorías
             if ( $tiene_hijos ) {
                 echo '<button type="button" class="acf-toggle-btn" '
-                    . 'aria-expanded="false" '
+                    . 'aria-expanded="true" '
                     . 'aria-label="' . esc_attr( sprintf( __( 'Expandir %s', 'argen-category-filter' ), $cat->name ) ) . '">'
                     . '<span class="acf-toggle-icon" aria-hidden="true"></span>'
                     . '</button>';

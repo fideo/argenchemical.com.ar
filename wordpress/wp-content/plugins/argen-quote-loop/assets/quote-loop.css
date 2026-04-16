@@ -224,11 +224,10 @@
 /* ─── OCULTAR en GRILLA los elementos propios de lista ────── */
 .argen-list-img-wrap,
 .argen-list-name {
-    display: none;
+    display: none !important;
 }
  
 /* ─── VISTA LISTA ─────────────────────────────────────────── */
- 
 ul.products.argen-list-view {
     display: flex !important;
     flex-direction: column !important;
@@ -328,7 +327,7 @@ ul.products.argen-list-view li.product .argen-list-name {
  
 /* Label de atributo oculto en lista */
 ul.products.argen-list-view li.product .argen-variation-label {
-    display: none;
+    display: none !important;
 }
  
 ul.products.argen-list-view li.product .argen-variation-row {
@@ -432,7 +431,7 @@ ul.products.argen-list-view li.product .argen-quote-feedback {
     ul.products.argen-list-view li.product .argen-qty-quote-row   { grid-column: 1 / -1; grid-row: 4; }
     ul.products.argen-list-view li.product .argen-quote-feedback  { grid-column: 1 / -1; grid-row: 5; }
  
-    .argen-list-header { display: none; }
+    .argen-list-header { display: none !important; }
  
     .argen-view-toggle { justify-content: center; }
 }
