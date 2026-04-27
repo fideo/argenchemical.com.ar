@@ -5,7 +5,7 @@
  * Description: Widget propio con checkboxes para filtrar productos WooCommerce
  *              por una o varias categorías/subcategorías sin recargar la página.
  *              Compatible con argen-quote-loop (grilla/lista, variaciones, Agregar).
- * Version:     2.1.1
+ * Version:     2.1.2
  * Author:      Federico Mazzei
  * License:     GPL-2.0+
  * Text Domain: argen-category-filter
@@ -14,7 +14,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'ACF_VERSION',     '2.1.1' );
+define( 'ACF_VERSION',     '2.1.2' );
 define( 'ACF_URL',         plugin_dir_url( __FILE__ ) );
 define( 'ACF_AJAX_ACTION', 'acf_filter_by_category' );
 
