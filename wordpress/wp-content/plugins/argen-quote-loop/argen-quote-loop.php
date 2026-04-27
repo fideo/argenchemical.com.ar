@@ -4,17 +4,17 @@
  * Plugin URI:  https://argechemical.com
  * Description: Agrega selector de variaciones (Presentaciones), cantidad y botón "Add to Quote"
  *              directamente en el listado de productos. Incluye toggle de vista Grilla / Lista.
- * Version:     1.1.1
+ * Version:     1.2.4
  * Author:      ArgenChemical Dev
  * License:     GPL-2.0+
  * Text Domain: argen-quote-loop
  * Requires Plugins: woocommerce
  */
- 
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
- 
+
 // ─────────────────────────────────────────────────────────────────
 // GUARD: Solo ejecutar si WooCommerce está activo
 // ─────────────────────────────────────────────────────────────────
@@ -27,36 +27,40 @@ add_action( 'plugins_loaded', function() {
     }
     new Argen_Quote_Loop();
 });
- 
- 
+
+
 // ─────────────────────────────────────────────────────────────────
 // CLASE PRINCIPAL
 // ─────────────────────────────────────────────────────────────────
 class Argen_Quote_Loop {
- 
+
     public function __construct() {
         // 1. Botón toggle Grilla / Lista antes del loop
         add_action( 'woocommerce_before_shop_loop', array( $this, 'render_view_toggle' ), 30 );
- 
+
         // 2. Inyectar el formulario de variación en las cards del loop
         add_action( 'woocommerce_after_shop_loop_item', array( $this, 'render_quote_form_in_loop' ), 5 );
- 
+
         // 3. Ocultar el botón nativo de WooCommerce/Catalog Mode en el loop
         add_filter( 'woocommerce_loop_add_to_cart_link', array( $this, 'maybe_hide_native_button' ), 999, 2 );
- 
+
         // 4. Encolar scripts y estilos
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
- 
+
         // 5. AJAX: agregar al quote desde el loop
         add_action( 'wp_ajax_argen_add_to_quote_loop',        array( $this, 'ajax_add_to_quote' ) );
         add_action( 'wp_ajax_nopriv_argen_add_to_quote_loop', array( $this, 'ajax_add_to_quote' ) );
- 
+
         // 6. Bypass YITH Catalog Mode para nuestra acción AJAX propia
         add_action( 'wp_ajax_argen_add_to_quote_loop',        array( $this, 'bypass_catalog_mode' ), 1 );
         add_action( 'wp_ajax_nopriv_argen_add_to_quote_loop', array( $this, 'bypass_catalog_mode' ), 1 );
+
+        // 7. Corregir el contador de resultados — reemplaza el template de WooCommerce
+        remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+        add_action(    'woocommerce_before_shop_loop', array( $this, 'render_result_count' ), 20 );
     }
- 
- 
+
+
     // ─────────────────────────────────────────────────────────────
     // BYPASS: Desactiva temporalmente los filtros de Catalog Mode
     // ─────────────────────────────────────────────────────────────
@@ -68,13 +72,48 @@ class Argen_Quote_Loop {
             remove_action( 'wp_ajax_nopriv_woocommerce_add_to_cart', array( $instance, 'block_ajax_add_to_cart' ) );
         }
     }
- 
- 
+
+
+    // ─────────────────────────────────────────────────────────────
+    // RESULT COUNT: Reemplaza el contador nativo de WooCommerce
+    // Usa woocommerce_before_shop_loop igual que el original pero
+    // con prioridad 20 — mismo slot, misma posición visual.
+    // ─────────────────────────────────────────────────────────────
+    public function render_result_count() {
+        global $wp_query;
+
+        if ( ! $wp_query || ! isset( $wp_query->found_posts ) ) {
+            // Fallback: dejar que WooCommerce lo muestre
+            woocommerce_result_count();
+            return;
+        }
+
+        $total    = (int) $wp_query->found_posts;
+        $per_page = (int) get_option( 'posts_per_page', 12 );
+        $paged    = max( 1, (int) get_query_var( 'paged' ) );
+
+        $first = ( $per_page * ( $paged - 1 ) ) + 1;
+        $last  = min( $total, $per_page * $paged );
+
+        if ( $total <= 0 ) {
+            return;
+        }
+
+        if ( 1 === $total ) {
+            $message = 'Mostrando 1 resultado';
+        } elseif ( $total <= $per_page ) {
+            $message = 'Mostrando ' . $total . ' resultados';
+        } else {
+            $message = 'Mostrando ' . $first . '–' . $last . ' de ' . $total . ' resultados';
+        }
+
+        echo '<p class="woocommerce-result-count argen-result-count">' . esc_html( $message ) . '</p>';
+    }
+
     // ─────────────────────────────────────────────────────────────
     // TOGGLE: Botones para cambiar entre vista Grilla y Lista
     // ─────────────────────────────────────────────────────────────
     public function render_view_toggle() {
-        // Solo en páginas de tienda/categorías
         if ( ! is_shop() && ! is_product_category() && ! is_product_tag() ) {
             return;
         }
@@ -105,54 +144,49 @@ class Argen_Quote_Loop {
         <?php
     }
 
- 
+
     // ─────────────────────────────────────────────────────────────
-    // 1. RENDERIZAR el formulario en cada card del loop
-    //    En vista lista, se agrega también la imagen del producto.
+    // RENDERIZAR el formulario en cada card del loop
     // ─────────────────────────────────────────────────────────────
     public function render_quote_form_in_loop() {
         global $product;
- 
+
         if ( ! $product ) return;
- 
-        // Imagen del producto (64×43) — visible solo en vista lista via CSS
-        $image_html = '';
+
         $product_id = $product->get_id();
         $thumbnail  = get_the_post_thumbnail( $product_id, array( 64, 43 ), array(
             'class'   => 'argen-list-thumb',
             'loading' => 'lazy',
             'alt'     => esc_attr( $product->get_name() ),
         ) );
- 
+
         if ( $thumbnail ) {
             $image_html = '<div class="argen-list-img-wrap">' . $thumbnail . '</div>';
         } else {
-            // Placeholder si no hay imagen
             $image_html = '<div class="argen-list-img-wrap argen-list-img-placeholder"></div>';
         }
- 
+
         if ( ! $product->is_type( 'variable' ) ) {
             $this->render_simple_quote_form( $product, $image_html );
             return;
         }
- 
+
         $variations = $product->get_available_variations();
         $attributes = $product->get_variation_attributes();
- 
+
         if ( empty( $variations ) ) return;
- 
+
         ?>
         <div class="argen-quote-loop-form" data-product-id="<?php echo esc_attr( $product_id ); ?>">
- 
+
             <?php echo $image_html; ?>
- 
+
             <div class="argen-form-inner">
- 
+
                 <?php
-                // Nombre del producto (visible en vista lista)
                 echo '<div class="argen-list-name"><a href="' . esc_url( get_permalink( $product_id ) ) . '">' . esc_html( $product->get_name() ) . '</a></div>';
                 ?>
- 
+
                 <div class="argen-variations-wrap">
                     <?php foreach ( $attributes as $attr_name => $attr_options ) :
                         $attr_label = wc_attribute_label( $attr_name );
@@ -177,7 +211,7 @@ class Argen_Quote_Loop {
                                     }
                                     $options_to_render[ $option ] = $label;
                                 }
- 
+
                                 uasort( $options_to_render, function( $a, $b ) {
                                     preg_match( '/[\d]+([.,]\d+)?/', $a, $match_a );
                                     preg_match( '/[\d]+([.,]\d+)?/', $b, $match_b );
@@ -185,7 +219,7 @@ class Argen_Quote_Loop {
                                     $num_b = isset( $match_b[0] ) ? (float) str_replace( ',', '.', $match_b[0] ) : 0;
                                     return $num_a <=> $num_b;
                                 });
- 
+
                                 foreach ( $options_to_render as $slug => $label ) :
                                 ?>
                                     <option value="<?php echo esc_attr( $slug ); ?>">
@@ -196,7 +230,7 @@ class Argen_Quote_Loop {
                         </div>
                     <?php endforeach; ?>
                 </div>
- 
+
                 <div class="argen-qty-quote-row">
                     <div class="argen-qty-wrapper">
                         <button class="argen-qty-btn argen-qty-minus" type="button" aria-label="Disminuir">−</button>
@@ -209,7 +243,7 @@ class Argen_Quote_Loop {
                                 aria-label="Cantidad">
                         <button class="argen-qty-btn argen-qty-plus" type="button" aria-label="Aumentar">+</button>
                     </div>
- 
+
                     <div class="argen-add-quote-wrap">
                         <button class="argen-add-quote-btn"
                                 type="button"
@@ -219,16 +253,16 @@ class Argen_Quote_Loop {
                         </button>
                     </div>
                 </div>
- 
+
                 <div class="argen-quote-feedback" aria-live="polite"></div>
- 
+
             </div><!-- .argen-form-inner -->
- 
+
         </div><!-- .argen-quote-loop-form -->
         <?php
     }
- 
- 
+
+
     // ─────────────────────────────────────────────────────────────
     // Formulario para productos SIMPLES
     // ─────────────────────────────────────────────────────────────
@@ -236,12 +270,12 @@ class Argen_Quote_Loop {
         $product_id = $product->get_id();
         ?>
         <div class="argen-quote-loop-form argen-simple" data-product-id="<?php echo esc_attr( $product_id ); ?>">
- 
+
             <?php echo $image_html; ?>
- 
+
             <div class="argen-form-inner">
                 <div class="argen-list-name"><a href="<?php echo esc_url( get_permalink( $product_id ) ); ?>"><?php echo esc_html( $product->get_name() ); ?></a></div>
- 
+
                 <div class="argen-qty-quote-row">
                     <div class="argen-qty-wrapper">
                         <button class="argen-qty-btn argen-qty-minus" type="button" aria-label="Disminuir">−</button>
@@ -253,7 +287,7 @@ class Argen_Quote_Loop {
                                 aria-label="Cantidad">
                         <button class="argen-qty-btn argen-qty-plus" type="button" aria-label="Aumentar">+</button>
                     </div>
- 
+
                     <div class="argen-add-quote-wrap">
                         <button class="argen-add-quote-btn"
                                 type="button"
@@ -265,43 +299,43 @@ class Argen_Quote_Loop {
                 </div>
                 <div class="argen-quote-feedback" aria-live="polite"></div>
             </div>
- 
+
         </div>
         <?php
     }
- 
- 
+
+
     // ─────────────────────────────────────────────────────────────
-    // 2. OCULTAR botón nativo en loop
+    // OCULTAR botón nativo en loop
     // ─────────────────────────────────────────────────────────────
     public function maybe_hide_native_button( $html, $product ) {
         return '';
     }
- 
- 
+
+
     // ─────────────────────────────────────────────────────────────
-    // 3. ENCOLAR assets (CSS + JS)
+    // ENCOLAR assets (CSS + JS)
     // ─────────────────────────────────────────────────────────────
     public function enqueue_assets() {
         if ( ! is_shop() && ! is_product_category() && ! is_product_tag() && ! is_product() ) {
             return;
         }
- 
+
         wp_enqueue_style(
             'argen-quote-loop',
             plugin_dir_url( __FILE__ ) . 'assets/quote-loop.css',
             array(),
-            '1.1.0'
+            '1.2.4'
         );
- 
+
         wp_enqueue_script(
             'argen-quote-loop',
             plugin_dir_url( __FILE__ ) . 'assets/quote-loop.js',
             array( 'jquery' ),
-            '1.1.0',
+            '1.2.4',
             true
         );
- 
+
         wp_localize_script( 'argen-quote-loop', 'argenQuote', array(
             'ajaxUrl' => admin_url( 'admin-ajax.php' ),
             'action'  => 'argen_add_to_quote_loop',
@@ -313,27 +347,27 @@ class Argen_Quote_Loop {
             ),
         ));
     }
- 
- 
+
+
     // ─────────────────────────────────────────────────────────────
-    // 4. AJAX — YITH Request a Quote
+    // AJAX — YITH Request a Quote
     // ─────────────────────────────────────────────────────────────
     public function ajax_add_to_quote() {
- 
+
         $product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
         if ( ! $product_id || ! wp_verify_nonce( $_POST['nonce'] ?? '', 'argen_quote_loop_' . $product_id ) ) {
             wp_send_json_error( array( 'message' => 'Solicitud inválida.' ) );
         }
- 
+
         $quantity = max( 1, isset( $_POST['quantity'] ) ? absint( $_POST['quantity'] ) : 1 );
         $product  = wc_get_product( $product_id );
         if ( ! $product ) {
             wp_send_json_error( array( 'message' => 'Producto no encontrado.' ) );
         }
- 
+
         $variation_id = 0;
         $variations   = array();
- 
+
         if ( $product->is_type( 'variable' ) ) {
             foreach ( $_POST as $key => $value ) {
                 if ( strpos( $key, 'attribute_' ) === 0 ) {
@@ -349,7 +383,7 @@ class Argen_Quote_Loop {
                 ) );
             }
         }
- 
+
         if ( $variation_id ) {
             $product_raq = array_merge(
                 array(
@@ -365,10 +399,10 @@ class Argen_Quote_Loop {
                 'quantity'   => $quantity,
             );
         }
- 
+
         $quote = null;
         $added = false;
- 
+
         if ( class_exists( 'YITH_Request_Quote' ) ) {
             if ( method_exists( 'YITH_Request_Quote', 'get_instance' ) ) {
                 $quote = YITH_Request_Quote::get_instance();
@@ -400,7 +434,7 @@ class Argen_Quote_Loop {
                 }
             }
         }
- 
+
         if ( $added ) {
             $quote_count = 0;
             if ( $quote && isset( $quote->raq_content ) && is_array( $quote->raq_content ) ) {

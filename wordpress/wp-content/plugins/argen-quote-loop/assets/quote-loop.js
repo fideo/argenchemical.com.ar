@@ -1,12 +1,12 @@
 /**
- * quote-loop.js  v1.1.0
- * Maneja: toggle grilla/lista, stepper de cantidad, AJAX add-to-quote
+ * quote-loop.js  v1.2.4
+ * Maneja: toggle grilla/lista, stepper de cantidad, AJAX add-to-quote, toast notifications
  */
 (function($) {
     'use strict';
- 
+
     var STORAGE_KEY = 'argenViewMode'; // 'grid' | 'list'
- 
+
     // ─── CONSTANTES DE TEXTO ───────────────────────────────────────
     var LIST_HEADER_HTML = [
         '<div class="argen-list-header">',
@@ -17,67 +17,115 @@
         '  <span></span>',                 // botón
         '</div>'
     ].join('');
- 
+
     // ─── TOGGLE GRILLA / LISTA ─────────────────────────────────────
+    var _observer = null; // MutationObserver global para el loop de productos
+
     function initViewToggle() {
-        var $toggle  = $('.argen-view-toggle');
+        var $toggle = $('.argen-view-toggle');
         if ( ! $toggle.length ) return;
- 
-        // Envolver en wrapper para centrado via CSS si no está ya
+
         if ( ! $toggle.parent().hasClass('argen-view-toggle-wrap') ) {
             $toggle.wrap('<div class="argen-view-toggle-wrap"></div>');
         }
- 
-        var $products = $('ul.products');
-        var $header   = null; // referencia al encabezado de lista
- 
-        // Leer preferencia guardada
-        var savedView = localStorage.getItem(STORAGE_KEY) || 'grid';
-        applyView(savedView, false);
- 
-        // Click en los botones
+
+        // Aplicar vista guardada al cargar
+        applyView(localStorage.getItem(STORAGE_KEY) || 'grid', false);
+
+        // Click manual en los botones
         $toggle.on('click', '.argen-toggle-btn', function() {
-            var view = $(this).data('view');
-            applyView(view, true);
+            applyView($(this).data('view'), true);
         });
- 
-        function applyView(view, save) {
-            // Actualizar botones
-            $toggle.find('.argen-toggle-btn').each(function() {
-                var isActive = $(this).data('view') === view;
-                $(this).toggleClass('active', isActive);
-                $(this).attr('aria-pressed', isActive ? 'true' : 'false');
+
+        // ── Capas de detección de cambios en el DOM ───────────────
+
+        // 1. Eventos WooCommerce/AJAX estándar
+        $(document.body).on(
+            'wc_fragments_refreshed wc_fragments_loaded woocommerce_update_product_list ' +
+            'filtered_ajax_get_products berocket_ajax_products_loaded ' +
+            'woof_ajax_done yith_wcaf_ajax_done',
+            function() { reapplyView(); }
+        );
+
+        // 2. Cualquier llamada AJAX completada (cubre plugins de filtro sin eventos custom)
+        $(document).ajaxComplete(function() {
+            reapplyView();
+        });
+
+        // 3. MutationObserver sobre el contenedor del loop:
+        //    detecta cuando WooCommerce/filtros reemplazan el ul.products en el DOM.
+        //    Esto cubre navegación SPA, infinite scroll y cualquier otro método.
+        attachObserver();
+    }
+
+    // Conecta el MutationObserver al contenedor padre de ul.products
+    function attachObserver() {
+        if (_observer) { _observer.disconnect(); }
+
+        // El contenedor es habitualmente .woocommerce o main#main o el parent de ul.products
+        var target = document.querySelector(
+            '.woocommerce-products-header ~ ul.products, ' +
+            '.woocommerce ul.products, ' +
+            'main ul.products, ' +
+            '#primary ul.products'
+        );
+        // Si no encontramos ul.products, observamos el body completo como fallback
+        var observeTarget = (target ? target.parentNode : null) || document.body;
+
+        _observer = new MutationObserver(function(mutations) {
+            var relevant = mutations.some(function(m) {
+                // Nos interesa si se agregaron/quitaron nodos (no cambios de atributos internos)
+                return m.type === 'childList' && m.addedNodes.length > 0;
             });
- 
-            if (view === 'list') {
-                $products.addClass('argen-list-view');
- 
-                // Insertar encabezado si no existe
-                if ( ! $products.prev('.argen-list-header').length ) {
-                    $header = $(LIST_HEADER_HTML);
-                    $products.before($header);
-                }
- 
-            } else {
-                $products.removeClass('argen-list-view');
- 
-                // Quitar encabezado si existe
-                if ($header) {
-                    $header.remove();
-                    $header = null;
-                }
-                $('.argen-list-header').remove(); // por si acaso
+            if (relevant) { reapplyView(); }
+        });
+
+        _observer.observe(observeTarget, { childList: true, subtree: true });
+    }
+
+    // Wrapper que evita ejecutar applyView múltiples veces en el mismo ciclo
+    var _reapplyTimer = null;
+    function reapplyView() {
+        clearTimeout(_reapplyTimer);
+        _reapplyTimer = setTimeout(function() {
+            $('.argen-list-header').remove();
+            applyView(localStorage.getItem(STORAGE_KEY) || 'grid', false);
+            // Re-conectar el observer al nuevo ul.products si fue reemplazado
+            attachObserver();
+        }, 50);
+    }
+
+    // ─── applyView: siempre lee el DOM en vivo ─────────────────────
+    function applyView(view, save) {
+        var $products = $('ul.products');
+        var $toggle   = $('.argen-view-toggle');
+
+        // Sincronizar botones
+        $toggle.find('.argen-toggle-btn').each(function() {
+            var isActive = $(this).data('view') === view;
+            $(this).toggleClass('active', isActive);
+            $(this).attr('aria-pressed', isActive ? 'true' : 'false');
+        });
+
+        if ( ! $products.length ) { return; } // no hay loop visible, nada que hacer
+
+        if (view === 'list') {
+            $products.addClass('argen-list-view');
+            if ( ! $products.prev('.argen-list-header').length ) {
+                $products.before($(LIST_HEADER_HTML));
             }
- 
-            if (save) {
-                try { localStorage.setItem(STORAGE_KEY, view); } catch(e) {}
-            }
+        } else {
+            $products.removeClass('argen-list-view');
+            $('.argen-list-header').remove();
+        }
+
+        if (save) {
+            try { localStorage.setItem(STORAGE_KEY, view); } catch(e) {}
         }
     }
- 
+
     // ─── STEPPER DE CANTIDAD ───────────────────────────────────────
     function initQtyStepper() {
-        // Delegar en document para que funcione con productos cargados via AJAX
         $(document).on('click', '.argen-qty-minus, .argen-qty-plus', function(e) {
             e.preventDefault();
             var $btn   = $(this);
@@ -85,7 +133,7 @@
             var val    = parseInt($input.val(), 10) || 1;
             var min    = parseInt($input.attr('min'), 10) || 1;
             var max    = parseInt($input.attr('max'), 10) || 9999;
- 
+
             if ($btn.hasClass('argen-qty-minus')) {
                 val = Math.max(min, val - 1);
             } else {
@@ -93,8 +141,7 @@
             }
             $input.val(val);
         });
- 
-        // Validar entrada manual
+
         $(document).on('change blur', '.argen-qty-input', function() {
             var $input = $(this);
             var val    = parseInt($input.val(), 10);
@@ -104,7 +151,7 @@
             if (val > max) $input.val(max);
         });
     }
- 
+
     // ─── AJAX ADD TO QUOTE ─────────────────────────────────────────
     function initAddToQuote() {
         $(document).on('click', '.argen-add-quote-btn', function(e) {
@@ -115,55 +162,53 @@
             var productId  = $btn.data('product-id');
             var nonce      = $btn.data('nonce');
             var quantity   = $form.find('.argen-qty-input').val() || 1;
- 
+
             // Validar que se eligió variación (si hay selects)
-            var $selects = $form.find('.argen-variation-select');
+            var $selects    = $form.find('.argen-variation-select');
             var allSelected = true;
             $selects.each(function() {
                 if ($(this).val() === '') {
                     allSelected = false;
-                    return false; // break
+                    return false;
                 }
             });
- 
+
             if (!allSelected) {
                 showFeedback($feedback, argenQuote.i18n.selectOption, 'error');
                 return;
             }
- 
-            // Recolectar atributos seleccionados
+
             var data = {
                 action:     argenQuote.action,
                 product_id: productId,
                 nonce:      nonce,
                 quantity:   quantity,
             };
- 
+
             $selects.each(function() {
                 var attrName = 'attribute_' + $(this).data('attribute');
                 data[attrName] = $(this).val();
             });
- 
-            // Deshabilitar botón mientras procesa
+
             $btn.prop('disabled', true).text(argenQuote.i18n.adding);
             $feedback.removeClass('argen-success argen-error').text('');
- 
+
             $.ajax({
                 url:    argenQuote.ajaxUrl,
                 type:   'POST',
                 data:   data,
                 success: function(response) {
                     if (response.success) {
-                        showFeedback($feedback, argenQuote.i18n.added, 'success');
- 
-                        // Actualizar contador del carrito/quote en el header si existe
+                        var productName = (response.data && response.data.product) ? response.data.product : '';
+                        var toastMsg    = productName ? productName + ' agregado al presupuesto.' : argenQuote.i18n.added;
+                        showFeedback($feedback, toastMsg, 'success');
+
                         if (response.data && response.data.quote_count !== undefined) {
                             updateQuoteCount(response.data.quote_count);
                         }
- 
-                        // Disparar evento custom para que otros plugins puedan escuchar
+
                         $(document.body).trigger('argen_quote_added', [response.data]);
- 
+
                     } else {
                         var msg = (response.data && response.data.message)
                             ? response.data.message
@@ -180,24 +225,72 @@
             });
         });
     }
- 
-    // ─── HELPER: mostrar feedback ──────────────────────────────────
+
+    // ─── HELPER: mostrar feedback (delega al toast) ────────────────
     function showFeedback($el, msg, type) {
-        $el.removeClass('argen-success argen-error')
-           .addClass('argen-' + type)
-           .text(msg);
- 
-        // Auto-ocultar el mensaje de éxito
-        if (type === 'success') {
-            setTimeout(function() {
-                $el.text('').removeClass('argen-success');
-            }, 3500);
-        }
+        var title = type === 'success' ? '¡Agregado!' : 'Atención';
+        showToast(title, msg, type);
     }
- 
+
+    // ─── TOAST NOTIFICATION ────────────────────────────────────────
+    function showToast(title, msg, type, duration) {
+        duration = duration || 3500;
+
+        var $container = $('#argen-toast-container');
+        if (!$container.length) {
+            $container = $('<div id="argen-toast-container"></div>');
+            $('body').append($container);
+        }
+
+        var iconSuccess = '<svg class="argen-toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        var iconError   = '<svg class="argen-toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+        var icon        = type === 'success' ? iconSuccess : iconError;
+
+        var $toast = $(
+            '<div class="argen-toast argen-toast-' + type + '">' +
+                icon +
+                '<div class="argen-toast-body">' +
+                    '<div class="argen-toast-title">' + $('<span>').text(title).html() + '</div>' +
+                    '<div class="argen-toast-msg">'   + $('<span>').text(msg).html()   + '</div>' +
+                '</div>' +
+                '<button class="argen-toast-close" aria-label="Cerrar">&#x2715;</button>' +
+                '<div class="argen-toast-progress" style="--toast-duration:' + duration + 'ms"></div>' +
+            '</div>'
+        );
+
+        $container.append($toast);
+
+        // Cerrar manualmente
+        $toast.find('.argen-toast-close').on('click', function() {
+            dismissToast($toast);
+        });
+
+        // Auto-cerrar
+        var timer = setTimeout(function() {
+            dismissToast($toast);
+        }, duration);
+
+        // Pausar progress bar al hacer hover
+        $toast.on('mouseenter', function() {
+            clearTimeout(timer);
+            $toast.find('.argen-toast-progress').css('animation-play-state', 'paused');
+        }).on('mouseleave', function() {
+            $toast.find('.argen-toast-progress').css('animation-play-state', 'running');
+            timer = setTimeout(function() {
+                dismissToast($toast);
+            }, 800);
+        });
+    }
+
+    function dismissToast($toast) {
+        $toast.addClass('argen-toast-hiding');
+        setTimeout(function() {
+            $toast.remove();
+        }, 230);
+    }
+
     // ─── HELPER: actualizar contador del quote en el header ────────
     function updateQuoteCount(count) {
-        // YITH suele usar estos selectores — ajustar según el tema
         var selectors = [
             '.yith-ywraq-add-to-quote-button .count',
             '.ywraq-count',
@@ -205,16 +298,14 @@
             '[data-quote-count]',
         ];
         $(selectors.join(',')).text(count);
- 
-        // También actualizar atributo data si existe
         $('[data-quote-count]').attr('data-quote-count', count);
     }
- 
+
     // ─── INIT ──────────────────────────────────────────────────────
     $(document).ready(function() {
         initViewToggle();
         initQtyStepper();
         initAddToQuote();
     });
- 
+
 })(jQuery);
