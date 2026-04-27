@@ -1,5 +1,10 @@
 /**
- * Argen Category Filter — acf-filter.js  v2.1.0
+ * Argen Category Filter — acf-filter.js  v2.1.2
+ *
+ * Cambios v2.1.2:
+ * - Fix: showNativeLoop() restaura la clase `products` en el <ul> original
+ *   (la quitábamos al ocultar pero no la devolvíamos al mostrar, lo que
+ *   rompía el estilo del listado al deseleccionar la categoría).
  *
  * Cambios v2.1.0:
  * - Botones Grilla/Lista siempre visibles (no se ocultan al filtrar)
@@ -207,6 +212,10 @@
 
     function showNativeLoop() {
         $nativeProducts.removeClass('acf-force-hide');
+        // Restaurar la clase `products` que fue removida en hideNativeLoop()
+        // — sin ella el <ul> pierde el estilado nativo del loop de WooCommerce
+        // y se ve roto al deseleccionar la categoría.
+        $nativeProducts.addClass('products');
         $nativePagination.removeClass('acf-force-hide');
         $nativeResultCount.removeClass('acf-force-hide');
         $nativeOrdering.removeClass('acf-force-hide');
