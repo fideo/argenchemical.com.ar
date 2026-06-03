@@ -320,11 +320,11 @@ if ( ! class_exists( 'Astra_Admin_Settings' ) ) {
 								</div>
 							</div>',
 						$image_path,
-						__( 'Astra Works Seamlessly with WooCommerce!', 'astra' ),
-						__( 'Use every tool at your disposal to optimize your online store for conversion. All the advantages you need to make more profit!', 'astra' ),
+						__( 'Running a WooCommerce store? You need more than just a theme.', 'astra' ),
+						__( 'Design your entire store without limitations - from product pages to checkout. Get conversion-optimized templates, high-converting funnels, cart recovery, upsells, and powerful automation to run your store smoothly - all in one integrated system with the Business Toolkit.', 'astra' ),
 						esc_attr( 'button button-primary' ),
-						'href="' . astra_get_pro_url( '/pricing/', 'free-theme', 'dashboard', 'woocommerce' ) . '" target="_blank"',
-						__( 'Upgrade Now', 'astra' )
+						'href="' . esc_url( astra_get_pro_url( '/pricing/', 'free-theme', 'dashboard', 'woocommerce' ) ) . '" target="_blank"',
+						__( 'Upgrade to Business Toolkit', 'astra' )
 					),
 					'priority'                   => 5,
 					'show_if'                    => is_admin() ? true : false,

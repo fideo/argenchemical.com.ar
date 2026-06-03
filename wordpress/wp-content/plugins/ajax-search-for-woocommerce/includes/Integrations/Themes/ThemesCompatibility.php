@@ -403,6 +403,13 @@ class ThemesCompatibility {
 					'forceMobileOverlayBreakpoint' => 991,
 				],
 			],
+			'mobex'            => [
+				'slug' => 'mobex',
+				'name' => 'Mobex',
+				'args' => [
+					'alwaysEnabled' => true,
+				],
+			],
 		];
 	}
 

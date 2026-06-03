@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Nextend\Framework\Font\Sources\GoogleFonts;
 
 use Nextend\Framework\Asset\AssetManager;
@@ -14,23 +13,6 @@ use Nextend\Framework\Form\Element\OnOff;
 use Nextend\Framework\Form\Fieldset\FieldsetRow;
 use Nextend\Framework\Platform\Platform;
 use Nextend\Framework\Plugin;
-
-
-/*
-jQuery.getJSON('https://www.googleapis.com/webfonts/v1/webfonts?sort=alpha&key=AIzaSyBIzBtder0-ef5a6kX-Ri9IfzVwFu21PGw').done(function(data){
-    var f = [];
-    for(var i = 0; i < data.items.length; i++){
-    f.push(data.items[i].family);
-    }
-
-    var fontString='';
-    f.forEach(function(font){
-        fontString+= font+'\n';
-    });
-
-    console.log(fontString);
-});
-*/
 
 class GoogleFonts extends AbstractFontSource {
 

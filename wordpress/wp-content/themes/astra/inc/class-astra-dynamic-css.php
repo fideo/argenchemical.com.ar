@@ -1013,9 +1013,15 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				}
 			}
 
-			if ( false === $enable_site_accessibility ) {
+			if ( ! $enable_site_accessibility ) {
 				$css_output[ $html_selectors_focus_only_inputs . ', ' . $html_selectors_focus_visible ] = array(
 					'outline-style' => 'none',
+				);
+
+				// Static CSS uses :focus (not :focus-visible) for these elements; override explicitly.
+				$css_output['.ast-menu-toggle:focus, .ast-button-wrap .menu-toggle:focus'] = array(
+					'outline'      => 'none',
+					'border-color' => 'transparent',
 				);
 
 				$css_output['.ast-header-search .ast-search-menu-icon.ast-dropdown-active .search-form, .ast-header-search .ast-search-menu-icon.ast-dropdown-active .search-field:focus'] = array(
@@ -1028,7 +1034,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 					'color' => 'var(--ast-global-color-1)',
 				);
 
-				if ( false === $enable_site_accessibility ) {
+				if ( ! $enable_site_accessibility ) {
 					$css_output['.ast-header-search .slide-search .search-form'] = array(
 						'border' => '2px solid var(--ast-global-color-0)',
 					);
@@ -1260,7 +1266,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 						),
 					),
 					'',
-					number_format( absint( astra_get_tablet_breakpoint() ) + 0.9, 1, '.', '' )
+					number_format( absint( astra_get_tablet_breakpoint() ) + 0.99, 2, '.', '' )
 				);
 
 				$parse_css .= astra_parse_css(
@@ -2939,9 +2945,6 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 						),
 					);
-
-					/* Parse CSS from array() */
-					$parse_css .= astra_parse_css( $ele_btn_color_builder_desktop );
 				}
 
 				$global_button_page_builder_text_color_desktop = array(
@@ -2952,6 +2955,11 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 				/* Parse CSS from array() */
 				$parse_css .= astra_parse_css( $global_button_page_builder_text_color_desktop );
+
+				// Output hover rule after the :visited/base rule so hover wins the cascade (equal specificity, last rule wins).
+				if ( isset( $ele_btn_color_builder_desktop ) ) {
+					$parse_css .= astra_parse_css( $ele_btn_color_builder_desktop );
+				}
 
 				if ( 'color-typo' === self::elementor_default_color_font_setting() || 'typo' === self::elementor_default_color_font_setting() ) {
 					$ele_btn_typo_builder_desktop = array(

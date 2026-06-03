@@ -72,7 +72,6 @@ if ( ! class_exists( 'Astra_Customizer_Control_Base' ) ) {
 				'wp-components',
 				'wp-element',
 				'wp-media-utils',
-				'wp-block-editor',
 			);
 
 			wp_enqueue_script( 'astra-custom-control-script', ASTRA_THEME_URI . 'inc/customizer/extend-custom-controls/build/index.js', $custom_controls_react_deps, ASTRA_THEME_VERSION, true );
@@ -101,7 +100,7 @@ if ( ! class_exists( 'Astra_Customizer_Control_Base' ) ) {
 				(function(){
 					window.addEventListener('load', function() {
 
-						wp.customize.state('astra-customizer-tab').bind(function(state) {
+						wp.customize.state('astra-customizer-tab')?.bind(function(state) {
 
 							if ( 'general' === state ) {
 								wp.customize.control('astra-settings[header-account-icon-size]')?.container.hide();

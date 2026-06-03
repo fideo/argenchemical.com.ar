@@ -2163,7 +2163,7 @@ function astra_builder_visibility_css( section, selector, default_property = 'fl
 				'astra-menu-h-color-preview',
 				'astra-settings[header-' + prefix + '-h-color-responsive]',
 				'color',
-				selector + ' .menu-item:hover > .menu-link, ' + selector + ' .inline-on-mobile .menu-item:hover > .ast-menu-toggle'
+				selector + ' .menu-link:hover, ' + selector + ' .main-header-menu > .menu-item:hover > .menu-link, ' + selector + ' .inline-on-mobile .ast-menu-toggle:hover, ' + selector + ' .inline-on-mobile .main-header-menu > .menu-item:hover > .ast-menu-toggle'
 			);
 
 			// Menu Toggle -  Color
@@ -2179,7 +2179,7 @@ function astra_builder_visibility_css( section, selector, default_property = 'fl
 				'astra-menu-h-toogle-color-preview',
 				'astra-settings[header-' + prefix + '-h-color-responsive]',
 				'color',
-				selector + ' .menu-item:hover > .ast-menu-toggle'
+				selector + ' .ast-menu-toggle:hover, ' + selector + ' .main-header-menu > .menu-item:hover > .ast-menu-toggle'
 			);
 			// Menu - Active Color
 			astra_color_responsive_css(
@@ -2199,7 +2199,7 @@ function astra_builder_visibility_css( section, selector, default_property = 'fl
 				'astra-menu-bg-preview',
 				'astra-settings[header-' + prefix + '-h-bg-color-responsive]',
 				'background',
-				selector + ' .menu-item:hover > .menu-link, ' + selector + ' .inline-on-mobile .menu-item:hover > .ast-menu-toggle'
+				selector + ' .menu-link:hover, ' + selector + ' .main-header-menu > .menu-item:hover > .menu-link, ' + selector + ' .inline-on-mobile .ast-menu-toggle:hover, ' + selector + ' .inline-on-mobile .main-header-menu > .menu-item:hover > .ast-menu-toggle'
 			);
 
 			// Menu - Active Background
@@ -2592,7 +2592,7 @@ function astra_builder_visibility_css( section, selector, default_property = 'fl
             'astra-menu-h-color-preview',
             'astra-settings[header-mobile-menu-h-color-responsive]',
             'color',
-            selector + ' .main-header-menu .menu-item:hover > .menu-link, ' + selector + ' .inline-on-mobile .menu-item:hover > .ast-menu-toggle'
+            selector + ' .menu-link:hover, ' + selector + ' .main-header-menu > .menu-item:hover > .menu-link, ' + selector + ' .inline-on-mobile .ast-menu-toggle:hover, ' + selector + ' .inline-on-mobile .main-header-menu > .menu-item:hover > .ast-menu-toggle'
         );
 
         // Menu Toggle -  Color
@@ -2608,7 +2608,7 @@ function astra_builder_visibility_css( section, selector, default_property = 'fl
             'astra-menu-h-toogle-color-preview',
             'astra-settings[header-mobile-menu-h-color-responsive]',
             'color',
-            selector + ' .menu-item:hover > .ast-menu-toggle'
+            selector + ' .ast-menu-toggle:hover, ' + selector + ' .main-header-menu > .menu-item:hover > .ast-menu-toggle'
         );
         // Menu - Active Color
         astra_color_responsive_css(
@@ -2628,7 +2628,7 @@ function astra_builder_visibility_css( section, selector, default_property = 'fl
             'astra-menu-bg-preview',
             'astra-settings[header-mobile-menu-h-bg-color-responsive]',
             'background',
-            selector + ' .main-header-menu .menu-item:hover > .menu-link, ' + selector + ' .inline-on-mobile .menu-item:hover > .ast-menu-toggle'
+            selector + ' .menu-link:hover, ' + selector + ' .main-header-menu > .menu-item:hover > .menu-link, ' + selector + ' .inline-on-mobile .ast-menu-toggle:hover, ' + selector + ' .inline-on-mobile .main-header-menu > .menu-item:hover > .ast-menu-toggle'
         );
 
         // Menu - Active Background

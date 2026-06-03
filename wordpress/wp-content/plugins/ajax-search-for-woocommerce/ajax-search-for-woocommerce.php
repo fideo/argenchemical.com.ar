@@ -4,14 +4,14 @@
  * Plugin Name: FiboSearch - AJAX Search for WooCommerce
  * Plugin URI: https://fibosearch.com?utm_source=wp-admin&utm_medium=referral&utm_campaign=author_uri&utm_gen=utmdc
  * Description: The most popular WooCommerce product search. Gives your users a well-designed advanced AJAX search bar with live search suggestions.
- * Version: 1.32.2
+ * Version: 1.33.0
  * Author: FiboSearch Team
  * Author URI: https://fibosearch.com?utm_source=wp-admin&utm_medium=referral&utm_campaign=author_uri&utm_gen=utmdc
  * Text Domain: ajax-search-for-woocommerce
  * Domain Path: /languages
  * Requires Plugins: woocommerce
  * WC requires at least: 5.5
- * WC tested up to: 10.4
+ * WC tested up to: 10.7
  *
  */
 // Exit if accessed directly
@@ -22,10 +22,6 @@ if ( !class_exists( 'DGWT_WC_Ajax_Search' ) && !function_exists( 'dgoraAsfwFs' )
     $fspath = dirname( __FILE__ ) . '/fs/config.php';
     if ( file_exists( $fspath ) ) {
         require_once $fspath;
-    }
-    $fibosearchv2 = dirname( __FILE__ ) . '/fibosearch-v2.php';
-    if ( defined( 'FIBOSEARCH_V2_MODE' ) && FIBOSEARCH_V2_MODE && file_exists( $fibosearchv2 ) ) {
-        require_once $fibosearchv2;
     }
     final class DGWT_WC_Ajax_Search {
         private static $instance;
@@ -116,7 +112,9 @@ if ( !class_exists( 'DGWT_WC_Ajax_Search' ) && !function_exists( 'dgoraAsfwFs' )
                 if ( is_admin() ) {
                     \DgoraWcas\Admin\Install::maybeInstall();
                     new \DgoraWcas\Admin\AdminMenu();
+                    new \DgoraWcas\Admin\Promo\FiboSearch2Teaser();
                     new \DgoraWcas\Admin\Promo\FeedbackNotice();
+                    new \DgoraWcas\Admin\Promo\FiboFiltersTeaser();
                     new \DgoraWcas\Admin\Promo\Upgrade();
                     new \DgoraWcas\Admin\Troubleshooting();
                 }

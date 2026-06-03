@@ -460,13 +460,14 @@ class PostsCustomPosts extends AbstractGenerator {
             );
 
             foreach ($taxonomies as $taxonomy) {
-                $post_terms = wp_get_object_terms($post->ID, $taxonomy, $args);
-                $taxonomy   = str_replace('-', '', $taxonomy);
+                $post_terms    = wp_get_object_terms($post->ID, $taxonomy, $args);
+                $taxonomy_name = str_replace('-', '', $taxonomy);
 
                 for ($j = 0; $j < count($post_terms); $j++) {
-                    $record[$taxonomy . '_' . ($j + 1)]                  = $post_terms[$j]->name;
-                    $record[$taxonomy . '_' . ($j + 1) . '_ID']          = $post_terms[$j]->term_id;
-                    $record[$taxonomy . '_' . ($j + 1) . '_description'] = $post_terms[$j]->description;
+                    $record[$taxonomy_name . '_' . ($j + 1)]                  = $post_terms[$j]->name;
+                    $record[$taxonomy_name . '_' . ($j + 1) . '_ID']          = $post_terms[$j]->term_id;
+                    $record[$taxonomy_name . '_' . ($j + 1) . '_description'] = $post_terms[$j]->description;
+                    $record[$taxonomy_name . '_' . ($j + 1) . '_link']        = get_term_link($post_terms[$j]->term_id, $taxonomy);
                 }
             }
 

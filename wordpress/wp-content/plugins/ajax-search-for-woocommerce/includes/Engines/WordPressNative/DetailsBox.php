@@ -33,7 +33,7 @@ class DetailsBox {
         $output = [];
         $items = [];
         //phpcs:ignore WordPress.Security.NonceVerification.Missing
-        $rawItems = $_POST['items'];
+        $rawItems = $_POST['items'] ?? [];
         if ( !empty( $rawItems ) && is_array( $rawItems ) ) {
             $maxItems = 50;
             // Hard cap request size to avoid unnecessary iteration and potential abuse.

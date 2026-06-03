@@ -333,10 +333,7 @@ class PostsPosts extends AbstractGenerator {
             $record['thumbnail'] = $record['image'] = $record['featured_image'];
             $record['url_label'] = 'View post';
 
-            $tags = wp_get_post_tags($post->ID);
-            for ($j = 0; $j < count($tags); $j++) {
-                $record['tag_' . ($j + 1)] = $tags[$j]->name;
-            }
+            $record = array_merge($record, GeneratorGroupPosts::getTagData($post->ID));
 
             $record = GeneratorGroupPosts::arrayMerge($record, GeneratorGroupPosts::getACFData($post->ID), 'acf_');
 

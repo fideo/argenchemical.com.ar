@@ -1,0 +1,6 @@
+2026-06-03T12:38:14+00:00 INFO Automatic database update triggered.
+2026-06-03T12:38:14+00:00 INFO Scheduling database updates (from 10.7.0)...
+2026-06-03T12:38:14+00:00 INFO   [10.8.0] Scheduled 'wc_update_1080_migrate_analytics_import_option'.
+2026-06-03T12:38:14+00:00 INFO   [10.8.0] Scheduled 'wc_update_1080_backfill_email_template_sync_meta'.
+2026-06-03T12:38:14+00:00 INFO   [10.8.0-2] Scheduled 'wc_update_10802_restore_orders_meta_key_value_index'.
+2026-06-03T12:38:14+00:00 INFO Database updates scheduled.

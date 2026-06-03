@@ -80,6 +80,8 @@ class PostsPostsByIDs extends AbstractGenerator {
             $record['thumbnail'] = $record['image'] = $record['featured_image'];
             $record['url_label'] = 'View post';
 
+            $record = array_merge($record, GeneratorGroupPosts::getTagData($post->ID));
+
             $record = GeneratorGroupPosts::arrayMerge($record, GeneratorGroupPosts::getACFData($post->ID), 'acf_');
 
             $record = GeneratorGroupPosts::arrayMerge($record, GeneratorGroupPosts::extractPostMeta(get_post_meta($post->ID)));

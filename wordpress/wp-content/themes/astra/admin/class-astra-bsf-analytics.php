@@ -617,7 +617,7 @@ class Astra_BSF_Analytics {
 	public function track_onboarding_completed( $completion_data ) {
 		$properties = self::get_onboarding_properties( $completion_data );
 
-		$completion_screen              = isset( $completion_data['completion_screen'] ) ? sanitize_text_field( $completion_data['completion_screen'] ) : '';
+		$completion_screen               = isset( $completion_data['completion_screen'] ) ? sanitize_text_field( $completion_data['completion_screen'] ) : '';
 		$properties['completion_screen'] = $completion_screen;
 
 		// Starter Templates builder selection — only relevant if user reached that screen.
@@ -683,18 +683,18 @@ class Astra_BSF_Analytics {
 			);
 		}
 
-		$was_local_fonts_enabled  = ! empty( $old_value['self_hosted_gfonts'] );
-		$is_local_fonts_enabled   = ! empty( $new_value['self_hosted_gfonts'] );
-		$was_preload_enabled      = ! empty( $old_value['preload_local_fonts'] );
-		$is_preload_enabled       = ! empty( $new_value['preload_local_fonts'] );
+		$was_local_fonts_enabled = ! empty( $old_value['self_hosted_gfonts'] );
+		$is_local_fonts_enabled  = ! empty( $new_value['self_hosted_gfonts'] );
+		$was_preload_enabled     = ! empty( $old_value['preload_local_fonts'] );
+		$is_preload_enabled      = ! empty( $new_value['preload_local_fonts'] );
 
 		if ( $was_local_fonts_enabled !== $is_local_fonts_enabled || $was_preload_enabled !== $is_preload_enabled ) {
 			self::$events->track(
 				'local_fonts_toggled',
 				ASTRA_THEME_VERSION,
 				array(
-					'enabled'          => $is_local_fonts_enabled ? 'yes' : 'no',
-					'preload_enabled'  => $is_preload_enabled ? 'yes' : 'no',
+					'enabled'         => $is_local_fonts_enabled ? 'yes' : 'no',
+					'preload_enabled' => $is_preload_enabled ? 'yes' : 'no',
 				),
 				true
 			);
@@ -735,6 +735,19 @@ class Astra_BSF_Analytics {
 				'mcp_server_toggled',
 				ASTRA_THEME_VERSION,
 				array( 'enabled' => $is_mcp_server_enabled ? 'yes' : 'no' ),
+				true
+			);
+		}
+
+		// AI Assistant toggle.
+		$old_show_ai_assistant = ! isset( $old_value['show_ai_assistant'] ) ? true : ! empty( $old_value['show_ai_assistant'] );
+		$new_show_ai_assistant = ! isset( $new_value['show_ai_assistant'] ) ? true : ! empty( $new_value['show_ai_assistant'] );
+
+		if ( $old_show_ai_assistant !== $new_show_ai_assistant ) {
+			self::$events->track(
+				'ai_assistant_toggled',
+				ASTRA_THEME_VERSION,
+				array( 'enabled' => $new_show_ai_assistant ? 'yes' : 'no' ),
 				true
 			);
 		}

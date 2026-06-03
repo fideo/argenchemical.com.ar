@@ -21213,8 +21213,25 @@ _N2.d('GeneratorAdd', '$', function () {
         $slideBox.find('.n2_slide_box__footer_title')
             .text(slide.getProperty('title'));
 
-        $slideBox.find('.n2_slide_box__content')
-            .css('background-image', 'url(' + _N2._imageHelper.fixed(this.editor.generator.fill(slide.getProperty('thumbnail') || slide.getProperty('backgroundImage') || '$ss3-frontend$/images/placeholder/image.png')) + ')');
+        var thumbnail = _N2._imageHelper.fixed(
+            this.editor.generator.fill(
+                slide.getProperty('thumbnail') ||
+                slide.getProperty('backgroundImage') ||
+                '$ss3-frontend$/images/placeholder/image.png'
+            )
+        );
+
+        var $thumbnail = $slideBox.find('.n2_slide_box__thumbnail');
+
+        if (!$thumbnail.length) {
+            $thumbnail = $('<img>', {
+                class: 'n2_slide_box__thumbnail',
+                alt: '',
+                loading: 'lazy'
+            }).prependTo($slideBox.find('.n2_slide_box__content'));
+        }
+
+        $thumbnail.attr('src', thumbnail);
 
         var hiddenOn = [];
         if (!parseInt(slide.getProperty('desktopPortrait'))) {

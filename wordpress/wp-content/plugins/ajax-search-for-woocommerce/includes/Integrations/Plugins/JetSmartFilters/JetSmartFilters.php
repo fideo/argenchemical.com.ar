@@ -55,7 +55,16 @@ class JetSmartFilters extends AbstractPluginIntegration {
      * @return array
      */
     public function filter_query( $query ) {
-        if ( isset( $_POST['action'] ) && $_POST['action'] === 'jet_smart_filters' && isset( $_POST['provider'] ) && in_array( $_POST['provider'], ['epro-archive-products/default', 'jet-engine/default'] ) && !empty( $_POST['defaults']['s'] ) ) {
+        $customQueryIds = apply_filters( 'dgwt/wcas/integrations/jetsmartfilters/custom_query_ids', [] );
+        $providers = ['epro-archive-products/default', 'jet-engine/default'];
+        if ( !empty( $customQueryIds ) ) {
+            foreach ( $customQueryIds as $customQueryId ) {
+                if ( is_string( $customQueryId ) && !empty( $customQueryId ) ) {
+                    $providers[] = 'jet-engine/' . $customQueryId;
+                }
+            }
+        }
+        if ( isset( $_POST['action'] ) && $_POST['action'] === 'jet_smart_filters' && isset( $_POST['provider'] ) && in_array( $_POST['provider'], $providers ) && !empty( $_POST['defaults']['s'] ) ) {
             $query['run_wcas_search'] = true;
         }
         return $query;

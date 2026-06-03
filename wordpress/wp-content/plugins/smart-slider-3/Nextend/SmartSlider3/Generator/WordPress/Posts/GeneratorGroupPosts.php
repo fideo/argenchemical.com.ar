@@ -243,4 +243,20 @@ class GeneratorGroupPosts extends AbstractGeneratorGroup {
 
         return $record;
     }
+
+    public static function getTagData($postID) {
+        $record = array();
+
+        $tags = wp_get_post_tags($postID);
+        if (is_array($tags) && count($tags) > 1) {
+            $j = 1;
+            foreach ($tags as $tag) {
+                $record['tag_' . $j]      = $tag->name;
+                $record['tag_link_' . $j] = get_tag_link($tag->term_id);
+                $j++;
+            }
+        }
+
+        return $record;
+    }
 }

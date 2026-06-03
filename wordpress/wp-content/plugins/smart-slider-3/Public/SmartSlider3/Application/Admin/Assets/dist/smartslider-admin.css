@@ -5673,9 +5673,19 @@ html[data-ss3-activated="1"] #n2-ss-activate-license-banner {
   height: 100%;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  background-size: cover;
-  background-position: 50% 0;
-  background-repeat: no-repeat; }
+  overflow: hidden; }
+
+.n2_slide_box__thumbnail {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+  display: block;
+  pointer-events: none; }
 
 .n2_slide_box__footer {
   flex: 0 0 auto;

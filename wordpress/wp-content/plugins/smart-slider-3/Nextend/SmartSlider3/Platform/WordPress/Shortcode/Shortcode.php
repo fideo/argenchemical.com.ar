@@ -264,6 +264,7 @@ class Shortcode {
 
         $attributes = array(
             'class'       => "n2-ss-slider-frame intrinsic-ignore",
+            'aria-label'  => empty(self::$iframeReason) ? "Slider iframe" : esc_attr(self::$iframeReason),
             'style'       => 'width:100%;max-width:none;display:block;border:0;opacity:0;' . (self::$disablePointer ? 'pointer-events:none;' : ''),
             'frameborder' => 0,
             'src'         => site_url('/') . '?n2prerender=1&n2app=smartslider&n2controller=slider&n2action=iframe&sliderid=' . $sliderIDorAlias . '&iseditor=' . (self::$iframeReason == 'ajax' ? 0 : 1) . '&hash=' . md5($sliderIDorAlias . NONCE_SALT)

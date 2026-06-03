@@ -11,7 +11,12 @@ namespace Nextend\SmartSlider3\Application\Admin\Layout\Block\Slide\SlideBox;
      data-slideid="<?php echo esc_attr($this->getSlideId()); ?>"
     <?php echo $this->hasGenerator() ? ' data-generator-edit="' . esc_url($this->getGeneratorAttributeUrl()) . '"' : ''; ?>>
 
-    <div class="n2_slide_box__content" style="background-image: url('<?php echo esc_url($this->getThumbnailOptimized()); ?>');">
+    <div class="n2_slide_box__content">
+        <img class="n2_slide_box__thumbnail"
+             src="<?php echo esc_url($this->getThumbnailOptimized()); ?>"
+             alt=""
+             loading="lazy">
+
 
         <div class="n2_slide_box__slide_overlay">
             <a class="n2_slide_box__slide_overlay_link" href="<?php echo esc_url($this->getEditUrl()); ?>"></a>

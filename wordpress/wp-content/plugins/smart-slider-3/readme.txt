@@ -3,8 +3,8 @@ Contributors: nextendweb
 Tags: slider, image slider, gallery, slideshow, carousel slider
 Donate link: https://sites.fastspring.com/nextend/product/smartslider3donate
 Requires at least: 5.0
-Tested up to: 6.9.4
-Stable tag: 3.5.1.34
+Tested up to: 7.0
+Stable tag: 3.5.1.37
 Requires PHP: 7.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -217,12 +217,24 @@ Of course! Smart Slider use protocol relative urls which works fine on http:// a
 
 == Changelog ==
 
+= 3.5.1.37 - 28. May 2026 =
+* Feature: Posts Generator - we will now offer variables for tag links as well.
+* Feature: Iframed sliders will have aria-label attribute for better accessibility.
+* Fix: Improved compatibility with WordPress 7.0 - thumbnails were not displaying correctly at the backend.
+* Fix: PHP 8.5 compatibility improvements
+* Fix: File upload paths are now normalized to prevent upload-related errors.
+* Fix: Security improvements for the Export slider as HTML feature.
+* Fix: Sliders in Divi 5 editor were broken.
+
+= 3.5.1.36 - 07. April 2026 =
+* Fix: new version number
+
 = 3.5.1.34 - 20. March 2026 =
 * Fix: Vulnerability improvements.
 
 = 3.5.1.33 - 11. March 2026 =
-* Feature: PHP8.5 compatibility.
 * Feature: Respect reduced motion option to allow prefers-reduced-motion setting of the operation system to turn down animations.
+* Fix: PHP8.5 compatibility.
 * Fix: Wrongly stored "unpublish on" values won't be used.
 * Fix: Vulnerability improvements.
 * Fix: Better transparency handling with Resize options.

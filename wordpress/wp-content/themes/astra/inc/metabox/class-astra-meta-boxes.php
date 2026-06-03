@@ -495,7 +495,7 @@ if ( ! class_exists( 'Astra_Meta_Boxes' ) ) {
 			do_action( 'astra_meta_box_markup_after', $meta );
 
 			if ( astra_showcase_upgrade_notices() ) {
-				$nudge_copy = array(
+				$nudge_copy        = array(
 					'product' => __( 'Launch high-converting product pages faster - get 300+ templates and powerful design tools.', 'astra' ),
 					'default' => __( 'Go from blank page to live website faster - get 300+ templates and powerful design tools.', 'astra' ),
 				);

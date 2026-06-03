@@ -2,9 +2,9 @@
 Contributors: damian-gora, matczar
 Tags: woocommerce search, ajax search, search by sku, product search, woocommerce
 Requires at least: 5.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.32.2
+Stable tag: 1.33.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -147,6 +147,18 @@ You can read more and compare Pro and Free features here: [Full comparison - Pro
 9. Sample settings page (Search Analytics tab)
 
 == Changelog ==
+
+= 1.33.0, April 27, 2026 =
+* ADDED: JetSmartFilters — support for custom queries
+* ADDED: [FiboSearch 2.0 early access](https://fibosearch.com/fibosearch-2-0-is-on-the-way/) teaser in admin settings
+* ADDED: Added link on the settings page to our second plugin, [FiboFilters](https://fibofilters.com/).
+* FIXED: Prevent unwanted redirection for single product variations
+* FIXED: Cached results were missing dynamic pricing
+* FIXED: Undefined "items" key warning in DetailsBox AJAX handler
+* FIXED: Header JS not loading in Mobex theme
+* FIXED: Hide Categories and Products plugin integration compatibility with excluded categories methods
+* UPDATED: Updating the `.pot` file
+* UPDATED: Freemius SDK
 
 = 1.32.2, January 05, 2026 =
 * ADDED: Integration with the Themify Builder Pro plugin
@@ -328,30 +340,5 @@ You can read more and compare Pro and Free features here: [Full comparison - Pro
 * FIXED: Stronger sanitization of the details panel output
 * UPDATED: Freemius SDK v2.5.10
 * UPDATED: Polish translation
-
-= 1.24.0, May 25, 2023 =
-* ADDED: Integration with the “Minimog” theme
-* ADDED: Posts, pages, and taxonomy terms are included in the FiboSearch Analytics module
-* ADDED: Taking into account a new feature of the dark theme in the Nave theme
-* ADDED: Possibility to change the color of a search bar underlay. Only for the Pirx style
-* ADDED: New search widget and extended search results for Elementor
-* ADDED: TheGem theme - “Header Builder” support
-* FIXED: Wrong position of search icons in the history search module
-* FIXED: Broken suggestions layout and detailed panel visibility when the “Minimum characters” option is set to less than 1
-* FIXED: Compatibility with PHP 8.1
-* FIXED: Hide unnecessary modules when constant `DGWT_WCAS_ANALYTICS_ONLY_CRITICAL` is set to true in the FiboSearch Analytics module
-* FIXED: Incorrect display of information about constants on the debug page
-* FIXED: Other minor bugs in the FiboSearch Analytics module
-* FIXED: Integration with the Astra theme - support for version 4.1.0 of the Astra Addon
-* FIXED: Integration with the Minimog theme - wrong position of the search history wrapper
-* FIXED: Integration with the Enfold theme - the search engine icon disappears when the page finishes loading
-* FIXED: A HTML tag `<br>` was unnecessarily stripped in the description in the details panel
-* FIXED: The voice search feature - overlapping icons and disabling functionality on Safari
-* UPDATED: French translation
-* UPDATED: Freemius SDK v2.5.8
-* TESTS: Two integration tests that check saving phrases in a database table
-* TESTS: Fix assertion in “Analytics/Critical searches without result”
-* REFACTOR: Change order if set settings defaults. Now the defaults are set after calling the `dgwt/wcas/settings` filter
-* SECURITY: Added escaping for a “Search input placeholder” option
 
 [See changelog for all versions](https://fibosearch.com/changelog/).

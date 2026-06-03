@@ -379,21 +379,21 @@ class ExportSlider {
     }
 
     public function replaceHTMLImage($found) {
-        $path = Filesystem::absoluteURLToPath(self::addProtocol($found[2]));
+        $resource = ResourceTranslator::urlToResource(self::addProtocol($found[2]));
 
-        if (substr($path, 0, 5) === "data:") {
+        if (substr($resource, 0, 5) === "data:") {
             return $found[0];
         }
 
-        if (strpos($path, Filesystem::getBasePath()) !== 0) {
-            $imageUrl = Url::relativetoabsolute($path);
-            $path     = Filesystem::absoluteURLToPath($imageUrl);
-        }
-
-        if ($path == $found[2]) {
+        if (!ResourceTranslator::isResource($resource) || preg_match('#(^|/)\.\.(/|$)#', $resource)) {
             return $found[0];
         }
-        if (Filesystem::fileexists($path)) {
+
+        $path = ResourceTranslator::toPath($resource);
+
+        if ($this->isAllowedExportFile($path)) {
+            $path = realpath($path);
+
             if (!isset($this->imageTranslation[$path])) {
                 $fileName = strtolower(basename($path));
                 while (in_array($fileName, $this->usedNames)) {
@@ -408,9 +408,38 @@ class ExportSlider {
             }
 
             return str_replace($found[2], 'images/' . $fileName, $found[0]);
-        } else {
-            return $found[0];
         }
+
+        return $found[0];
+    }
+
+    private function isAllowedExportFile($path) {
+
+        $realPath = realpath($path);
+
+        if (!$realPath || !is_file($realPath)) {
+            return false;
+        }
+
+        $extension = strtolower(pathinfo($realPath, PATHINFO_EXTENSION));
+
+        $allowedExtensions = array(
+            'jpg',
+            'jpeg',
+            'png',
+            'gif',
+            'mp4',
+            'mp3',
+            'svg',
+            'webp',
+            'avif'
+        );
+
+        if (!in_array($extension, $allowedExtensions, true)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function replaceHTMLImageHrefLightbox($found) {

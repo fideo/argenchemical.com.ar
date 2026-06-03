@@ -16,15 +16,15 @@ function dgoraAsfwFs() {
             define( 'WP_FS__PRODUCT_700_MULTISITE', true );
         }
         $dgoraAsfwFs = fs_dynamic_init( array(
-            'id'             => '700',
-            'slug'           => 'ajax-search-for-woocommerce',
-            'type'           => 'plugin',
-            'public_key'     => 'pk_f4f2a51dbe0aee43de0692db77a3e',
-            'is_premium'     => false,
-            'premium_suffix' => 'Pro',
-            'has_addons'     => false,
-            'has_paid_plans' => true,
-            'menu'           => array(
+            'id'               => '700',
+            'slug'             => 'ajax-search-for-woocommerce',
+            'type'             => 'plugin',
+            'public_key'       => 'pk_f4f2a51dbe0aee43de0692db77a3e',
+            'is_premium'       => false,
+            'premium_suffix'   => 'Pro',
+            'has_addons'       => false,
+            'has_paid_plans'   => true,
+            'menu'             => array(
                 'slug'        => 'dgwt_wcas_settings',
                 'parent'      => array(
                     'slug' => 'woocommerce',
@@ -35,7 +35,8 @@ function dgoraAsfwFs() {
                 'pricing'     => false,
                 'affiliation' => false,
             ),
-            'is_live'        => true,
+            'is_live'          => true,
+            'is_org_compliant' => true,
         ) );
     }
     return $dgoraAsfwFs;

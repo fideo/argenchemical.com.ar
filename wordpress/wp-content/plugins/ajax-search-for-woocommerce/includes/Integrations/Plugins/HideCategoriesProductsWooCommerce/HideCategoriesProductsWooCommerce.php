@@ -28,7 +28,7 @@ class HideCategoriesProductsWooCommerce extends AbstractPluginIntegration {
      * Exclude hidden products (native search)
      */
     public function excludeHiddenProducts( $args ) {
-        $hiddenCategories = Hide_Categories_Products_WC()->get_exluded_cats();
+        $hiddenCategories = $this->getExcludedCategories();
         if ( !empty( $hiddenCategories ) ) {
             if ( !isset( $args['tax_query'] ) ) {
                 $args['tax_query'] = [];
@@ -41,6 +41,27 @@ class HideCategoriesProductsWooCommerce extends AbstractPluginIntegration {
             ];
         }
         return $args;
+    }
+
+    /**
+     * Support both the legacy typo and the corrected API name.
+     *
+     * @return array
+     */
+    private function getExcludedCategories() : array {
+        $plugin = Hide_Categories_Products_WC();
+        if ( !is_object( $plugin ) ) {
+            return [];
+        }
+        if ( method_exists( $plugin, 'get_excluded_cats' ) ) {
+            $categories = $plugin->get_excluded_cats();
+            return ( is_array( $categories ) ? $categories : [] );
+        }
+        if ( method_exists( $plugin, 'get_exluded_cats' ) ) {
+            $categories = $plugin->get_exluded_cats();
+            return ( is_array( $categories ) ? $categories : [] );
+        }
+        return [];
     }
 
 }

@@ -1688,6 +1688,8 @@
                 that.selectFirstSuggestion(response.suggestions);
                 options.onSearchComplete.call(that.element, q, response.suggestions);
 
+				that.updatePrices();
+
                 if (that.isNoResults(response.suggestions)) {
                     document.dispatchEvent(new CustomEvent('fibosearch/no-results', {
                         detail: that
@@ -2806,7 +2808,7 @@
             // Cache results if cache is not disabled:
             if (!options.noCache) {
                 that.cachedResponse[cacheKey] = result;
-                if (options.preventBadQueries && !result.suggestions.length) {
+				if (options.preventBadQueries && !result.suggestions.length) {
                     that.badQueries.push(originalQuery);
                 }
             }

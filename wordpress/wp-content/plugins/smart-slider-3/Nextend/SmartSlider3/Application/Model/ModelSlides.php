@@ -63,7 +63,7 @@ class ModelSlides extends AbstractModelTable {
             'backgroundVideoMp4' => $video['media']
         );
 
-        $slideID = $this->create($sliderId, $video['title'], array(), $video['media'], $parameters, array(
+        $slideID = $this->create($sliderId, $video['title'], array(), '', $parameters, array(
             'description' => $video['description']
         ));
         $this->markChanged($sliderId);

@@ -3565,6 +3565,18 @@ _N2.d('Stages', function () {
         }
     };
 
+    SmartSliderControlAutoplay.prototype.getState = function () {
+        return this.state;
+    };
+
+    SmartSliderControlAutoplay.prototype.setAllowSlideChange = function (allowSlideChange) {
+        return this.___allowSlideChange = !!allowSlideChange;
+    };
+
+    SmartSliderControlAutoplay.prototype.getAllowSlideChange = function () {
+        return this.___allowSlideChange;
+    };
+
     SmartSliderControlAutoplay.prototype.initClick = function (pause, resume) {
         if (pause || resume) {
 

@@ -20,14 +20,12 @@ class FeedbackNotice {
 	const REVIEW_URL = 'https://wordpress.org/support/plugin/ajax-search-for-woocommerce/reviews/?filter=5';
 
 	/**
-	 * Admin notice offset
-	 *
-	 * @var int timestamp
+	 * @var NoticePolicy
 	 */
-	private $offset;
+	private $policy;
 
 	public function __construct() {
-		$this->offset = strtotime( '-7 days' );
+		$this->policy = new NoticePolicy();
 
 		add_action( 'admin_init', [ $this, 'checkInstallationDate' ] );
 
@@ -43,19 +41,8 @@ class FeedbackNotice {
 	 *
 	 * @return bool
 	 */
-	private function allowDisplay() {
-		$currentScreen = get_current_screen();
-		if (
-			! empty( $currentScreen )
-			&& (
-				in_array( $currentScreen->base, [ 'dashboard', 'post', 'edit' ] )
-				|| strpos( $currentScreen->base, DGWT_WCAS_SETTINGS_KEY ) !== false
-			)
-		) {
-			return true;
-		}
-
-		return false;
+	private function canShowOnCurrentScreen() {
+		return $this->policy->isSettingsPage();
 	}
 
 	/**
@@ -66,7 +53,7 @@ class FeedbackNotice {
 	public function displayNotice() {
 		global $current_user;
 
-		if ( $this->allowDisplay() && ! dgoraAsfwFs()->is_premium() ) {
+		if ( $this->canShowOnCurrentScreen() && ! $this->policy->isPremium() ) {
 			?>
 
 			<div class="notice-info notice dgwt-wcas-notice dgwt-wcas-review-notice">
@@ -115,20 +102,13 @@ class FeedbackNotice {
 	 * @return void
 	 */
 	public function checkInstallationDate() {
-
 		$date = get_option( self::ACTIVATION_DATE_OPT );
 		if ( empty( $date ) ) {
 			add_option( self::ACTIVATION_DATE_OPT, time() );
 		}
 
-		$notice_closed = get_option( self::HIDE_NOTICE_OPT );
-
-		if ( empty( $notice_closed ) ) {
-			$install_date = get_option( self::ACTIVATION_DATE_OPT );
-
-			if ( $this->offset >= $install_date && current_user_can( 'install_plugins' ) ) {
-				add_action( 'admin_notices', [ $this, 'displayNotice' ] );
-			}
+		if ( $this->policy->shouldShowFeedbackNotice() ) {
+			add_action( 'admin_notices', [ $this, 'displayNotice' ] );
 		}
 	}
 
@@ -155,7 +135,7 @@ class FeedbackNotice {
 	 * @return void
 	 */
 	public function printDismissJS() {
-		if ( ! $this->allowDisplay() ) {
+		if ( ! $this->canShowOnCurrentScreen() ) {
 			return;
 		}
 		?>
@@ -199,7 +179,7 @@ class FeedbackNotice {
 	 * @return void
 	 */
 	public function loadStyle() {
-		if ( $this->allowDisplay() ) {
+		if ( $this->canShowOnCurrentScreen() ) {
 			wp_enqueue_style( 'dgwt-wcas-admin-style' );
 		}
 	}

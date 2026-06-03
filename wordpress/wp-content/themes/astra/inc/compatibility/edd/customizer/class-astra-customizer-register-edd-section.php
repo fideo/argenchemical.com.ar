@@ -114,7 +114,7 @@ if ( ! class_exists( 'Astra_Customizer_Register_Edd_Section' ) ) {
 							'title' => __( 'Better product pages', 'astra' ),
 						),
 					),
-					'divider' => array( 'ast_class' => 'ast-top-section-divider' ),
+					'divider'     => array( 'ast_class' => 'ast-top-section-divider' ),
 				),
 				$args
 			);

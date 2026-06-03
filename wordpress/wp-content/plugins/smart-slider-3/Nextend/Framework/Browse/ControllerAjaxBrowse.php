@@ -170,12 +170,12 @@ class ControllerAjaxBrowse extends AdminAjaxController {
             $this->response->error();
         }
 
-        $requestedPath = Request::$REQUEST->getVar('path', '');
+        $requestedPath = $this->fixSlashes(Request::$REQUEST->getVar('path', ''));
 
-        $root             = Filesystem::getImagesFolder();
-        $folder           = ltrim(rtrim($requestedPath, '/'), '/');
-        $originalFullPath = $root . DIRECTORY_SEPARATOR . $folder;
-        $path             = Filesystem::realpath($originalFullPath);
+        $root             = $this->fixSlashes(Filesystem::getImagesFolder());
+        $folder           = $this->fixSlashes(ltrim(rtrim($requestedPath, '/'), '/'));
+        $originalFullPath = $this->fixSlashes($root . DIRECTORY_SEPARATOR . $folder);
+        $path             = $this->fixSlashes(Filesystem::realpath($originalFullPath));
 
 
         if ($path === false || $path == '') {
@@ -272,5 +272,16 @@ class ControllerAjaxBrowse extends AdminAjaxController {
 
     private function relative($path, $root) {
         return substr(Filesystem::convertToRealDirectorySeparator($path), strlen($root));
+    }
+
+    private function fixSlashes($string) {
+        if (!empty($string)) {
+            return str_replace([
+                '/',
+                '\\'
+            ], DIRECTORY_SEPARATOR, $string);
+        } else {
+            return $string;
+        }
     }
 }

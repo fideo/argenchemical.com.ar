@@ -45,6 +45,28 @@ if ( ! class_exists( 'Astra_Enqueue_Scripts' ) ) {
 			add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 			add_action( 'wp_print_footer_scripts', array( $this, 'astra_skip_link_focus_fix' ) );
 			add_filter( 'gallery_style', array( $this, 'enqueue_galleries_style' ) );
+			add_action( 'wp_body_open', array( $this, 'set_header_break_point_early' ), 1 );
+		}
+
+		/**
+		 * Output an early inline script immediately after <body> opens to apply
+		 * `ast-header-break-point` before the header is painted, preventing FOUC
+		 * on mobile with the inline Logo + Site Title + Tagline layout.
+		 *
+		 * @since 4.13.1
+		 * @return void
+		 */
+		public function set_header_break_point_early() {
+			// Skip on AMP — it handles its own layout.
+			if ( astra_is_amp_endpoint() ) {
+				return;
+			}
+			$break_point = astra_header_break_point();
+			?>
+			<script>
+			(function(){if(window.matchMedia('(max-width:<?php echo number_format( absint( $break_point ) + 0.99, 2, '.', '' ); ?>px)').matches){document.body.classList.add('ast-header-break-point');document.body.classList.remove('ast-desktop');}})();
+			</script>
+			<?php
 		}
 
 		/**
