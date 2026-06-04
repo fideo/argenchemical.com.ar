@@ -1,7 +1,7 @@
 /* ============================================================
-   ARGEN QUOTE LOOP — quote-loop.css  v1.2.4
+   ARGEN QUOTE LOOP — quote-loop.css  v1.3.0
    Fixes: grilla sin desborde · lista stepper visible · toggle alineado
-   Nuevo: toast notifications (reemplaza feedback inline)
+   Nuevo: toast notifications · texto introductorio de tienda
    ============================================================ */
 
 /* ─── CONTADOR DE RESULTADOS ─────────────────────────────── */
@@ -581,5 +581,49 @@ ul.products.argen-list-view li.product .argen-quote-feedback {
     .argen-toast {
         max-width: 100%;
         min-width: 0;
+    }
+}
+
+/* ─── TEXTO INTRODUCTORIO DE LA TIENDA ───────────────────────
+   Aparece entre el breadcrumb y el contador de resultados.
+   Hook: woocommerce_archive_description (prioridad 5)
+   ─────────────────────────────────────────────────────────── */
+.argen-shop-intro {
+    margin: 0 0 20px 0;
+    padding: 14px 18px;
+    background: #f8f9fa;
+    border-left: 4px solid #009dbf; /* color de acento ArgenChemical */
+    border-radius: 0 6px 6px 0;
+    color: #444;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.argen-shop-intro p {
+    margin: 0 0 8px 0;
+}
+
+.argen-shop-intro p:last-child {
+    margin-bottom: 0;
+}
+
+.argen-shop-intro a {
+    color: #009dbf;
+    text-decoration: underline;
+}
+
+.argen-shop-intro a:hover {
+    color: #007a99;
+}
+
+.argen-shop-intro strong,
+.argen-shop-intro b {
+    color: #222;
+}
+
+@media ( max-width: 650px ) {
+    .argen-shop-intro {
+        font-size: 13px;
+        padding: 10px 14px;
     }
 }

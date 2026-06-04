@@ -3,8 +3,9 @@
  * Plugin Name: Quote en Listado de Tienda
  * Plugin URI:  https://argechemical.com
  * Description: Agrega selector de variaciones (Presentaciones), cantidad y botón "Add to Quote"
- *              directamente en el listado de productos. Incluye toggle de vista Grilla / Lista.
- * Version:     1.2.4
+ *              directamente en el listado de productos. Incluye toggle de vista Grilla / Lista
+ *              y texto introductorio editable en la cabecera de la tienda.
+ * Version:     1.3.0
  * Author:      ArgenChemical Dev
  * License:     GPL-2.0+
  * Text Domain: argen-quote-loop
@@ -58,6 +59,13 @@ class Argen_Quote_Loop {
         // 7. Corregir el contador de resultados — reemplaza el template de WooCommerce
         remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
         add_action(    'woocommerce_before_shop_loop', array( $this, 'render_result_count' ), 20 );
+
+        // 8. Texto introductorio de la tienda (entre el breadcrumb y los resultados)
+        add_action( 'woocommerce_archive_description', array( $this, 'render_shop_intro_text' ), 5 );
+
+        // 9. Página de ajustes en el admin (submenú de WooCommerce)
+        add_action( 'admin_menu', array( $this, 'register_settings_page' ) );
+        add_action( 'admin_init', array( $this, 'register_settings' ) );
     }
 
 
@@ -76,14 +84,11 @@ class Argen_Quote_Loop {
 
     // ─────────────────────────────────────────────────────────────
     // RESULT COUNT: Reemplaza el contador nativo de WooCommerce
-    // Usa woocommerce_before_shop_loop igual que el original pero
-    // con prioridad 20 — mismo slot, misma posición visual.
     // ─────────────────────────────────────────────────────────────
     public function render_result_count() {
         global $wp_query;
 
         if ( ! $wp_query || ! isset( $wp_query->found_posts ) ) {
-            // Fallback: dejar que WooCommerce lo muestre
             woocommerce_result_count();
             return;
         }
@@ -109,6 +114,137 @@ class Argen_Quote_Loop {
 
         echo '<p class="woocommerce-result-count argen-result-count">' . esc_html( $message ) . '</p>';
     }
+
+
+    // ─────────────────────────────────────────────────────────────
+    // TEXTO INTRODUCTORIO: Se muestra entre el breadcrumb y el loop
+    // Hook: woocommerce_archive_description (prioridad 5)
+    // Solo se renderiza en la página principal de la tienda.
+    // ─────────────────────────────────────────────────────────────
+    public function render_shop_intro_text() {
+        if ( ! is_shop() ) {
+            return;
+        }
+
+        $texto = get_option( 'argen_shop_intro_text', '' );
+
+        if ( empty( trim( $texto ) ) ) {
+            return;
+        }
+
+        echo '<div class="argen-shop-intro">' . wp_kses_post( $texto ) . '</div>';
+    }
+
+
+    // ─────────────────────────────────────────────────────────────
+    // ADMIN — Registrar submenú bajo WooCommerce
+    // ─────────────────────────────────────────────────────────────
+    public function register_settings_page() {
+        add_submenu_page(
+            'woocommerce',
+            'ArgenChemical — Texto Intro Tienda',
+            'Texto Intro Tienda',
+            'manage_options',
+            'argen-shop-settings',
+            array( $this, 'render_settings_page' )
+        );
+    }
+
+
+    // ─────────────────────────────────────────────────────────────
+    // ADMIN — Registrar la opción en la base de datos
+    // ─────────────────────────────────────────────────────────────
+    public function register_settings() {
+        register_setting(
+            'argen_shop_settings_group',
+            'argen_shop_intro_text',
+            array(
+                'sanitize_callback' => 'wp_kses_post',
+                'default'           => '',
+            )
+        );
+    }
+
+
+    // ─────────────────────────────────────────────────────────────
+    // ADMIN — Renderizar la página de ajustes
+    // ─────────────────────────────────────────────────────────────
+    public function render_settings_page() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        // Mensaje de guardado
+        $saved = isset( $_GET['settings-updated'] ) && $_GET['settings-updated'];
+        ?>
+        <div class="wrap">
+
+            <h1 style="display:flex; align-items:center; gap:10px;">
+                <span style="font-size:22px;">🧪</span>
+                ArgenChemical — Texto introductorio de la Tienda
+            </h1>
+
+            <p style="color:#555; margin-bottom:20px; max-width:700px;">
+                Este texto se muestra en la página de la tienda, justo debajo del breadcrumb
+                y antes del listado de productos. Podés usar formato enriquecido: negrita,
+                itálica, listas, links, etc.
+                Si el campo está vacío, no se muestra nada.
+            </p>
+
+            <?php if ( $saved ) : ?>
+                <div class="notice notice-success is-dismissible" style="margin-bottom:20px;">
+                    <p><strong>✅ Texto guardado correctamente.</strong></p>
+                </div>
+            <?php endif; ?>
+
+            <form method="post" action="options.php">
+                <?php settings_fields( 'argen_shop_settings_group' ); ?>
+
+                <table class="form-table" role="presentation">
+                    <tr>
+                        <th scope="row" style="width:180px; vertical-align:top; padding-top:12px;">
+                            <label for="argen_shop_intro_text">
+                                <strong>Texto / HTML</strong>
+                            </label>
+                        </th>
+                        <td>
+                            <?php
+                            wp_editor(
+                                get_option( 'argen_shop_intro_text', '' ),
+                                'argen_shop_intro_text',
+                                array(
+                                    'textarea_name' => 'argen_shop_intro_text',
+                                    'textarea_rows' => 7,
+                                    'media_buttons' => false,
+                                    'teeny'         => false,
+                                    'quicktags'     => true,
+                                )
+                            );
+                            ?>
+                            <p class="description" style="margin-top:8px;">
+                                Aparece entre el breadcrumb
+                                (<em>Inicio » Tienda</em>) y el contador de resultados.
+                                Dejá el campo vacío para ocultarlo.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+                <p class="submit" style="margin-top:10px;">
+                    <?php submit_button( 'Guardar texto', 'primary', 'submit', false ); ?>
+                </p>
+
+            </form>
+
+            <hr style="margin-top:30px;">
+            <p style="color:#aaa; font-size:12px;">
+                Quote en Listado de Tienda v1.3.0 — ArgenChemical Dev
+            </p>
+
+        </div>
+        <?php
+    }
+
 
     // ─────────────────────────────────────────────────────────────
     // TOGGLE: Botones para cambiar entre vista Grilla y Lista
@@ -188,47 +324,27 @@ class Argen_Quote_Loop {
                 ?>
 
                 <div class="argen-variations-wrap">
-                    <?php foreach ( $attributes as $attr_name => $attr_options ) :
-                        $attr_label = wc_attribute_label( $attr_name );
-                        $taxonomy   = 'pa_' . sanitize_title( str_replace( 'pa_', '', $attr_name ) );
+                <?php foreach ( $attributes as $attr_name => $attr_values ) :
+                    $attr_key   = sanitize_title( $attr_name );
+                    $attr_label = wc_attribute_label( $attr_name );
                     ?>
-                        <div class="argen-variation-row">
-                            <label class="argen-variation-label">
-                                <?php echo esc_html( $attr_label ); ?>
-                            </label>
-                            <select class="argen-variation-select"
-                                    name="<?php echo esc_attr( $attr_name ); ?>"
-                                    data-attribute="<?php echo esc_attr( $attr_name ); ?>">
-                                <option value=""><?php _e( 'Elegí una opción', 'argen-quote-loop' ); ?></option>
-                                <?php
-                                $options_to_render = array();
-                                foreach ( $attr_options as $option ) {
-                                    if ( taxonomy_exists( $taxonomy ) ) {
-                                        $term  = get_term_by( 'slug', $option, $taxonomy );
-                                        $label = $term ? $term->name : $option;
-                                    } else {
-                                        $label = $option;
-                                    }
-                                    $options_to_render[ $option ] = $label;
-                                }
-
-                                uasort( $options_to_render, function( $a, $b ) {
-                                    preg_match( '/[\d]+([.,]\d+)?/', $a, $match_a );
-                                    preg_match( '/[\d]+([.,]\d+)?/', $b, $match_b );
-                                    $num_a = isset( $match_a[0] ) ? (float) str_replace( ',', '.', $match_a[0] ) : 0;
-                                    $num_b = isset( $match_b[0] ) ? (float) str_replace( ',', '.', $match_b[0] ) : 0;
-                                    return $num_a <=> $num_b;
-                                });
-
-                                foreach ( $options_to_render as $slug => $label ) :
+                    <div class="argen-variation-row">
+                        <span class="argen-variation-label"><?php echo esc_html( $attr_label ); ?></span>
+                        <select class="argen-variation-select"
+                                data-attribute="<?php echo esc_attr( $attr_key ); ?>"
+                                aria-label="<?php echo esc_attr( $attr_label ); ?>">
+                            <option value="">— Elija <?php echo esc_html( $attr_label ); ?> —</option>
+                            <?php foreach ( $attr_values as $value ) :
+                                $term  = get_term_by( 'slug', $value, $attr_name );
+                                $label = $term ? $term->name : $value;
                                 ?>
-                                    <option value="<?php echo esc_attr( $slug ); ?>">
-                                        <?php echo esc_html( $label ); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    <?php endforeach; ?>
+                                <option value="<?php echo esc_attr( $value ); ?>">
+                                    <?php echo esc_html( $label ); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                <?php endforeach; ?>
                 </div>
 
                 <div class="argen-qty-quote-row">
@@ -239,7 +355,6 @@ class Argen_Quote_Loop {
                                 name="quantity"
                                 value="1"
                                 min="1"
-                                max="9999"
                                 aria-label="Cantidad">
                         <button class="argen-qty-btn argen-qty-plus" type="button" aria-label="Aumentar">+</button>
                     </div>
@@ -253,27 +368,26 @@ class Argen_Quote_Loop {
                         </button>
                     </div>
                 </div>
-
                 <div class="argen-quote-feedback" aria-live="polite"></div>
+            </div>
 
-            </div><!-- .argen-form-inner -->
-
-        </div><!-- .argen-quote-loop-form -->
+        </div>
         <?php
     }
 
 
     // ─────────────────────────────────────────────────────────────
-    // Formulario para productos SIMPLES
+    // FORMULARIO para productos simples (sin variaciones)
     // ─────────────────────────────────────────────────────────────
-    private function render_simple_quote_form( $product, $image_html = '' ) {
+    private function render_simple_quote_form( $product, $image_html ) {
         $product_id = $product->get_id();
         ?>
-        <div class="argen-quote-loop-form argen-simple" data-product-id="<?php echo esc_attr( $product_id ); ?>">
+        <div class="argen-quote-loop-form" data-product-id="<?php echo esc_attr( $product_id ); ?>">
 
             <?php echo $image_html; ?>
 
             <div class="argen-form-inner">
+
                 <div class="argen-list-name"><a href="<?php echo esc_url( get_permalink( $product_id ) ); ?>"><?php echo esc_html( $product->get_name() ); ?></a></div>
 
                 <div class="argen-qty-quote-row">
@@ -325,14 +439,14 @@ class Argen_Quote_Loop {
             'argen-quote-loop',
             plugin_dir_url( __FILE__ ) . 'assets/quote-loop.css',
             array(),
-            '1.2.4'
+            '1.3.0'
         );
 
         wp_enqueue_script(
             'argen-quote-loop',
             plugin_dir_url( __FILE__ ) . 'assets/quote-loop.js',
             array( 'jquery' ),
-            '1.2.4',
+            '1.3.0',
             true
         );
 

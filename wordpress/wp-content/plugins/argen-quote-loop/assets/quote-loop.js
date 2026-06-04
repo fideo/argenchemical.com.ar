@@ -1,5 +1,5 @@
 /**
- * quote-loop.js  v1.2.4
+ * quote-loop.js  v1.3.0
  * Maneja: toggle grilla/lista, stepper de cantidad, AJAX add-to-quote, toast notifications
  */
 (function($) {
