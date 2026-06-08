@@ -163,15 +163,15 @@ msgstr ""
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:50
 #: templates/emails/request-quote.php:29
 msgid "Quote request"
-msgstr ""
+msgstr "Solicitud de Presupuesto"
 
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:51
 msgid "[Quote request]"
-msgstr ""
+msgstr "Solicitud de Presupuesto"
 
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:131
 msgid "Your request has been sent successfully"
-msgstr ""
+msgstr "Su Solicitud a sido enviada correctamente"
 
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:133
 msgid "There was a problem in sending your request. Please try again."
@@ -195,7 +195,7 @@ msgstr ""
 
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:258
 msgid "Subject"
-msgstr ""
+msgstr "Asunto"
 
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:261
 #. translators: placeholder subject.
@@ -225,7 +225,7 @@ msgstr ""
 
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:280
 msgid "Email Heading"
-msgstr ""
+msgstr "Cabecera de correo"
 
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:283
 #. translators: placeholder default email heading.
@@ -266,15 +266,15 @@ msgstr ""
 
 #: includes/functions.yith-request-quote.php:474
 msgid "Add to Quote"
-msgstr ""
+msgstr "Agregar al presupuesto"
 
 #: includes/functions.yith-request-quote.php:480
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #: includes/functions.yith-request-quote.php:483
 msgid "Reject"
-msgstr ""
+msgstr "Rechazar"
 
 #: init.php:55
 #. translators: %s is the plugin name.
@@ -290,12 +290,12 @@ msgstr ""
 
 #: plugin-options/customization-options.php:45
 msgid "\"Add to quote\" button"
-msgstr ""
+msgstr "\"Agregar al presupuesto\" botón"
 
 #: plugin-options/customization-options.php:50
 #: plugin-options/general/button-label-options.php:49
 msgid "\"Add to quote\" style"
-msgstr ""
+msgstr "\"Agregar al presupuesto\" estilo"
 
 #: plugin-options/customization-options.php:51
 #: plugin-options/general/button-label-options.php:50
@@ -305,22 +305,22 @@ msgstr ""
 #: plugin-options/customization-options.php:56
 #: plugin-options/general/button-label-options.php:55
 msgid "Button"
-msgstr ""
+msgstr "Botón"
 
 #: plugin-options/customization-options.php:57
 #: plugin-options/general/button-label-options.php:56
 msgid "Text Link"
-msgstr ""
+msgstr "Enlace de texto"
 
 #: plugin-options/customization-options.php:62
 #: plugin-options/general/button-label-options.php:61
 msgid "\"Add to quote\" colors"
-msgstr ""
+msgstr "\"Agregar al presupuesto\" colores"
 
 #: plugin-options/customization-options.php:69
 #: plugin-options/general/button-label-options.php:68
 msgid "Background"
-msgstr ""
+msgstr "Fondo"
 
 #: plugin-options/customization-options.php:74
 #: plugin-options/general/button-label-options.php:73
@@ -330,7 +330,7 @@ msgstr ""
 #: plugin-options/customization-options.php:79
 #: plugin-options/general/button-label-options.php:78
 msgid "Text"
-msgstr ""
+msgstr "Texto"
 
 #: plugin-options/customization-options.php:84
 #: plugin-options/general/button-label-options.php:83
@@ -339,12 +339,12 @@ msgstr ""
 
 #: plugin-options/customization-options.php:99
 msgid "Labels"
-msgstr ""
+msgstr "Etiqueta"
 
 #: plugin-options/customization-options.php:104
 #: plugin-options/general/button-label-options.php:94
 msgid "\"Add to Quote\" label"
-msgstr ""
+msgstr "\"Agregar al presupuesto\" etiqueta"
 
 #: plugin-options/customization-options.php:105
 #: plugin-options/general/button-label-options.php:95
@@ -460,11 +460,11 @@ msgstr ""
 
 #: plugin-options/general-options.php:23
 msgid "\"Add to quote\" options"
-msgstr ""
+msgstr "\"Agregar al presupuesto\" opciones"
 
 #: plugin-options/general-options.php:48
 msgid "Other options"
-msgstr ""
+msgstr "Otras opciones"
 
 #: plugin-options/general-options.php:69
 msgid "After clicking on \"Add to quote\" the user:"

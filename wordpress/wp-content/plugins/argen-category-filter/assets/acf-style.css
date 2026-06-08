@@ -289,6 +289,9 @@ ul.acf-force-hide {
 ul.argen-list-view.acf-force-hide {
     display: none !important;
 }
+nav.woocommerce-pagination ul.page-numbers{
+    padding: 10px 0 10px 0;
+}
 nav.woocommerce-pagination.acf-force-hide{
     display: none !important;
 }

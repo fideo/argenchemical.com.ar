@@ -128,7 +128,7 @@ p.argen-result-count {
     border-radius: 6px;
     overflow: hidden;
     flex-shrink: 0;
-    max-width: 110px;
+    max-width: 100px;
 }
 
 @media screen and (max-width: 650px) {
@@ -232,8 +232,8 @@ ul.products:not(.argen-list-view) {
     display: grid !important;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
     gap: 1.5em !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    /*margin: 0 !important;
+    padding: 0 !important;*/
     list-style: none !important;
 }
 
